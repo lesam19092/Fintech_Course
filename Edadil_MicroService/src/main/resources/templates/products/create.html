@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Добавить товар</title>
+</head>
+<body>
+<form th:object="${product}" method="post">
+    <div>
+        <label for="name">Название:</label>
+        <input type="text" th:field="*{name}" />
+        <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+    </div>
+    <button type="submit">Сохранить</button>
+</form>
+</body>
+</html>
