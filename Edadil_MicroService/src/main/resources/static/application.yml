@@ -1,0 +1,5 @@
+spring:
+  application:
+    name: Edadil_MicroService
+server:
+  port: 4040
