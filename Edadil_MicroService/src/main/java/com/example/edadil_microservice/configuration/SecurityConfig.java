@@ -27,12 +27,12 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/", "/home", "/login", "/register").permitAll()
+                        .requestMatchers("/", "/login", "/register").permitAll()
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form
                         .loginPage("/login")
-                        .defaultSuccessUrl("/tasks", true)
+                        .defaultSuccessUrl("/home", true)
                         .permitAll()
                 )
                 .logout(logout -> logout
@@ -41,7 +41,7 @@ public class SecurityConfig {
                         .permitAll()
                 )
                 .exceptionHandling(exception -> exception
-                        .authenticationEntryPoint((request, response, authException) -> response.sendRedirect("/login"))
+                        .authenticationEntryPoint((request, response, authException) -> response.sendError(HttpServletResponse.SC_UNAUTHORIZED))
                 )
                 .httpBasic(Customizer.withDefaults());
 

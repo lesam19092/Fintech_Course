@@ -4,6 +4,7 @@ import com.example.edadil_microservice.entity.User;
 import com.example.edadil_microservice.repository.UserRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -11,6 +12,7 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
@@ -29,10 +31,15 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Optional<User> login(String username, String password) {
+
+
+        log.info("Trying to login user with username: {}", username);
+
         Optional<User> userOptional = userRepository.findByUsername(username);
         if (userOptional.isPresent()) {
             User user = userOptional.get();
             if (passwordEncoder.matches(password, user.getPassword())) {
+                log.info("User with username: {} successfully logged in", username);
                 return Optional.of(user);
             }
         }
