@@ -13,10 +13,5 @@ public class EdadilMicroServiceApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(EdadilMicroServiceApplication.class, args);
-        UserServiceImpl userService = new UserServiceImpl(null,null);
-
-
-        log.info("fdsfdsfdsfdsfsdlfkjsdfklsdfnds");
     }
-
 }

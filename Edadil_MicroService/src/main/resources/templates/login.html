@@ -9,7 +9,7 @@
 <body>
 <div class="container">
     <h1 class="text-center">Login</h1>
-    <form th:action="@{/login}" method="post">
+    <form method="POST" th:action="@{/login}" id="loginForm">
         <div class="form-group">
             <label for="usernameInput">Username:</label>
             <input type="text" class="form-control" id="usernameInput" name="username" required>
