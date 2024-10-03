@@ -1,6 +1,43 @@
-CREATE TABLE users (
-                       id BIGINT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
-                       name VARCHAR(255) UNIQUE NOT NULL,
-                       password VARCHAR(255) NOT NULL,
-                       roles VARCHAR(255) NOT NULL
+CREATE TABLE Companies
+(
+    id           INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+    company_name VARCHAR(100)
+);
+
+CREATE TABLE Users
+(
+    id        INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+    user_name VARCHAR(50),
+    role      VARCHAR(50),
+    password  VARCHAR(100)
+);
+
+CREATE TABLE Products
+(
+    id         INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+    price      FLOAT,
+    count      INT,
+    name       VARCHAR(100),
+    company_id INT,
+    FOREIGN KEY (company_id) REFERENCES Companies (id)
+);
+
+CREATE TABLE Shops
+(
+    id                 INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+    address            VARCHAR(255),
+    city               VARCHAR(100),
+    name_of_company_id INT,
+    FOREIGN KEY (name_of_company_id) REFERENCES Companies (id)
+);
+
+CREATE TABLE ShopProduct
+(
+    PRIMARY KEY (shop_id, product_id),
+    shop_id INT,
+    product_id INT,
+    count INT   NOT NULL,
+    price FLOAT NOT NULL,
+    FOREIGN KEY (shop_id) REFERENCES Shops (id),
+    FOREIGN KEY (product_id) REFERENCES Products (id)
 );
