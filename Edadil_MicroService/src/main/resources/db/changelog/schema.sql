@@ -4,6 +4,12 @@ CREATE TABLE Companies
     company_name VARCHAR(100)
 );
 
+create table Firms
+(
+    id           INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+    firm_name VARCHAR(100)
+);
+
 CREATE TABLE Users
 (
     id        INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
@@ -15,11 +21,9 @@ CREATE TABLE Users
 CREATE TABLE Products
 (
     id         INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
-    price      FLOAT,
-    count      INT,
     name       VARCHAR(100),
-    company_id INT,
-    FOREIGN KEY (company_id) REFERENCES Companies (id)
+    firm_id INT,
+    FOREIGN KEY (firm_id) REFERENCES Firms (id)
 );
 
 CREATE TABLE Shops
