@@ -1,4 +1,4 @@
-package com.example.edadil_microservice.entity;
+package com.example.edadil_microservice.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
@@ -17,15 +17,6 @@ public class Product {
     @Column(name = "id", nullable = false)
     private Integer id;
 
-    @Override
-    public String toString() {
-        return "Product{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", firm=" + firm.getFirmName() +
-                '}';
-    }
-
     @Size(max = 100)
     @Column(name = "name", length = 100)
     private String name;
@@ -35,5 +26,14 @@ public class Product {
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Firm firm;
 
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", firm=" + firm.getFirmName() +
+                '}';
+    }
 }
 
