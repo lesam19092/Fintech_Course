@@ -1,6 +1,5 @@
 package com.example.edadil_microservice;
 
-import com.example.edadil_microservice.service.UserServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
