@@ -1,4 +1,4 @@
-package com.example.edadil_microservice.entity;
+package com.example.edadil_microservice.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
