@@ -14,7 +14,6 @@ import org.springframework.util.CollectionUtils;
 
 import java.util.*;
 
-// TODO отрефакторить сервис
 @Service
 @RequiredArgsConstructor
 public class CompanyServiceImpl implements CompanyService {

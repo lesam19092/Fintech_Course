@@ -5,9 +5,11 @@ import com.example.edadil_microservice.model.entity.Shop;
 import com.example.edadil_microservice.model.entity.ShopProduct;
 import com.example.edadil_microservice.model.response.ProductResponse;
 import com.example.edadil_microservice.model.response.ShopProductResponse;
+import com.example.edadil_microservice.model.response.ShopResponse;
 import org.hibernate.mapping.Collection;
 import org.springframework.util.CollectionUtils;
 
+import java.util.HashSet;
 import java.util.NoSuchElementException;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -25,6 +27,7 @@ public class ShopProductResponseMapper {
         throw new NoSuchElementException("Empty collection of Products");
     }
 
+    //TODO оТРЕФАКТОРИТЬ
     public static ProductResponse mapProductToProductResponse(ShopProduct products) {
         return ProductResponse.builder()
                 .name(products.getProduct().getName())
@@ -47,5 +50,22 @@ public class ShopProductResponseMapper {
                 .name(product.getName())
                 .firm(product.getFirm().getFirmName())
                 .build();
+    }
+
+    public static ShopProductResponse mapShopToShopProductResponseWithOneProduct(ShopProduct shopProduct) {
+
+        Shop shop = shopProduct.getShop();
+        ShopResponse shopResponse = ShopResponseMapper.mapShopToShopResponse(shop);
+
+
+        Set<ProductResponse> productResponses = new HashSet<>();
+        productResponses.add(mapProductToProductResponse(shopProduct));
+
+
+        return ShopProductResponse.builder()
+                .shop(shopResponse)
+                .products(productResponses)
+                .build();
+
     }
 }

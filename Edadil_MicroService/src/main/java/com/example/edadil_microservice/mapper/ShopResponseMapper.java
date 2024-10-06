@@ -10,6 +10,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 public class ShopResponseMapper {
+//TODO оТРЕФАКТОРИТЬ
 
     public static Set<ShopResponse> mapShopsToShopResponses(Set<Shop> shops) {
         Set<ShopResponse> set = shops.stream()

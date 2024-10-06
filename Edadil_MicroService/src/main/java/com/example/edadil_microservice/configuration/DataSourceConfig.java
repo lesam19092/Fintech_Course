@@ -9,6 +9,9 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 @Configuration
 public class DataSourceConfig {
+
+    //todo убрать эти параметры в ап ямл
+
     private String postgres = "postgres";
 
     @Bean
