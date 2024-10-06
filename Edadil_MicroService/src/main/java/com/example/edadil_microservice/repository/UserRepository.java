@@ -1,4 +1,3 @@
-// UserRepository.java
 package com.example.edadil_microservice.repository;
 
 import com.example.edadil_microservice.model.entity.User;
