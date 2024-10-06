@@ -1,5 +1,6 @@
 package com.example.edadil_microservice.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
@@ -12,6 +13,7 @@ import java.util.Set;
 @Setter
 @Entity
 @Table(name = "shops")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Shop {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
