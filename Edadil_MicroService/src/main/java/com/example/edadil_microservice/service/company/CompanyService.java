@@ -17,9 +17,7 @@ public interface CompanyService {
 
     Set<ShopResponse> getCompanyShopsByCity(Integer companyId, String city);
 
-
-    ShopResponse getCompanyShopsByCityAndShopId(Integer companyId, String city, Integer shopId);
-
+    ShopResponse getCompanyShopByCityAndShopId(Integer companyId, String city, Integer shopId);
 
     ShopProductResponse getCompanyShopProducts(Integer companyId, String city, Integer shopId);
 }
