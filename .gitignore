@@ -13,7 +13,6 @@ target/
 .sts4-cache
 
 ### IntelliJ IDEA ###
-.idea
 *.iws
 *.iml
 *.ipr
@@ -33,3 +32,4 @@ build/
 
 ### Ignore all XML files ###
 *.xml
+/.idea/

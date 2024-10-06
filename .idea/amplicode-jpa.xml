@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AmplicodeJpaIdeaProjectConfig" newRepositoryParent="org.springframework.data.jpa.repository.JpaRepository">
+    <option name="defaultUnitInitialized" value="true" />
+    <option name="renamerInitialized" value="true" />
+    <option name="reverseEngineeringLastDbConnectionId" value="7ff61bf1-63e9-4917-8c14-73053336e2f3" />
+    <option name="reLastEntityCreationPackage" value="Edadil_MicroService/src/main/java/com/example/edadil_microservice/entity" />
+  </component>
+</project>
