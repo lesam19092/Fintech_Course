@@ -3,11 +3,11 @@ package com.example.edadil_microservice.mapper;
 import com.example.edadil_microservice.model.entity.Shop;
 import com.example.edadil_microservice.model.response.ShopResponse;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.util.CollectionUtils;
 
-import java.util.NoSuchElementException;
 import java.util.Set;
 import java.util.stream.Collectors;
+
+import static com.example.edadil_microservice.utils.EntityUtils.requireNonEmptyCollection;
 
 @Slf4j
 public class ShopResponseMapper {
@@ -17,11 +17,8 @@ public class ShopResponseMapper {
                 .map(ShopResponseMapper::buildShopResponse)
                 .collect(Collectors.toSet());
 
-        if (!CollectionUtils.isEmpty(set)) {
-            return set;
-        }
-        log.error("Empty collection of Shops");
-        throw new NoSuchElementException("Empty collection");
+
+        return requireNonEmptyCollection(set);
     }
 
 
