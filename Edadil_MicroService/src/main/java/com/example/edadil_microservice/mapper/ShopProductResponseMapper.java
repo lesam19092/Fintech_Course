@@ -1,34 +1,32 @@
 package com.example.edadil_microservice.mapper;
 
-import com.example.edadil_microservice.model.entity.Product;
 import com.example.edadil_microservice.model.entity.Shop;
 import com.example.edadil_microservice.model.entity.ShopProduct;
 import com.example.edadil_microservice.model.response.ProductResponse;
 import com.example.edadil_microservice.model.response.ShopProductResponse;
-import com.example.edadil_microservice.model.response.ShopResponse;
-import org.hibernate.mapping.Collection;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.CollectionUtils;
 
-import java.util.HashSet;
 import java.util.NoSuchElementException;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+@Slf4j
 public class ShopProductResponseMapper {
 
-    public static Set<ProductResponse> mapProductsToProductResponses(Set<ShopProduct> products) {
+    public static Set<ProductResponse> convertShopProductsToProductResponses(Set<ShopProduct> products) {
         Set<ProductResponse> set = products.stream()
-                .map(ShopProductResponseMapper::mapProductToProductResponse)
+                .map(ShopProductResponseMapper::convertShopProductToProductResponse)
                 .collect(Collectors.toSet());
 
         if (!CollectionUtils.isEmpty(set)) {
             return set;
         }
+        log.error("Empty collection of Products ");
         throw new NoSuchElementException("Empty collection of Products");
     }
 
-    //TODO оТРЕФАКТОРИТЬ
-    public static ProductResponse mapProductToProductResponse(ShopProduct products) {
+    public static ProductResponse convertShopProductToProductResponse(ShopProduct products) {
         return ProductResponse.builder()
                 .name(products.getProduct().getName())
                 .firm(products.getProduct().getFirm().getFirmName())
@@ -36,35 +34,17 @@ public class ShopProductResponseMapper {
                 .price(products.getPrice()).build();
     }
 
-    public static ShopProductResponse mapShopToShopProductResponse(Shop shop) {
+    public static ShopProductResponse buildShopProductResponse(Shop shop) {
         return ShopProductResponse.builder()
                 .shop(ShopResponseMapper.mapShopToShopResponse(shop))
-                .products(ShopProductResponseMapper.mapProductsToProductResponses(shop.getShopproducts()))
-                .build();
-
-    }
-
-
-    public static ProductResponse mapProductToProductResponse(Product product) {
-        return ProductResponse.builder()
-                .name(product.getName())
-                .firm(product.getFirm().getFirmName())
+                .products(ShopProductResponseMapper.convertShopProductsToProductResponses(shop.getShopproducts()))
                 .build();
     }
 
-    public static ShopProductResponse mapShopToShopProductResponseWithOneProduct(ShopProduct shopProduct) {
-
-        Shop shop = shopProduct.getShop();
-        ShopResponse shopResponse = ShopResponseMapper.mapShopToShopResponse(shop);
-
-
-        Set<ProductResponse> productResponses = new HashSet<>();
-        productResponses.add(mapProductToProductResponse(shopProduct));
-
-
+    public static ShopProductResponse buildShopProductResponseWithSingleProduct(ShopProduct shopProduct) {
         return ShopProductResponse.builder()
-                .shop(shopResponse)
-                .products(productResponses)
+                .shop(ShopResponseMapper.mapShopToShopResponse(shopProduct.getShop()))
+                .products(Set.of(convertShopProductToProductResponse(shopProduct)))
                 .build();
 
     }
