@@ -2,15 +2,15 @@ spring:
   application:
     name: Edadil_MicroService
 
-logging:
-  level:
-    org:
-      hibernate:
-        SQL: DEBUG
-        type:
-          descriptor:
-            sql:
-              BasicBinder: TRACE
+database:
+    driverClassName: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/edadil_db
+    username: ${username}
+    password: ${password}
+
+
+
+
 server:
   port: 4040
 
