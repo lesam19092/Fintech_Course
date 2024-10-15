@@ -14,4 +14,6 @@ public interface ShopRepository extends CrudRepository<Shop, Integer> {
 
     Optional<Shop> findShopByNameOfCompanyIdAndIdAndCity(Integer companyId, Integer shopId, String city);
 
+    Optional<Shop> findShopByNameOfCompanyIdAndId(Integer companyId, Integer shopId);
+
 }
