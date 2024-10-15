@@ -9,15 +9,19 @@ import java.util.Set;
 
 public interface CompanyService {
 
-    List<Company> getAllCompanies();
+    List<Company> findAllCompanies();
 
-    Company getCompanyById(Integer companyId);
+    Company findCompanyById(Integer companyId);
 
-    Set<ShopResponse> getCompanyShops(Integer companyId);
+    Set<ShopResponse> findCompanyShops(Integer companyId);
 
-    Set<ShopResponse> getCompanyShopsByCity(Integer companyId, String city);
+    Set<ShopResponse> findCompanyShopsInCity(Integer companyId, String city);
 
-    ShopResponse getCompanyShopByCityAndShopId(Integer companyId, String city, Integer shopId);
+    ShopResponse findCompanyShopInCityById(Integer companyId, String city, Integer shopId);
 
-    ShopProductResponse getCompanyShopProducts(Integer companyId, String city, Integer shopId);
+    ShopProductResponse retrieveShopProducts(Integer companyId, String city, Integer shopId);
+
+    ShopProductResponse retrieveShopProducts(Integer companyId, Integer shopId);
+
+    ShopProductResponse findSpecificProductInShop(Integer companyId, String city, Integer shopId, String name);
 }
