@@ -11,23 +11,23 @@ import java.util.Set;
 
 public interface FirmService {
 
-    List<Firm> getAllFirms();
+    List<Firm> findAllFirms();
 
-    Firm getFirmById(Integer firmId);
+    Firm findFirmById(Integer firmId);
 
-    Set<Product> getFirmProducts(Integer firmId);
+    Set<Product> findProductsByFirmId(Integer firmId);
 
-    Product getFirmProductById(Integer firmId, Integer productId);
+    Product findProductByIdAndFirmId(Integer firmId, Integer productId);
 
-    Set<ShopProductResponse> getShopsWithProduct(Integer firmId, Integer productId);
+    Set<ShopProductResponse> findShopsSellingProduct(Integer firmId, Integer productId);
 
-    Set<Company> getCompaniesHavingFirmProducts(Integer firmId);
+    Set<Company> findCompaniesSellingFirmProducts(Integer firmId);
 
-    Company getCompaniesHavingFirmProductsById(Integer firmId, Integer companyId);
+    Company findCompanySellingFirmProductsById(Integer firmId, Integer companyId);
 
     Set<ShopResponse> findShopsInCompanyWithFirmProducts(Integer firmId, Integer companyId);
 
-    ShopResponse findShopsInCompanyWithFirmProductsById(Integer firmId, Integer companyId, Integer shopId);
+    ShopResponse findShopInCompanyWithFirmProductsById(Integer firmId, Integer companyId, Integer shopId);
 
-    ShopProductResponse getFirmProductsInShop(Integer firmId, Integer companyId, Integer shopId);
+    ShopProductResponse findProductsInShopByFirmAndCompany(Integer firmId, Integer companyId, Integer shopId);
 }

@@ -7,19 +7,20 @@ import com.example.edadil_microservice.model.entity.Company;
 import com.example.edadil_microservice.model.entity.Firm;
 import com.example.edadil_microservice.model.entity.Product;
 import com.example.edadil_microservice.model.entity.ShopProduct;
-import com.example.edadil_microservice.model.response.ProductResponse;
 import com.example.edadil_microservice.model.response.ShopProductResponse;
 import com.example.edadil_microservice.model.response.ShopResponse;
-import com.example.edadil_microservice.repository.CompanyRepository;
 import com.example.edadil_microservice.repository.FirmRepository;
 import com.example.edadil_microservice.repository.ShopProductRepository;
 import com.example.edadil_microservice.service.company.CompanyService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.util.CollectionUtils;
 
 import java.util.*;
 import java.util.stream.Collectors;
+
+
+import static com.example.edadil_microservice.utils.EntityUtils.requireNonEmptyCollection;
+import static com.example.edadil_microservice.utils.EntityUtils.requirePresentEntity;
 
 @Service
 @RequiredArgsConstructor
@@ -34,51 +35,49 @@ public class FirmServiceImpl implements FirmService {
 
 
     @Override
-    public List<Firm> getAllFirms() {
-        return getCollectionOrElseThrowException(firmRepository.findAll());
+    public List<Firm> findAllFirms() {
+        return requireNonEmptyCollection(firmRepository.findAll());
     }
 
 
     @Override
-    public Firm getFirmById(Integer firmId) {
-        return getEntityOrElseThrowException(firmRepository.findById(firmId));
+    public Firm findFirmById(Integer firmId) {
+        return requirePresentEntity(firmRepository.findById(firmId));
     }
 
 
     @Override
-    public Set<Product> getFirmProducts(Integer firmId) {
-        Firm firm = getFirmById(firmId);
-        return getCollectionOrElseThrowException(firm.getProducts());
+    public Set<Product> findProductsByFirmId(Integer firmId) {
+        Firm firm = findFirmById(firmId);
+        return requireNonEmptyCollection(firm.getProducts());
     }
 
 
     @Override
-    public Product getFirmProductById(Integer firmId, Integer productId) {
-        Set<Product> products = getFirmProducts(firmId);
+    public Product findProductByIdAndFirmId(Integer firmId, Integer productId) {
+        Set<Product> products = findProductsByFirmId(firmId);
         Optional<Product> product = products.stream()
                 .filter(s -> s.getId().equals(productId))
                 .findFirst();
-        return getEntityOrElseThrowException(product);
+        return requirePresentEntity(product);
     }
 
 
     @Override
-    public Set<ShopProductResponse> getShopsWithProduct(Integer firmId, Integer productId) {
+    public Set<ShopProductResponse> findShopsSellingProduct(Integer firmId, Integer productId) {
 
         Set<ShopProduct> set = shopProductRepository.findShopProductsByProduct_Id(productId);
-
         Set<ShopProductResponse> shopsWithProduct = set.stream().map(
-                        ShopProductResponseMapper::mapShopToShopProductResponseWithOneProduct)
+                        ShopProductResponseMapper::buildShopProductResponseWithSingleProduct)
                 .collect(Collectors.toSet());
 
-
-        return getCollectionOrElseThrowException(shopsWithProduct);
+        return requireNonEmptyCollection(shopsWithProduct);
 
     }
 
 
     @Override
-    public Set<Company> getCompaniesHavingFirmProducts(Integer firmId) {
+    public Set<Company> findCompaniesSellingFirmProducts(Integer firmId) {
 
 
         List<ShopProduct> list = shopProductRepository.findAll();
@@ -87,21 +86,20 @@ public class FirmServiceImpl implements FirmService {
                 .map(shopProduct -> shopProduct.getShop().getNameOfCompany())
                 .collect(Collectors.toSet());
 
-
-        return getCollectionOrElseThrowException(companies);
+        return requireNonEmptyCollection(companies);
 
 
     }
 
 
     @Override
-    public Company getCompaniesHavingFirmProductsById(Integer firmId, Integer companyId) {
+    public Company findCompanySellingFirmProductsById(Integer firmId, Integer companyId) {
 
-        Set<Company> companies = getCompaniesHavingFirmProducts(firmId);
+        Set<Company> companies = findCompaniesSellingFirmProducts(firmId);
         Optional<Company> company = companies.stream()
                 .filter(c -> c.getId().equals(companyId))
                 .findFirst();
-        return getEntityOrElseThrowException(company);
+        return requirePresentEntity(company);
     }
 
 
@@ -112,37 +110,36 @@ public class FirmServiceImpl implements FirmService {
         Set<ShopResponse> shopResponses = shopProduct.stream()
                 .filter(shopProduct1 -> shopProduct1.getProduct().getFirm().getId().equals(firmId))
                 .filter(shopProduct1 -> shopProduct1.getShop().getNameOfCompany().getId().equals(companyId))
-                .map(shopProduct1 -> ShopResponseMapper.mapShopToShopResponse(shopProduct1.getShop()))
+                .map(shopProduct1 -> ShopResponseMapper.buildShopResponse(shopProduct1.getShop()))
                 .collect(Collectors.toSet());
 
-        return getCollectionOrElseThrowException(shopResponses);
+        return requireNonEmptyCollection(shopResponses);
     }
 
 
     @Override
-    public ShopResponse findShopsInCompanyWithFirmProductsById(Integer firmId, Integer companyId, Integer shopId) {
+    public ShopResponse findShopInCompanyWithFirmProductsById(Integer firmId, Integer companyId, Integer shopId) {
         Set<ShopResponse> shopResponses = findShopsInCompanyWithFirmProducts(firmId, companyId);
-
         Optional<ShopResponse> company = shopResponses.stream()
                 .filter(c -> c.getId() == shopId)
                 .findFirst();
 
-        return getEntityOrElseThrowException(company);
+        return requirePresentEntity(company);
 
     }
 
 
     @Override
-    public ShopProductResponse getFirmProductsInShop(Integer firmId, Integer companyId, Integer shopId) {
+    public ShopProductResponse findProductsInShopByFirmAndCompany(Integer firmId, Integer companyId, Integer shopId) {
 
-        ShopResponse shop = findShopsInCompanyWithFirmProductsById(firmId, companyId, shopId);
+        ShopResponse shop = findShopInCompanyWithFirmProductsById(firmId, companyId, shopId);
 
-        ShopProductResponse shopProduct = companyService.getCompanyShopProducts(companyId, shop.getCity(), shopId);
+        ShopProductResponse shopProduct = companyService.retrieveShopProducts(companyId, shop.getCity(), shopId);
 
         shopProduct.setProducts(shopProduct.getProducts().stream().filter(productResponse ->
                 productResponse
                         .getFirm()
-                        .equals(getFirmById(firmId).getFirmName())).collect(Collectors.toSet()));
+                        .equals(findFirmById(firmId).getFirmName())).collect(Collectors.toSet()));
 
 
         return shopProduct;
@@ -150,18 +147,4 @@ public class FirmServiceImpl implements FirmService {
     }
 
 
-    private static <T extends Collection<?>> T getCollectionOrElseThrowException(T collection) {
-        if (!CollectionUtils.isEmpty(collection)) {
-            return collection;
-        }
-        throw new NoSuchElementException("Empty collection");
-    }
-
-    private static <E> E getEntityOrElseThrowException(Optional<E> entity) {
-        if (entity.isPresent()) {
-            return entity.get();
-        }
-        throw new NoSuchElementException("Entity with id not found");
-
-    }
 }
