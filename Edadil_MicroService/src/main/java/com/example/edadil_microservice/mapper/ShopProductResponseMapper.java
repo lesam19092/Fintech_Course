@@ -36,14 +36,14 @@ public class ShopProductResponseMapper {
 
     public static ShopProductResponse buildShopProductResponse(Shop shop) {
         return ShopProductResponse.builder()
-                .shop(ShopResponseMapper.mapShopToShopResponse(shop))
+                .shop(ShopResponseMapper.buildShopResponse(shop))
                 .products(ShopProductResponseMapper.convertShopProductsToProductResponses(shop.getShopproducts()))
                 .build();
     }
 
     public static ShopProductResponse buildShopProductResponseWithSingleProduct(ShopProduct shopProduct) {
         return ShopProductResponse.builder()
-                .shop(ShopResponseMapper.mapShopToShopResponse(shopProduct.getShop()))
+                .shop(ShopResponseMapper.buildShopResponse(shopProduct.getShop()))
                 .products(Set.of(convertShopProductToProductResponse(shopProduct)))
                 .build();
 
