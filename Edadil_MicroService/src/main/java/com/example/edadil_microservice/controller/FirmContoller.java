@@ -23,39 +23,39 @@ public class FirmContoller {
 
     @GetMapping("/firms")
     public List<Firm> getAllFirms() {
-        return firmService.getAllFirms();
+        return firmService.findAllFirms();
     }
 
     @GetMapping("/firms/{firmId}")
     public Firm getFirmById(@PathVariable Integer firmId) {
-        return firmService.getFirmById(firmId);
+        return firmService.findFirmById(firmId);
     }
 
     @GetMapping("/firms/{firmId}/products")
     public Set<Product> getFirmProducts(@PathVariable Integer firmId) {
-        return firmService.getFirmProducts(firmId);
+        return firmService.findProductsByFirmId(firmId);
     }
 
     @GetMapping("/firms/{firmId}/products/{productId}")
     public Product getFirmProductById(@PathVariable Integer firmId, @PathVariable Integer productId) {
-        return firmService.getFirmProductById(firmId, productId);
+        return firmService.findProductByIdAndFirmId(firmId, productId);
     }
 
     @GetMapping("/firms/{firmId}/products/{productId}/shops")
     public Set<ShopProductResponse> getShopsWithProduct(@PathVariable Integer firmId, @PathVariable Integer productId) {
-        return firmService.getShopsWithProduct(firmId, productId);
+        return firmService.findShopsSellingProduct(firmId, productId);
     }
 
 
     @GetMapping("/firms/{firmId}/company")
     public Set<Company> getCompaniesHavingFirmProducts(@PathVariable Integer firmId) {
-        return firmService.getCompaniesHavingFirmProducts(firmId);
+        return firmService.findCompaniesSellingFirmProducts(firmId);
     }
 
 
     @GetMapping("/firms/{firmId}/company/{companyId}")
     public Company getCompaniesHavingFirmProductsById(@PathVariable Integer firmId, @PathVariable Integer companyId) {
-        return firmService.getCompaniesHavingFirmProductsById(firmId, companyId);
+        return firmService.findCompanySellingFirmProductsById(firmId, companyId);
     }
 
 
@@ -70,13 +70,13 @@ public class FirmContoller {
 
     @GetMapping("/firms/{firmId}/company/{companyId}/shops/{shopId}")
     public ShopResponse getShopsInCompanyWithFirmProductsById(@PathVariable Integer firmId, @PathVariable Integer companyId, @PathVariable Integer shopId) {
-        return firmService.findShopsInCompanyWithFirmProductsById(firmId, companyId, shopId);
+        return firmService.findShopInCompanyWithFirmProductsById(firmId, companyId, shopId);
     }
 
     //получение продуктов магазина компании , у которых есть продукция фирмы
     @GetMapping("/firms/{firmId}/company/{companyId}/shops/{shopId}/products")
     public ShopProductResponse findFirmProductsInShop(@PathVariable Integer firmId, @PathVariable Integer companyId, @PathVariable Integer shopId) {
-        return firmService.getFirmProductsInShop(firmId, companyId, shopId);
+        return firmService.findProductsInShopByFirmAndCompany(firmId, companyId, shopId);
     }
 
 
