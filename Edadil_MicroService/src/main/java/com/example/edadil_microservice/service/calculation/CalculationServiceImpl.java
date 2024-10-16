@@ -2,7 +2,6 @@ package com.example.edadil_microservice.service.calculation;
 
 import com.example.edadil_microservice.model.request.IngredientRequest;
 import com.example.edadil_microservice.model.response.IngredientResponse;
-import com.example.edadil_microservice.model.entity.Company;
 import com.example.edadil_microservice.model.response.ProductResponse;
 import com.example.edadil_microservice.model.response.ShopProductResponse;
 import com.example.edadil_microservice.service.company.CompanyService;
@@ -18,17 +17,15 @@ import java.util.List;
 @Slf4j
 public class CalculationServiceImpl implements CalculationService {
 
-    //TODO отрефакторить
 
     //TODO ЗАПОЛНИТЬ ТАБЛИЦУ ДАННЫМИ
 
     private final CompanyService companyService;
 
 
-    //TODO  убрать это в CompanyService
     //добавить функционал где можно будет содержа полный список или частичный
 
-
+    @Override
     public List<IngredientResponse> generatePaymentReceipt(List<IngredientRequest> response) {
         List<IngredientResponse> ingredientResponses = new ArrayList<>();
         List<ShopProductResponse> allShopsProducts = companyService.getAllShopsWithProducts();
@@ -38,6 +35,23 @@ public class CalculationServiceImpl implements CalculationService {
             IngredientResponse ingredientResponse = createIngredientResponse(shop, response);
             ingredientResponses.add(ingredientResponse);
             System.out.println(ingredientResponse);
+        }
+        log.info("Generated {} ingredient responses", ingredientResponses.size());
+        return ingredientResponses;
+    }
+
+
+    @Override
+    public List<IngredientResponse> getPaymentsWithOutMissingIngredients(List<IngredientRequest> response) {
+        List<IngredientResponse> ingredientResponses = new ArrayList<>();
+        List<ShopProductResponse> allShopsProducts = companyService.getAllShopsWithProducts();
+        log.debug("Retrieved {} shop products", allShopsProducts.size());
+
+        for (ShopProductResponse shop : allShopsProducts) {
+            IngredientResponse ingredientResponse = createIngredientResponse(shop, response);
+            if (ingredientResponse.getMissingIngredients().isEmpty()) {
+                ingredientResponses.add(ingredientResponse);
+            }
         }
         log.info("Generated {} ingredient responses", ingredientResponses.size());
         return ingredientResponses;

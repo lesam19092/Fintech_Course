@@ -7,6 +7,7 @@ import java.util.List;
 
 public interface CalculationService {
 
-    //todo что-то доавить
     List<IngredientResponse> generatePaymentReceipt(List<IngredientRequest> response);
+
+    List<IngredientResponse> getPaymentsWithOutMissingIngredients(List<IngredientRequest> response);
 }
