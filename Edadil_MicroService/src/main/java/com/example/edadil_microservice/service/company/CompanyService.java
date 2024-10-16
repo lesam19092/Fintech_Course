@@ -24,4 +24,6 @@ public interface CompanyService {
     ShopProductResponse retrieveShopProducts(Integer companyId, Integer shopId);
 
     ShopProductResponse findSpecificProductInShop(Integer companyId, String city, Integer shopId, String name);
+
+    List<ShopProductResponse> getAllShopsWithProducts();
 }
