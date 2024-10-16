@@ -1,5 +1,6 @@
 package com.example.edadil_microservice.service.calculation;
 
+import com.example.edadil_microservice.exception.EmptyResultException;
 import com.example.edadil_microservice.model.request.IngredientRequest;
 import com.example.edadil_microservice.model.response.IngredientResponse;
 import com.example.edadil_microservice.model.response.ProductResponse;
@@ -10,7 +11,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+
+import static com.example.edadil_microservice.utils.EntityUtils.requireNonEmptyCollection;
 
 @Service
 @RequiredArgsConstructor
@@ -37,25 +41,41 @@ public class CalculationServiceImpl implements CalculationService {
             System.out.println(ingredientResponse);
         }
         log.info("Generated {} ingredient responses", ingredientResponses.size());
-        return ingredientResponses;
+        return requireNonEmptyCollection(ingredientResponses);
     }
 
 
     @Override
-    public List<IngredientResponse> getPaymentsWithOutMissingIngredients(List<IngredientRequest> response) {
+    public List<IngredientResponse> getPaymentsWithOutMissingIngredients(List<IngredientRequest> requests) {
         List<IngredientResponse> ingredientResponses = new ArrayList<>();
         List<ShopProductResponse> allShopsProducts = companyService.getAllShopsWithProducts();
         log.debug("Retrieved {} shop products", allShopsProducts.size());
 
         for (ShopProductResponse shop : allShopsProducts) {
-            IngredientResponse ingredientResponse = createIngredientResponse(shop, response);
+            IngredientResponse ingredientResponse = createIngredientResponse(shop, requests);
             if (ingredientResponse.getMissingIngredients().isEmpty()) {
                 ingredientResponses.add(ingredientResponse);
             }
         }
         log.info("Generated {} ingredient responses", ingredientResponses.size());
-        return ingredientResponses;
+        return requireNonEmptyCollection(ingredientResponses);
     }
+
+    @Override
+    public List<IngredientResponse> getTheCheapestPayments(List<IngredientRequest> requests) {
+
+        List<IngredientResponse> ingredientResponses = getPaymentsWithOutMissingIngredients(requests);
+
+        List<IngredientResponse> cheapestPayments = ingredientResponses.stream()
+                .filter(ir -> ir.getCost() == ingredientResponses.stream()
+                        .min(Comparator.comparingDouble(IngredientResponse::getCost))
+                        .orElseThrow(() -> new EmptyResultException("No valid payments found"))
+                        .getCost())
+                .toList();
+
+        return requireNonEmptyCollection(cheapestPayments);
+    }
+
 
     private IngredientResponse createIngredientResponse(ShopProductResponse shop, List<IngredientRequest> response) {
         log.debug("Creating ingredient response for shop ID: {}", shop.getShop().getId());

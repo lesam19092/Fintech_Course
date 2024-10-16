@@ -10,4 +10,6 @@ public interface CalculationService {
     List<IngredientResponse> generatePaymentReceipt(List<IngredientRequest> response);
 
     List<IngredientResponse> getPaymentsWithOutMissingIngredients(List<IngredientRequest> response);
+
+    List<IngredientResponse>  getTheCheapestPayments(List<IngredientRequest> response);
 }
