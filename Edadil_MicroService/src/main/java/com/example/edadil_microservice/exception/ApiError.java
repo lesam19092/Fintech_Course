@@ -9,10 +9,6 @@ import org.springframework.http.HttpStatus;
 @NoArgsConstructor
 @Data
 class ApiError {
-
-    //TODO придумать кастомные exception
-
-
     private HttpStatus status;
     private String message;
 }
