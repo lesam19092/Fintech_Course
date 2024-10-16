@@ -1,5 +1,6 @@
 package com.example.edadil_microservice.mapper;
 
+import com.example.edadil_microservice.exception.EmptyResultException;
 import com.example.edadil_microservice.model.entity.Shop;
 import com.example.edadil_microservice.model.entity.ShopProduct;
 import com.example.edadil_microservice.model.response.ProductResponse;
@@ -7,7 +8,6 @@ import com.example.edadil_microservice.model.response.ShopProductResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.CollectionUtils;
 
-import java.util.NoSuchElementException;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -23,7 +23,7 @@ public class ShopProductResponseMapper {
             return set;
         }
         log.error("Empty collection of Products ");
-        throw new NoSuchElementException("Empty collection of Products");
+        throw new EmptyResultException("Empty collection of Products");
     }
 
     public static ProductResponse convertShopProductToProductResponse(ShopProduct products) {
