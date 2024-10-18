@@ -1,0 +1,26 @@
+spring:
+  application:
+    name: Edadil_MicroService
+
+database:
+    driverClassName: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/edadil_db
+    username: ${username}
+    password: ${password}
+
+management:
+  endpoints.web.exposure.include: 'prometheus, health'
+  metrics:
+    distribution:
+      percentiles-histogram:
+        "[http.server.requests]": true
+  prometheus:
+    metrics:
+      export:
+        enabled: true
+
+
+
+server:
+  port: 4040
+
