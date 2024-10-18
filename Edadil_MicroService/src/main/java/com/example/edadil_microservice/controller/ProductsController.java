@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -39,12 +40,15 @@ public class ProductsController {
 
         IngredientRequest ingridientItem3 = new IngredientRequest();
 
-        ingridientItem2.setCount(1);
-        ingridientItem2.setName("Мясо");
+        ingridientItem3.setCount(1);
+        ingridientItem3.setName("Мясо");
 
 
 
-        List<IngredientRequest> list = List.of(ingridientItem1, ingridientItem2,ingridientItem3);
+        List<IngredientRequest> list = new ArrayList<>();
+        list.add(ingridientItem1);
+        list.add(ingridientItem2);
+        list.add(ingridientItem3);
 
         calculationService.generatePaymentReceipt(list);
 

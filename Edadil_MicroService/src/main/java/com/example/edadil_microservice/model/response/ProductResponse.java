@@ -11,15 +11,4 @@ public class ProductResponse {
     private Integer count;
     private Double price;
 
-
-    //TODO потом убрать toString
-    @Override
-    public String toString() {
-        return "ProductResponse{" +
-                "name='" + name + '\'' +
-                ", firm='" + firm + '\'' +
-                ", count=" + count +
-                ", price=" + price +
-                '}';
-    }
 }

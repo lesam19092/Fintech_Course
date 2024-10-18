@@ -12,7 +12,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
@@ -26,22 +25,18 @@ public class CalculationServiceImpl implements CalculationService {
 
     //TODO ЗАПОЛНИТЬ ТАБЛИЦУ ДАННЫМИ
 
-    //todo fix bugs с неизвестным продуктом
 
     private final CompanyService companyService;
 
 
     @Override
     public List<PaymentReceipt> generatePaymentReceipt(List<IngredientRequest> response) throws IOException {
-        List<PaymentReceipt> payments = new ArrayList<>();
         List<ShopProductResponse> allShopsProducts = companyService.getAllShopsWithProducts();
-        log.debug("Retrieved {} shop products", allShopsProducts.size());
 
-        for (ShopProductResponse shop : allShopsProducts) {
-            PaymentReceipt payment = createPayment(shop, response);
-            payments.add(payment);
-            System.out.println(payment);
-        }
+        List<PaymentReceipt> payments = allShopsProducts.stream()
+                .map(shop -> createPayment(shop, response))
+                .toList();
+
         log.info("Generated {} ingredient responses", payments.size());
 
         return requireNonEmptyCollection(payments);
@@ -50,16 +45,13 @@ public class CalculationServiceImpl implements CalculationService {
 
     @Override
     public List<PaymentReceipt> getPaymentsWithOutMissingIngredients(List<IngredientRequest> requests) {
-        List<PaymentReceipt> ingredientResponses = new ArrayList<>();
         List<ShopProductResponse> allShopsProducts = companyService.getAllShopsWithProducts();
-        log.debug("Retrieved {} shop products", allShopsProducts.size());
 
-        for (ShopProductResponse shop : allShopsProducts) {
-            PaymentReceipt ingredientResponse = createPayment(shop, requests);
-            if (ingredientResponse.getMissingIngredients().isEmpty()) {
-                ingredientResponses.add(ingredientResponse);
-            }
-        }
+        List<PaymentReceipt> ingredientResponses = allShopsProducts.stream()
+                .map(shop -> createPayment(shop, requests))
+                .filter(payment -> payment.getMissingIngredients().isEmpty())
+                .toList();
+
         log.info("Generated {} ingredient responses", ingredientResponses.size());
         return requireNonEmptyCollection(ingredientResponses);
     }
@@ -88,34 +80,34 @@ public class CalculationServiceImpl implements CalculationService {
         paymentReceipt.setAddress(shop.getShop().getCity() + " , " + shop.getShop().getAddress());
         paymentReceipt.setCompanyName(shop.getShop().getCompanyName());
 
+        response.forEach(item -> processIngredient(item, shop, paymentReceipt));
 
-        for (IngredientRequest item : response) {
-            boolean found = false;
-            for (ProductResponse product : shop.getProducts()) {
-                if (product.getName().equals(item.getName()) && product.getCount() >= item.getCount()) {
+        return paymentReceipt;
+    }
+
+    private void processIngredient(IngredientRequest item, ShopProductResponse shop, PaymentReceipt paymentReceipt) {
+        boolean found = shop.getProducts().stream()
+                .filter(product -> product.getName().equals(item.getName()) && product.getCount() >= item.getCount())
+                .peek(product -> {
                     log.debug("Found matching product: {} with sufficient count: {}", product.getName(), product.getCount());
                     IngredientResponse ingredient = createIngredientResponse(item, product);
                     paymentReceipt.addIngredient(ingredient);
                     paymentReceipt.setCost(product.getPrice(), item.getCount());
-                    found = true;
-                    break;
-                }
-            }
-            if (!found) {
-                log.warn("Missing ingredient: {}", item.getName());
-                paymentReceipt.addMissingIngredient(item.getName());
-            }
+                })
+                .findFirst()
+                .isPresent();
+
+        if (!found) {
+            log.warn("Missing ingredient: {}", item.getName());
+            paymentReceipt.addMissingIngredient(item.getName());
         }
-        return paymentReceipt;
     }
 
     private IngredientResponse createIngredientResponse(IngredientRequest item, ProductResponse product) {
-        IngredientResponse ingredient =
-                new IngredientResponse(item.getName(),
+        return new IngredientResponse(item.getName(),
                         item.getCount(),
                         product.getFirm(),
                         product.getPrice() * item.getCount());
-        return ingredient;
     }
 
 }
