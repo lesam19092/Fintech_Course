@@ -1,6 +1,7 @@
 package com.example.edadil_microservice.controller;
 
 
+import com.example.edadil_microservice.model.entity.Company;
 import com.example.edadil_microservice.model.request.IngredientRequest;
 import com.example.edadil_microservice.model.response.PaymentReceipt;
 import com.example.edadil_microservice.service.calculation.CalculationServiceImpl;
@@ -44,13 +45,10 @@ public class ProductsController {
         ingridientItem3.setName("Мясо");
 
 
-
         List<IngredientRequest> list = new ArrayList<>();
         list.add(ingridientItem1);
         list.add(ingridientItem2);
         list.add(ingridientItem3);
-
-        calculationService.generatePaymentReceipt(list);
 
         return calculationService.generatePaymentReceipt(list);
     }
