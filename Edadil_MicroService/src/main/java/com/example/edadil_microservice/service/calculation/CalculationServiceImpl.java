@@ -6,13 +6,11 @@ import com.example.edadil_microservice.model.response.IngredientResponse;
 import com.example.edadil_microservice.model.response.PaymentReceipt;
 import com.example.edadil_microservice.model.response.ProductResponse;
 import com.example.edadil_microservice.model.response.ShopProductResponse;
-import com.example.edadil_microservice.service.PdfService;
 import com.example.edadil_microservice.service.company.CompanyService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -31,7 +29,7 @@ public class CalculationServiceImpl implements CalculationService {
 
 
     @Override
-    public List<PaymentReceipt> generatePaymentReceipt(List<IngredientRequest> response) throws IOException {
+    public List<PaymentReceipt> generatePaymentReceipt(List<IngredientRequest> response) {
         List<PaymentReceipt> payments = new ArrayList<>();
         List<ShopProductResponse> allShopsProducts = companyService.getAllShopsWithProducts();
         log.debug("Retrieved {} shop products", allShopsProducts.size());
@@ -109,12 +107,11 @@ public class CalculationServiceImpl implements CalculationService {
     }
 
     private IngredientResponse createIngredientResponse(IngredientRequest item, ProductResponse product) {
-        IngredientResponse ingredient =
-                new IngredientResponse(item.getName(),
-                        item.getCount(),
-                        product.getFirm(),
-                        product.getPrice() * item.getCount());
-        return ingredient;
+
+        return new IngredientResponse(item.getName(),
+                item.getCount(),
+                product.getFirm(),
+                product.getPrice() * item.getCount());
     }
 
 }
