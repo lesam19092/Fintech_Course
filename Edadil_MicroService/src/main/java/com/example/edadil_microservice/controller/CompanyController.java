@@ -7,9 +7,7 @@ import com.example.edadil_microservice.model.response.ShopResponse;
 import com.example.edadil_microservice.service.company.CompanyService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Set;
@@ -25,35 +23,68 @@ public class CompanyController {
 
     @GetMapping("/companies")
     public List<Company> getAllCompany() {
-        return companyService.getAllCompanies();
+        return companyService.findAllCompanies();
     }
 
     @GetMapping("/companies/{companyId}")
     public Company getCompanyById(@PathVariable Integer companyId) {
-        return companyService.getCompanyById(companyId);
+        return companyService.findCompanyById(companyId);
     }
 
 
     @GetMapping("/companies/{companyId}/shops")
     public Set<ShopResponse> getCompanyShops(@PathVariable Integer companyId) {
-        return companyService.getCompanyShops(companyId);
+        return companyService.findCompanyShops(companyId);
     }
 
     @GetMapping("/companies/{companyId}/shops/{city}")
     public Set<ShopResponse> getCompanyShopsByCity(@PathVariable Integer companyId, @PathVariable String city) {
-        return companyService.getCompanyShopsByCity(companyId, city);
+        return companyService.findCompanyShopsInCity(companyId, city);
     }
 
     @GetMapping("/companies/{companyId}/shops/{city}/{shopId}")
     public ShopResponse getCompanyShopFromCityById(@PathVariable Integer companyId, @PathVariable String city, @PathVariable Integer shopId) {
-        return companyService.getCompanyShopByCityAndShopId(companyId, city, shopId);
+        return companyService.findCompanyShopInCityById(companyId, city, shopId);
     }
 
 
     @GetMapping("/companies/{companyId}/shops/{city}/{shopId}/products")
     public ShopProductResponse getCompanyShopProducts(@PathVariable Integer companyId, @PathVariable String city, @PathVariable Integer shopId) {
-        return companyService.getCompanyShopProducts(companyId, city, shopId);
+        return companyService.retrieveShopProducts(companyId, city, shopId);
     }
+
+
+    //todo create crud for products
+  /*  @GetMapping("/companies/{companyId}/shops/{city}/{shopId}/products/{name}")
+    public ShopProductResponse getCompanyShopProductByName(@PathVariable Integer companyId,
+                                                           @PathVariable String city,
+                                                           @PathVariable Integer shopId,
+                                                           @PathVariable String name) {
+        return companyService.getCompanyShopProductByName(companyId, city, shopId, name);
+    }
+
+    @PostMapping("/companies/{companyId}/shops/{city}/{shopId}/products/{name}")
+    public ShopProductResponse addProductToCompanyShop(@PathVariable Integer companyId,
+                                                       @PathVariable String city,
+                                                       @PathVariable Integer shopId,
+                                                       @PathVariable String name,
+                                                       @RequestBody Product product) {
+
+    }
+
+    @PutMapping("/categories/{id}")
+    public ResponseEntity<Boolean> updateCategory(@PathVariable Integer id, @RequestBody Category category) {
+       // categoryService.update(id, category);
+
+        return new ResponseEntity<>(HttpStatus.OK);
+
+    }
+
+    @DeleteMapping(value = "/categories/{id}")
+    public ResponseEntity<Boolean> deleteCategory(@PathVariable Integer id) {
+        //boolean deleted = categoryService.deleteById(id);
+        return new ResponseEntity<>(deleted, HttpStatus.OK);
+    }*/
 
 
 }
