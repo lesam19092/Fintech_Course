@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -25,11 +26,13 @@ public class CalculationServiceImpl implements CalculationService {
 
     //TODO ЗАПОЛНИТЬ ТАБЛИЦУ ДАННЫМИ
 
+    //todo fix bugs с неизвестным продуктом
+
     private final CompanyService companyService;
 
 
     @Override
-    public List<PaymentReceipt> generatePaymentReceipt(List<IngredientRequest> response) {
+    public List<PaymentReceipt> generatePaymentReceipt(List<IngredientRequest> response) throws IOException {
         List<PaymentReceipt> payments = new ArrayList<>();
         List<ShopProductResponse> allShopsProducts = companyService.getAllShopsWithProducts();
         log.debug("Retrieved {} shop products", allShopsProducts.size());
@@ -107,11 +110,13 @@ public class CalculationServiceImpl implements CalculationService {
     }
 
     private IngredientResponse createIngredientResponse(IngredientRequest item, ProductResponse product) {
-
-        return new IngredientResponse(item.getName(),
-                item.getCount(),
-                product.getFirm(),
-                product.getPrice() * item.getCount());
+        IngredientResponse ingredient =
+                new IngredientResponse(item.getName(),
+                        item.getCount(),
+                        product.getFirm(),
+                        product.getPrice() * item.getCount());
+        return ingredient;
     }
 
 }
+

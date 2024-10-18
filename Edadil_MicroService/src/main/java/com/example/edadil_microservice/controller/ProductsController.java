@@ -4,7 +4,6 @@ package com.example.edadil_microservice.controller;
 import com.example.edadil_microservice.model.request.IngredientRequest;
 import com.example.edadil_microservice.model.response.PaymentReceipt;
 import com.example.edadil_microservice.service.calculation.CalculationServiceImpl;
-import com.example.edadil_microservice.service.product.ProductService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,7 +22,7 @@ public class ProductsController {
 
 
     //TODO потом сделать
-/*
+
     @GetMapping("/products")
     public List<PaymentReceipt> getAllProducts() throws IOException {
 
@@ -38,13 +37,19 @@ public class ProductsController {
         ingridientItem2.setCount(1);
         ingridientItem2.setName("Чай");
 
+        IngredientRequest ingridientItem3 = new IngredientRequest();
 
-        List<IngredientRequest> list = List.of(ingridientItem1, ingridientItem2);
+        ingridientItem2.setCount(1);
+        ingridientItem2.setName("Мясо");
+
+
+
+        List<IngredientRequest> list = List.of(ingridientItem1, ingridientItem2,ingridientItem3);
 
         calculationService.generatePaymentReceipt(list);
 
         return calculationService.generatePaymentReceipt(list);
-    }*/
+    }
 
 
 }
