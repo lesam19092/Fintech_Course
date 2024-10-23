@@ -1,6 +1,5 @@
 package com.example.edadil_microservice.repository;
 
-import com.example.edadil_microservice.model.entity.Company;
 import com.example.edadil_microservice.model.entity.ShopProduct;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;

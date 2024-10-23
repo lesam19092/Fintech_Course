@@ -80,10 +80,11 @@ public class CompanyServiceImpl implements CompanyService {
         log.info("Fetching products for shop with ID: {} for company with ID: {}", shopId, companyId);
         Optional<Shop> optionalShop = shopRepository.findShopByNameOfCompanyIdAndId(companyId, shopId);
         Shop shop = requirePresentEntity(optionalShop);
+
         return ShopProductResponseMapper.buildShopProductResponse(shop);
     }
 
-    //todo отрефакторить
+    //todo отрефакторить пока что нигде не используется
     @Override
     public ShopProductResponse findSpecificProductInShop(Integer companyId, String city, Integer shopId, String name) {
         log.info("Fetching specific product: {} for shop with ID: {} in city: {} for company with ID: {}", name, shopId, city, companyId);
@@ -95,16 +96,16 @@ public class CompanyServiceImpl implements CompanyService {
         return shopProductResponse;
     }
 
-    //todo отрефакторить
+    //todo не пофиксил проблему n+1
     @Override
     public List<ShopProductResponse> getAllShopsWithProducts() {
-        List<Company> list = findAllCompanies();
-        log.debug("Found {} companies", list.size());
+        List<Company> companies = companyRepository.findAllWithShopsAndProducts();
+        log.debug("Found {} companies", companies.size());
         List<ShopProductResponse> shopProductResponses = new ArrayList<>();
-        list.forEach(company -> {
-            findCompanyShops(company.getId()).forEach(shopResponse -> {
-                log.debug("Processing shop with ID: {} for company with ID: {}", shopResponse.getId(), company.getId());
-                ShopProductResponse shopProductResponse = retrieveShopProducts(company.getId(), shopResponse.getId());
+        companies.forEach(company -> {
+            company.getShops().forEach(shop -> {
+                log.debug("Processing shop with ID: {} for company with ID: {}", shop.getId(), company.getId());
+                ShopProductResponse shopProductResponse = ShopProductResponseMapper.buildShopProductResponse(shop);
                 shopProductResponses.add(shopProductResponse);
             });
         });
