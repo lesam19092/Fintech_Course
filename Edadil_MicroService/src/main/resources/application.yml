@@ -1,6 +1,11 @@
 spring:
   application:
     name: Edadil_MicroService
+  jpa:
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
 
 database:
     driverClassName: org.postgresql.Driver

@@ -23,7 +23,7 @@ public class EntityUtils {
         if (entity.isPresent()) {
             return entity.get();
         }
-        log.error("Entity with id not found: {}", entity.getClass().getSimpleName());
-        throw new EntityNotFoundException("Entity with id not found: " + entity.getClass().getSimpleName());
+        log.error("Entity with id not found");
+        throw new EntityNotFoundException("Entity with id not found: ");
     }
 }
