@@ -26,6 +26,8 @@ import static com.example.edadil_microservice.utils.EntityUtils.requirePresentEn
 @Slf4j
 public class FirmServiceImpl implements FirmService {
 
+    //todo отрефакторить сервис на N+1
+
     private final FirmRepository firmRepository;
     private final ShopProductRepository shopProductRepository;
     private final CompanyService companyService;
