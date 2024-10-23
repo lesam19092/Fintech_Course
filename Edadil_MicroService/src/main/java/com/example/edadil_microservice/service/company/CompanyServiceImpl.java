@@ -95,6 +95,7 @@ public class CompanyServiceImpl implements CompanyService {
         return shopProductResponse;
     }
 
+
     //todo отрефакторить
     @Override
     public List<ShopProductResponse> getAllShopsWithProducts() {
