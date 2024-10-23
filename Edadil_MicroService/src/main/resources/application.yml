@@ -6,12 +6,15 @@ spring:
     properties:
       hibernate:
         format_sql: true
-
-database:
-    driverClassName: org.postgresql.Driver
+  datasource:
+    username: postgres
+    password: postgres
     url: jdbc:postgresql://localhost:5432/edadil_db
-    username: ${username}
-    password: ${password}
+    driver-class-name: org.postgresql.Driver
+    jpa:
+      properties:
+        hibernate:
+          dialect: org.hibernate.dialect.PostgreSQLDialect
 
 management:
   endpoints.web.exposure.include: 'prometheus, health'
