@@ -16,7 +16,7 @@ import java.util.Set;
 
 @RestController
 @RequiredArgsConstructor
-public class FirmContoller {
+public class FirmController {
 
     private final FirmService firmService;
 
@@ -59,21 +59,26 @@ public class FirmContoller {
     }
 
 
-    //получение магазинов компаний , у которых есть продукция фирмы
-
+    /***
+     получение магазинов компаний , у которых есть продукция фирмы
+        */
     @GetMapping("/firms/{firmId}/company/{companyId}/shops")
     public Set<ShopResponse> getShopsInCompanyWithFirmProducts(@PathVariable Integer firmId, @PathVariable Integer companyId) {
         return firmService.findShopsInCompanyWithFirmProducts(firmId, companyId);
     }
 
-    //получение магазина компании , у которых есть продукция фирмы
+    /***
+    получение магазинов компаний , у которых есть продукция фирмы
+     */
 
     @GetMapping("/firms/{firmId}/company/{companyId}/shops/{shopId}")
     public ShopResponse getShopsInCompanyWithFirmProductsById(@PathVariable Integer firmId, @PathVariable Integer companyId, @PathVariable Integer shopId) {
         return firmService.findShopInCompanyWithFirmProductsById(firmId, companyId, shopId);
     }
 
-    //получение продуктов магазина компании , у которых есть продукция фирмы
+    /***
+     получение продуктов магазина компании , у которых есть продукция фирмы
+     */
     @GetMapping("/firms/{firmId}/company/{companyId}/shops/{shopId}/products")
     public ShopProductResponse findFirmProductsInShop(@PathVariable Integer firmId, @PathVariable Integer companyId, @PathVariable Integer shopId) {
         return firmService.findProductsInShopByFirmAndCompany(firmId, companyId, shopId);

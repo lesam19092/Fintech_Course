@@ -1,7 +1,6 @@
 package com.example.edadil_microservice.controller;
 
 
-import com.example.edadil_microservice.model.entity.Company;
 import com.example.edadil_microservice.model.request.IngredientRequest;
 import com.example.edadil_microservice.model.response.PaymentReceipt;
 import com.example.edadil_microservice.service.calculation.CalculationServiceImpl;

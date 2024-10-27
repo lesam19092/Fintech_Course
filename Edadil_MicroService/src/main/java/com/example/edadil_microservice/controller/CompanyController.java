@@ -15,7 +15,6 @@ import java.util.Set;
 @RestController
 @RequiredArgsConstructor
 @Slf4j
-//@RequestMapping("/api/v1-edadil") //todo придумать
 public class CompanyController {
 
     private final CompanyService companyService;
@@ -52,39 +51,6 @@ public class CompanyController {
     public ShopProductResponse getCompanyShopProducts(@PathVariable Integer companyId, @PathVariable String city, @PathVariable Integer shopId) {
         return companyService.retrieveShopProducts(companyId, city, shopId);
     }
-
-
-    //todo create crud for products
-  /*  @GetMapping("/companies/{companyId}/shops/{city}/{shopId}/products/{name}")
-    public ShopProductResponse getCompanyShopProductByName(@PathVariable Integer companyId,
-                                                           @PathVariable String city,
-                                                           @PathVariable Integer shopId,
-                                                           @PathVariable String name) {
-        return companyService.getCompanyShopProductByName(companyId, city, shopId, name);
-    }
-
-    @PostMapping("/companies/{companyId}/shops/{city}/{shopId}/products/{name}")
-    public ShopProductResponse addProductToCompanyShop(@PathVariable Integer companyId,
-                                                       @PathVariable String city,
-                                                       @PathVariable Integer shopId,
-                                                       @PathVariable String name,
-                                                       @RequestBody Product product) {
-
-    }
-
-    @PutMapping("/categories/{id}")
-    public ResponseEntity<Boolean> updateCategory(@PathVariable Integer id, @RequestBody Category category) {
-       // categoryService.update(id, category);
-
-        return new ResponseEntity<>(HttpStatus.OK);
-
-    }
-
-    @DeleteMapping(value = "/categories/{id}")
-    public ResponseEntity<Boolean> deleteCategory(@PathVariable Integer id) {
-        //boolean deleted = categoryService.deleteById(id);
-        return new ResponseEntity<>(deleted, HttpStatus.OK);
-    }*/
-
+    
 
 }
