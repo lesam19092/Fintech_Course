@@ -33,6 +33,6 @@ public class Shop {
     private Company nameOfCompany;
 
     @OneToMany(mappedBy = "shop")
-    private Set<ShopProduct> shopproducts = new LinkedHashSet<>();
+    private Set<ShopProduct> shopProducts = new LinkedHashSet<>();
 
 }
