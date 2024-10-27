@@ -39,15 +39,9 @@ public class RestExceptionHandle {
         return new ApiError(HttpStatus.BAD_REQUEST, String.format("Сообщение: %s\nОшибка: %s%n", message, ex.getMessage()));
     }
 
-    @ExceptionHandler(EmptyResultException.class)
+    @ExceptionHandler({EmptyResultException.class, EntityNotFoundException.class})
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    public ApiError handleEmptyResult(EmptyResultException ex) {
-        return new ApiError(HttpStatus.BAD_REQUEST, String.format("Сообщение: Ошибка: %s%n", ex.getMessage()));
-    }
-
-    @ExceptionHandler(EntityNotFoundException.class)
-    @ResponseStatus(HttpStatus.NOT_FOUND)
-    public ApiError handleEntityNotFound(EntityNotFoundException ex) {
-        return new ApiError(HttpStatus.BAD_REQUEST, String.format("Сообщение: Ошибка: %s%n", ex.getMessage()));
+    public ApiError handleNotFoundExceptions(RuntimeException ex) {
+        return new ApiError(HttpStatus.NOT_FOUND, String.format("Сообщение: Ошибка: %s%n", ex.getMessage()));
     }
 }
