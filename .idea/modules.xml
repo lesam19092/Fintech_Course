@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Fintech_Course.iml" filepath="$PROJECT_DIR$/Fintech_Course.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Edadil_MicroService/Edadil_MicroService.iml" filepath="$PROJECT_DIR$/Edadil_MicroService/Edadil_MicroService.iml" />
     </modules>
   </component>
 </project>

@@ -8,7 +8,7 @@ import com.example.edadil_microservice.model.response.ProductResponse;
 import com.example.edadil_microservice.model.response.ShopProductResponse;
 import com.example.edadil_microservice.model.response.ShopResponse;
 import com.example.edadil_microservice.repository.CompanyRepository;
-import com.example.edadil_microservice.repository.ShopRepository;
+import com.example.edadil_microservice.service.shop.ShopService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -29,7 +29,7 @@ import static com.example.edadil_microservice.utils.EntityUtils.requirePresentEn
 public class CompanyServiceImpl implements CompanyService {
 
     private final CompanyRepository companyRepository;
-    private final ShopRepository shopRepository;
+    private final ShopService shopService;
 
     @Override
     public List<Company> findAllCompanies() {
@@ -53,14 +53,14 @@ public class CompanyServiceImpl implements CompanyService {
     @Override
     public Set<ShopResponse> findCompanyShopsInCity(Integer companyId, String city) {
         log.info("Fetching shops for company with ID: {} in city: {}", companyId, city);
-        Set<Shop> shops = shopRepository.findShopsByCompanyIdAndCity(companyId, city);
+        Set<Shop> shops = shopService.findShopsByCompanyIdAndCity(companyId, city);
         return ShopResponseMapper.convertShopsToShopResponses(shops);
     }
+
     @Override
     public ShopResponse findCompanyShopInCityById(Integer companyId, String city, Integer shopId) {
         log.info("Fetching shop with ID: {} in city: {} for company with ID: {}", shopId, city, companyId);
-        Optional<Shop> optional = shopRepository.findShopByCompanyIdAndCityAndId(companyId, city, shopId);
-        Shop shop = requirePresentEntity(optional);
+        Shop shop = shopService.findShopByCompanyIdAndCityAndId(companyId, city, shopId);
         return ShopResponseMapper.buildShopResponse(shop);
     }
 
@@ -68,8 +68,7 @@ public class CompanyServiceImpl implements CompanyService {
     @Override
     public ShopProductResponse retrieveShopProducts(Integer companyId, String city, Integer shopId) {
         log.info("Fetching products for shop with ID: {} in city: {} for company with ID: {}", shopId, city, companyId);
-        Optional<Shop> optional = shopRepository.findShopProductsByCompanyIdAndCityAndId(companyId, city, shopId);
-        Shop shop = requirePresentEntity(optional);
+        Shop shop = shopService.findShopProductsByCompanyIdAndCityAndId(companyId, city, shopId);
         log.info("dddddddddddddddddd");
 
         return ShopProductResponseMapper.buildShopProductResponse(shop);
@@ -78,8 +77,7 @@ public class CompanyServiceImpl implements CompanyService {
     @Override
     public ShopProductResponse retrieveShopProducts(Integer companyId, Integer shopId) {
         log.info("Fetching products for shop with ID: {} for company with ID: {}", shopId, companyId);
-        Optional<Shop> optionalShop = shopRepository.findShopByNameOfCompanyIdAndId(companyId, shopId);
-        Shop shop = requirePresentEntity(optionalShop);
+        Shop shop = shopService.findShopByNameOfCompanyIdAndId(companyId, shopId);
 
         return ShopProductResponseMapper.buildShopProductResponse(shop);
     }

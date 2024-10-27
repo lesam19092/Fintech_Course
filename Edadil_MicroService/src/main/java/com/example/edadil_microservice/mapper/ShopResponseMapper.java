@@ -12,6 +12,8 @@ import static com.example.edadil_microservice.utils.EntityUtils.requireNonEmptyC
 @Slf4j
 public class ShopResponseMapper {
 
+
+    //todo сделать раньше проверку на пустоту
     public static Set<ShopResponse> convertShopsToShopResponses(Set<Shop> shops) {
         Set<ShopResponse> set = shops.stream()
                 .map(ShopResponseMapper::buildShopResponse)

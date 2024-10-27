@@ -23,5 +23,10 @@ public class ProductServiceImpl implements ProductService {
         return requireNonEmptyCollection(productRepository.findAll());
     }
 
+    @Override
+    public Product findProductByIdAndFirmId(Integer firmId, Integer productId) {
+        return null;
+    }
+
 
 }

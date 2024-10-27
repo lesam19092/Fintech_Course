@@ -8,4 +8,5 @@ public interface ProductService {
 
     List<Product> getAllProducts();
 
+    Product findProductByIdAndFirmId(Integer firmId, Integer productId);
 }
