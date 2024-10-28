@@ -7,6 +7,7 @@ import jakarta.persistence.Table;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.Remove;
 
 @Getter
 @Setter
@@ -29,10 +30,7 @@ public class User {
     @Column(name = "password", length = 100)
     private String password;
 
-/*
- TODO [Amplicode] create field to map the 'user_role' column
- Available actions: Define target Java type | Uncomment as is | Remove column mapping
-    @Column(name = "user_role", columnDefinition = "role(0, 0)")
-    private Object userRole;
-*/
+    @Column(name = "user_role")
+    private String userRole;
+
 }
