@@ -32,16 +32,4 @@ public class Meal {
     @OneToMany(mappedBy = "meal")
     private Set<MealsIngredient> mealsIngredients = new LinkedHashSet<>();
 
-    @ManyToMany
-    @JoinTable(name = "menu_meals",
-            joinColumns = @JoinColumn(name = "meal_id"),
-            inverseJoinColumns = @JoinColumn(name = "menu_id"))
-    private Set<Menu> menus = new LinkedHashSet<>();
-
-    @ManyToMany
-    @JoinTable(name = "users_meals",
-            joinColumns = @JoinColumn(name = "meal_id"),
-            inverseJoinColumns = @JoinColumn(name = "user_id"))
-    private Set<User> users = new LinkedHashSet<>();
-
 }

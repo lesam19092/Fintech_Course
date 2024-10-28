@@ -7,7 +7,6 @@ import jakarta.persistence.Table;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.Remove;
 
 @Getter
 @Setter
@@ -30,7 +29,9 @@ public class User {
     @Column(name = "password", length = 100)
     private String password;
 
-    @Column(name = "user_role")
+    @Size(max = 100)
+    @Column(name = "user_role", length = 100)
     private String userRole;
+
 
 }

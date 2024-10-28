@@ -14,7 +14,6 @@ import java.util.Objects;
 @Setter
 @Embeddable
 public class MenuMealId implements Serializable {
-    private static final long serialVersionUID = 1957367655642013788L;
     @NotNull
     @Column(name = "menu_id", nullable = false)
     private Integer menuId;
