@@ -1,4 +1,4 @@
-package org.example.foodru_microservice.model;
+package org.example.foodru_microservice.model.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
@@ -13,27 +13,28 @@ import java.util.Objects;
 @Getter
 @Setter
 @Embeddable
-public class UsersMealId implements Serializable {
-    @NotNull
-    @Column(name = "user_id", nullable = false)
-    private Integer userId;
-
+public class MealsIngredientId implements Serializable {
+    private static final long serialVersionUID = 3598559915191657576L;
     @NotNull
     @Column(name = "meal_id", nullable = false)
     private Integer mealId;
+
+    @NotNull
+    @Column(name = "ingredient_id", nullable = false)
+    private Integer ingredientId;
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
-        UsersMealId entity = (UsersMealId) o;
-        return Objects.equals(this.mealId, entity.mealId) &&
-                Objects.equals(this.userId, entity.userId);
+        MealsIngredientId entity = (MealsIngredientId) o;
+        return Objects.equals(this.ingredientId, entity.ingredientId) &&
+                Objects.equals(this.mealId, entity.mealId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(mealId, userId);
+        return Objects.hash(ingredientId, mealId);
     }
 
 }

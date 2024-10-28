@@ -1,9 +1,6 @@
-package org.example.foodru_microservice.model;
+package org.example.foodru_microservice.model.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
@@ -29,9 +26,12 @@ public class User {
     @Column(name = "password", length = 100)
     private String password;
 
+    //todo спросить че тут делать
     @Size(max = 100)
     @Column(name = "user_role", length = 100)
-    private String userRole;
+    @Enumerated(EnumType.STRING)
+    private UserRole userRole;
+
 
 
 }

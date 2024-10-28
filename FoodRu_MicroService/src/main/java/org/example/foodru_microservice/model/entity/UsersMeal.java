@@ -1,4 +1,4 @@
-package org.example.foodru_microservice.model;
+package org.example.foodru_microservice.model.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -7,15 +7,15 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name = "menu_meals")
-public class MenuMeal {
+@Table(name = "users_meals")
+public class UsersMeal {
     @EmbeddedId
-    private MenuMealId id;
+    private UsersMealId id;
 
-    @MapsId("menuId")
+    @MapsId("userId")
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "menu_id", nullable = false)
-    private Menu menu;
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
 
     @MapsId("mealId")
     @ManyToOne(fetch = FetchType.LAZY, optional = false)

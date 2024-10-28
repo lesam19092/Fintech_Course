@@ -1,4 +1,4 @@
-package org.example.foodru_microservice.model;
+package org.example.foodru_microservice.model.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;

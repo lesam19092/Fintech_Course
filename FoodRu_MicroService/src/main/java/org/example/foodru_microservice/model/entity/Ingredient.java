@@ -1,4 +1,4 @@
-package org.example.foodru_microservice.model;
+package org.example.foodru_microservice.model.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
@@ -12,8 +12,8 @@ import java.util.Set;
 @Getter
 @Setter
 @Entity
-@Table(name = "meals")
-public class Meal {
+@Table(name = "ingredients")
+public class Ingredient {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
@@ -24,12 +24,7 @@ public class Meal {
     @Column(name = "name", nullable = false, length = 100)
     private String name;
 
-    @Size(max = 100)
-    @NotNull
-    @Column(name = "cook_instructions", nullable = false, length = 100)
-    private String cookInstructions;
-
-    @OneToMany(mappedBy = "meal")
+    @OneToMany(mappedBy = "ingredient")
     private Set<MealsIngredient> mealsIngredients = new LinkedHashSet<>();
 
 }
