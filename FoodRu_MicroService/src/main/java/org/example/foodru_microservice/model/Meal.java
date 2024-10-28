@@ -1,0 +1,47 @@
+package org.example.foodru_microservice.model;
+
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
+import lombok.Getter;
+import lombok.Setter;
+
+import java.util.LinkedHashSet;
+import java.util.Set;
+
+@Getter
+@Setter
+@Entity
+@Table(name = "meals")
+public class Meal {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false)
+    private Integer id;
+
+    @Size(max = 100)
+    @NotNull
+    @Column(name = "name", nullable = false, length = 100)
+    private String name;
+
+    @Size(max = 100)
+    @NotNull
+    @Column(name = "cook_instructions", nullable = false, length = 100)
+    private String cookInstructions;
+
+    @OneToMany(mappedBy = "meal")
+    private Set<MealsIngredient> mealsIngredients = new LinkedHashSet<>();
+
+    @ManyToMany
+    @JoinTable(name = "menu_meals",
+            joinColumns = @JoinColumn(name = "meal_id"),
+            inverseJoinColumns = @JoinColumn(name = "menu_id"))
+    private Set<Menu> menus = new LinkedHashSet<>();
+
+    @ManyToMany
+    @JoinTable(name = "users_meals",
+            joinColumns = @JoinColumn(name = "meal_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id"))
+    private Set<User> users = new LinkedHashSet<>();
+
+}
