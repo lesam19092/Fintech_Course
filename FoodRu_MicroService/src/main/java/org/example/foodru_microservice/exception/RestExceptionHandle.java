@@ -1,6 +1,7 @@
 package org.example.foodru_microservice.exception;
 
 
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;
@@ -40,7 +41,7 @@ public class RestExceptionHandle {
         return new ApiError(HttpStatus.BAD_REQUEST, String.format("Сообщение: %s\nОшибка: %s%n", message, ex.getMessage()));
     }
 
-    @ExceptionHandler({EmptyResultException.class, EntitySearchException.class})
+    @ExceptionHandler({EmptyResultException.class, EntitySearchException.class , EntityNotFoundException.class})
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public ApiError handleNotFoundExceptions(RuntimeException ex) {
         return new ApiError(HttpStatus.NOT_FOUND, String.format("Сообщение: Ошибка: %s%n", ex.getMessage()));
