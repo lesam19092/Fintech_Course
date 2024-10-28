@@ -9,10 +9,11 @@ spring:
       hibernate:
         format_sql: true
   datasource:
+    driver-class-name: org.postgresql.Driver
+    jdbcUrl: jdbc:postgresql://localhost:5432/food_db
     username: postgres
     password: postgres
-    url: jdbc:postgresql://localhost:5432/food_db
-    driver-class-name: org.postgresql.Driver
+    poolName: myPool
     jpa:
       properties:
         hibernate:
