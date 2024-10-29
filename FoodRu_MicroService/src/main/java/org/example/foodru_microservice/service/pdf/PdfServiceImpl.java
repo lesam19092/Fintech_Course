@@ -38,7 +38,6 @@ public class PdfServiceImpl implements PdfService {
                 document.add(table);
             }
             emailService.sendEmailWithAttachment("danigpro1337@gmail.com", baos.toByteArray());
-
             uploadService.uploadPdf(baos.toByteArray());
         } catch (Exception exception) {
             log.error("Error while creating pdf file: {}", exception.getMessage());
