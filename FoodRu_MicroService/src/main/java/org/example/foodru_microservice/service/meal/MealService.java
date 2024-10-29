@@ -1,4 +1,4 @@
-package org.example.foodru_microservice.service;
+package org.example.foodru_microservice.service.meal;
 
 import org.example.foodru_microservice.model.dto.MealDto;
 import org.example.foodru_microservice.model.dto.MealWithIngredientDto;

@@ -1,10 +1,9 @@
-package org.example.foodru_microservice.service;
+package org.example.foodru_microservice.service.meal;
 
 import lombok.RequiredArgsConstructor;
 import org.example.foodru_microservice.mapper.MealMapper;
 import org.example.foodru_microservice.model.dto.MealDto;
 import org.example.foodru_microservice.model.dto.MealWithIngredientDto;
-import org.example.foodru_microservice.model.entity.Meal;
 import org.example.foodru_microservice.repository.MealRepository;
 import org.springframework.stereotype.Service;
 
@@ -33,7 +32,6 @@ public class MealServiceImpl implements MealService {
 
     @Override
     public MealDto getMealById(Integer id) {
-        System.out.println(id);
         return mealMapper.toDto(
                 requirePresentEntity(
                         mealRepository.findById(id)
@@ -44,13 +42,12 @@ public class MealServiceImpl implements MealService {
     @Override
     public MealWithIngredientDto getMealsIngredients(Integer id) {
 
-        Meal meal =
-                requirePresentEntity(mealRepository.getMealWithIngredients(id));
-
-
-        return mealMapper.toDtoWithIngredients(meal);
+        return mealMapper.toDtoWithIngredients(
+                requirePresentEntity(
+                        mealRepository.getMealWithIngredients(id)
+                )
+        );
 
     }
-
 
 }
