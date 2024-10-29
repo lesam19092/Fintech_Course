@@ -9,6 +9,7 @@ import com.lowagie.text.pdf.PdfPTable;
 import com.lowagie.text.pdf.PdfWriter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.example.foodru_microservice.service.mail.EmailService;
 import org.example.foodru_microservice.service.upload.UploadService;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +22,7 @@ import java.util.List;
 public class PdfServiceImpl implements PdfService {
 
     private final UploadService uploadService;
+    private final EmailService emailService;
 
     public void savePdf(List<Object> response) {
 
@@ -35,10 +37,14 @@ public class PdfServiceImpl implements PdfService {
                 PdfPTable table = createPdfTable(font, response);
                 document.add(table);
             }
+            emailService.sendEmailWithAttachment("danigpro1337@gmail.com", baos.toByteArray());
+
             uploadService.uploadPdf(baos.toByteArray());
         } catch (Exception exception) {
             log.error("Error while creating pdf file: {}", exception.getMessage());
         }
+
+
     }
 
     private PdfPTable createPdfTable(Font font, List<Object> response) {

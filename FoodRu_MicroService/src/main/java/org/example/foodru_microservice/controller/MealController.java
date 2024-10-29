@@ -46,13 +46,14 @@ public class MealController {
     }
 
     @GetMapping("/mail")
-    public String getMail() throws MessagingException, IOException {
+    public String getMail() throws IOException {
 
-       /* emailService.sendEmailWithAttachment("danigpro1337@gmail.com", "", "Test", "C:\\Users\\danil\\Desktop\\2305_L1_Палев_Гловацкий.pdf");
-        return "mail";*/
 
         pdfService.savePdf(new ArrayList<>());
-
+        // emailService.sendEmailWithAttachment("danigpro1337@gmail.com", "C:\\Users\\danil\\Desktop\\2305_L1_Палев_Гловацкий.pdf");
         return "mail";
+
+        //pdfService.savePdf(new ArrayList<>());
+
     }
 }

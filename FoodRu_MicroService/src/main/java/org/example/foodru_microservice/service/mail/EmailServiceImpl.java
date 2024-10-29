@@ -2,6 +2,7 @@ package org.example.foodru_microservice.service.mail;
 
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
+import jakarta.mail.util.ByteArrayDataSource;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -10,6 +11,7 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
+import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 
 @Service
@@ -35,18 +37,18 @@ public class EmailServiceImpl implements EmailService {
         mailSender.send(message);
     }*/
 
+
     @Override
-    public void sendEmailWithAttachment(String toAddress, String subject, String message, String attachment) throws MessagingException, FileNotFoundException {
+    public void sendEmailWithAttachment(String toAddress, byte[] bytes) throws MessagingException {
         MimeMessage mimeMessage = mailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true);
 
         helper.setFrom(username);
         helper.setTo(toAddress);
-        helper.setSubject(subject);
-        helper.setText(message);
+        helper.setSubject("вы заказали продукты");
+        helper.setText("ваш чек");
 
-        FileSystemResource file = new FileSystemResource(attachment);
-        helper.addAttachment(file.getFilename(), file);
+        helper.addAttachment("чек.pdf", new ByteArrayDataSource(bytes, "application/pdf"));
 
         mailSender.send(mimeMessage);
     }
