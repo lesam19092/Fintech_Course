@@ -35,13 +35,12 @@ public class UploadServiceImpl implements UploadService {
             }
         } catch (IOException | AmazonS3Exception e) {
             log.error("Amazon S3 error uploading photos to Object Storage. Reason: {}", e.getMessage());
-            throw new RuntimeException("Amazon S3 error uploading photos to Object Storage", e);
         }
     }
 
     // TODO: Implement userId-date-uuid format for file names
     private String generateUniqueName() {
         UUID uuid = UUID.randomUUID();
-        return uuid.toString();
+        return uuid +".pdf";
     }
 }
