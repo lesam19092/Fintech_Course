@@ -18,5 +18,22 @@ spring:
       properties:
         hibernate:
           dialect: org.hibernate.dialect.PostgreSQLDialect
+  mail:
+    host: smtp.yandex.ru
+    port: 587
+    username: daniil.glovatsky@yandex.ru
+    password: hngnlwgjftlauomk
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+  s3:
+    bucketName: bucket-for-s3
+    accessKeyId: YCAJE0sU1RpxZtayJhor-EAg3
+    secretAccessKey: YCPGq37wBlm2LlC0k35_qwqncdf0RROs5FTtKAKo
+
+
 server:
   port: 7070
