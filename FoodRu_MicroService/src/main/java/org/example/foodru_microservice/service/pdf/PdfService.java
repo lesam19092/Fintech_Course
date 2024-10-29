@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface PdfService {
 
-    void savePdf(String filePath, List<Object> response) throws IOException;
+    void savePdf(List<Object> response) throws IOException;
 }

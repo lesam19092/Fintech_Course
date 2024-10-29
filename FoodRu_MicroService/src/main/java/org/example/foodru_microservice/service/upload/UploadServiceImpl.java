@@ -22,14 +22,14 @@ public class UploadServiceImpl implements UploadService {
     private String bucketName;
 
     @Override
-    public void uploadPhoto(byte[] photos) {
+    public void uploadPdf(byte[] pdf) {
 
         try {
             String fileName = generateUniqueName();
             ObjectMetadata metadata = new ObjectMetadata();
-            metadata.setContentLength(photos.length);
+            metadata.setContentLength(pdf.length);
 
-            try (ByteArrayInputStream inputStream = new ByteArrayInputStream(photos)) {
+            try (ByteArrayInputStream inputStream = new ByteArrayInputStream(pdf)) {
                 s3Client.putObject(bucketName, fileName, inputStream, metadata);
                 log.info("Upload Service. Added file: " + fileName + " to bucket: " + bucketName);
             }
