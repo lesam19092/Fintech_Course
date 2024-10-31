@@ -33,7 +33,14 @@ spring:
     bucketName: bucket-for-s3
     accessKeyId: YCAJE0sU1RpxZtayJhor-EAg3
     secretAccessKey: YCPGq37wBlm2LlC0k35_qwqncdf0RROs5FTtKAKo
-
+  kafka:
+    properties:
+      sasl:
+        jaas:
+          config:
+            org.apache.kafka.common.security.plain.PlainLoginModule required username=${kafka_username:'admin'} password=${kafka_password:'admin-secret'}; mechanism:
+              PLAIN security:
+                protocol: SASL_PLAINTEXT
 
 server:
   port: 7070
