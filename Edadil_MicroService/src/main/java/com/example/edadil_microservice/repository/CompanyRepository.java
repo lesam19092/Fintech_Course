@@ -22,6 +22,6 @@ public interface CompanyRepository extends JpaRepository<Company, Integer> {
     @Query("SELECT DISTINCT sp.shop.nameOfCompany FROM ShopProduct sp WHERE sp.product.firm.id = :firmId AND sp.shop.nameOfCompany.id = :companyId")
     Optional<Company> findByFirmIdAndCompanyId(@Param("firmId") Integer firmId, @Param("companyId") Integer companyId);
 
-    @Query("SELECT c FROM Company c JOIN FETCH c.shops s JOIN FETCH s.shopproducts sp JOIN FETCH sp.product")
+    @Query("SELECT c FROM Company c JOIN FETCH c.shops s JOIN FETCH s.shopProducts sp JOIN FETCH sp.product")
     List<Company> findAllWithShopsAndProducts();
 }

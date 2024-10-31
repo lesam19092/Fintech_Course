@@ -9,7 +9,7 @@ spring:
   datasource:
     username: postgres
     password: postgres
-    url: jdbc:postgresql://localhost:5432/edadil_db
+    url: jdbc:postgresql://localhost:5433/edadil_db
     driver-class-name: org.postgresql.Driver
     jpa:
       properties:

@@ -14,3 +14,5 @@ public class EdadilMicroServiceApplication {
         SpringApplication.run(EdadilMicroServiceApplication.class, args);
     }
 }
+
+//todo connect hikaricp
