@@ -42,5 +42,6 @@ spring:
               PLAIN security:
                 protocol: SASL_PLAINTEXT
 
+
 server:
   port: 7070
