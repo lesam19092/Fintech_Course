@@ -7,7 +7,7 @@ import lombok.Data;
 @AllArgsConstructor
 public class IngredientResponse {
     private String name;
-    private int count;
+    private Double measure;
     private String firm;
     private double price;
 }

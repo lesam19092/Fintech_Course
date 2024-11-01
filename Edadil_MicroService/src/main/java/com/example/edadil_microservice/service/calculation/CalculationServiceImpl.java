@@ -1,9 +1,9 @@
 package com.example.edadil_microservice.service.calculation;
 
 import com.example.edadil_microservice.exception.EmptyResultException;
-import com.example.edadil_microservice.model.request.IngredientRequest;
+import com.example.edadil_microservice.model.dto.IngredientDto;
 import com.example.edadil_microservice.model.response.IngredientResponse;
-import com.example.edadil_microservice.model.response.PaymentReceipt;
+import com.example.edadil_microservice.model.response.PaymentReceiptResponse;
 import com.example.edadil_microservice.model.response.ProductResponse;
 import com.example.edadil_microservice.model.response.ShopProductResponse;
 import com.example.edadil_microservice.service.company.CompanyService;
@@ -30,10 +30,10 @@ public class CalculationServiceImpl implements CalculationService {
 
 
     @Override
-    public List<PaymentReceipt> generatePaymentReceipt(List<IngredientRequest> response) throws IOException {
+    public List<PaymentReceiptResponse> generatePaymentReceipt(List<IngredientDto> response) throws IOException {
         List<ShopProductResponse> allShopsProducts = companyService.getAllShopsWithProducts();
 
-        List<PaymentReceipt> payments = allShopsProducts.stream()
+        List<PaymentReceiptResponse> payments = allShopsProducts.stream()
                 .map(shop -> createPayment(shop, response))
                 .toList();
 
@@ -44,10 +44,10 @@ public class CalculationServiceImpl implements CalculationService {
 
 
     @Override
-    public List<PaymentReceipt> getPaymentsWithOutMissingIngredients(List<IngredientRequest> requests) {
+    public List<PaymentReceiptResponse> getPaymentsWithOutMissingIngredients(List<IngredientDto> requests) {
         List<ShopProductResponse> allShopsProducts = companyService.getAllShopsWithProducts();
 
-        List<PaymentReceipt> ingredientResponses = allShopsProducts.stream()
+        List<PaymentReceiptResponse> ingredientResponses = allShopsProducts.stream()
                 .map(shop -> createPayment(shop, requests))
                 .filter(payment -> payment.getMissingIngredients().isEmpty())
                 .toList();
@@ -57,13 +57,13 @@ public class CalculationServiceImpl implements CalculationService {
     }
 
     @Override
-    public List<PaymentReceipt> getTheCheapestPayments(List<IngredientRequest> requests) {
+    public List<PaymentReceiptResponse> getTheCheapestPayments(List<IngredientDto> requests) {
 
-        List<PaymentReceipt> ingredientResponses = getPaymentsWithOutMissingIngredients(requests);
+        List<PaymentReceiptResponse> ingredientResponses = getPaymentsWithOutMissingIngredients(requests);
 
-        List<PaymentReceipt> cheapestPayments = ingredientResponses.stream()
+        List<PaymentReceiptResponse> cheapestPayments = ingredientResponses.stream()
                 .filter(ir -> ir.getCost() == ingredientResponses.stream()
-                        .min(Comparator.comparingDouble(PaymentReceipt::getCost))
+                        .min(Comparator.comparingDouble(PaymentReceiptResponse::getCost))
                         .orElseThrow(() -> new EmptyResultException("No valid payments found"))
                         .getCost())
                 .toList();
@@ -74,40 +74,40 @@ public class CalculationServiceImpl implements CalculationService {
     //TODO может быть добавить среднюю стоимость для каждой компании
 
 
-    private PaymentReceipt createPayment(ShopProductResponse shop, List<IngredientRequest> response) {
+    private PaymentReceiptResponse createPayment(ShopProductResponse shop, List<IngredientDto> response) {
         log.debug("Creating ingredient response for shop ID: {}", shop.getShop().getId());
-        PaymentReceipt paymentReceipt = new PaymentReceipt();
-        paymentReceipt.setAddress(shop.getShop().getCity() + " , " + shop.getShop().getAddress());
-        paymentReceipt.setCompanyName(shop.getShop().getCompanyName());
+        PaymentReceiptResponse paymentReceiptResponse = new PaymentReceiptResponse();
+        paymentReceiptResponse.setAddress(shop.getShop().getCity() + " , " + shop.getShop().getAddress());
+        paymentReceiptResponse.setCompanyName(shop.getShop().getCompanyName());
 
-        response.forEach(item -> processIngredient(item, shop, paymentReceipt));
+        response.forEach(item -> processIngredient(item, shop, paymentReceiptResponse));
 
-        return paymentReceipt;
+        return paymentReceiptResponse;
     }
 
-    private void processIngredient(IngredientRequest item, ShopProductResponse shop, PaymentReceipt paymentReceipt) {
+    private void processIngredient(IngredientDto item, ShopProductResponse shop, PaymentReceiptResponse paymentReceiptResponse) {
         boolean found = shop.getProducts().stream()
-                .filter(product -> product.getName().equals(item.getName()) && product.getCount() >= item.getCount())
+                .filter(product -> product.getName().equals(item.getName()) && product.getCount() >= item.getMeasure())
                 .peek(product -> {
                     log.debug("Found matching product: {} with sufficient count: {}", product.getName(), product.getCount());
                     IngredientResponse ingredient = createIngredientResponse(item, product);
-                    paymentReceipt.addIngredient(ingredient);
-                    paymentReceipt.setCost(product.getPrice(), item.getCount());
+                    paymentReceiptResponse.addIngredient(ingredient);
+                    paymentReceiptResponse.setCost(product.getPrice(), item.getMeasure());
                 })
                 .findFirst()
                 .isPresent();
 
         if (!found) {
             log.warn("Missing ingredient: {}", item.getName());
-            paymentReceipt.addMissingIngredient(item.getName());
+            paymentReceiptResponse.addMissingIngredient(item.getName());
         }
     }
 
-    private IngredientResponse createIngredientResponse(IngredientRequest item, ProductResponse product) {
+    private IngredientResponse createIngredientResponse(IngredientDto item, ProductResponse product) {
         return new IngredientResponse(item.getName(),
-                        item.getCount(),
+                        item.getMeasure(),
                         product.getFirm(),
-                        product.getPrice() * item.getCount());
+                        product.getPrice() * item.getMeasure());
     }
 
 }
