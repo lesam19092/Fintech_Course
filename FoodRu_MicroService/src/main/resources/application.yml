@@ -8,16 +8,14 @@ spring:
     properties:
       hibernate:
         format_sql: true
+        dialect: org.hibernate.dialect.PostgreSQLDialect
   datasource:
     driver-class-name: org.postgresql.Driver
     jdbcUrl: jdbc:postgresql://localhost:5432/food_db
     username: postgres
     password: postgres
     poolName: myPool
-    jpa:
-      properties:
-        hibernate:
-          dialect: org.hibernate.dialect.PostgreSQLDialect
+
   mail:
     host: smtp.yandex.ru
     port: 587
