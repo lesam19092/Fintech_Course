@@ -1,7 +1,6 @@
-package com.example.edadil_microservice.configuration;
+package com.example.edadil_microservice.config;
 
-import com.example.edadil_microservice.model.request.IngredientRequest;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.example.edadil_microservice.model.dto.ListIngredientDto;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.common.serialization.StringDeserializer;
 import org.springframework.context.annotation.Bean;
@@ -20,10 +19,10 @@ import java.util.Map;
 public class KafkaConsumerConfig {
 
     @Bean
-    public ConsumerFactory<String, IngredientRequest> consumerFactory() {
+    public ConsumerFactory<String, ListIngredientDto> consumerFactory() {
         Map<String, Object> props = new HashMap<>();
 
-        JsonDeserializer<IngredientRequest> deserializer = new JsonDeserializer<>(IngredientRequest.class);
+        JsonDeserializer<ListIngredientDto> deserializer = new JsonDeserializer<>(ListIngredientDto.class);
         deserializer.setRemoveTypeHeaders(false);
         deserializer.addTrustedPackages("*");
         deserializer.setUseTypeMapperForKey(true);
@@ -44,10 +43,10 @@ public class KafkaConsumerConfig {
     }
 
     @Bean
-    public ConcurrentKafkaListenerContainerFactory<String, IngredientRequest>
+    public ConcurrentKafkaListenerContainerFactory<String, ListIngredientDto>
     kafkaListenerContainerFactory() {
 
-        ConcurrentKafkaListenerContainerFactory<String, IngredientRequest> factory =
+        ConcurrentKafkaListenerContainerFactory<String, ListIngredientDto> factory =
                 new ConcurrentKafkaListenerContainerFactory<>();
         factory.setConsumerFactory(consumerFactory());
         return factory;

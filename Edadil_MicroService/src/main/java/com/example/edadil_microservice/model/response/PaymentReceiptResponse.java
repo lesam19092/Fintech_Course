@@ -1,12 +1,11 @@
 package com.example.edadil_microservice.model.response;
 
-import com.example.edadil_microservice.model.request.IngredientRequest;
 import lombok.Data;
 import java.util.ArrayList;
 import java.util.List;
 
 @Data
-public class PaymentReceipt {
+public class PaymentReceiptResponse {
 
 
     private String companyName;
@@ -14,7 +13,7 @@ public class PaymentReceipt {
     private List<IngredientResponse> ingredients = new ArrayList<>();
     private boolean hasMissingIngredients;
     private List<String> missingIngredients = new ArrayList<>();
-    private double cost;
+    private Double cost;
 
 
     public void addIngredient(IngredientResponse ingredient) {
@@ -27,7 +26,7 @@ public class PaymentReceipt {
         this.missingIngredients.add(ingredientName);
     }
 
-    public void setCost(double costs, int count) {
+    public void setCost(double costs, double count) {
         this.cost += costs * count;
     }
 
