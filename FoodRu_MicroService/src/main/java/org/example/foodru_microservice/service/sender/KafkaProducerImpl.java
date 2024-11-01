@@ -20,7 +20,6 @@ public class KafkaProducerImpl implements KafkaProducer {
 
     private final KafkaTemplate<String, IngredientRequest> kafkaTemplate;
 
-
     @Override
     public void sendMessage(String msg) {
         IngredientRequest ingredientRequest = new IngredientRequest();
