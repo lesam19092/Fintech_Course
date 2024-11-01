@@ -14,4 +14,5 @@ public interface MealService {
 
     MealWithIngredientDto getMealsIngredients(Integer id);
 
+    void getCheapestMealsIngredients(Integer id);
 }

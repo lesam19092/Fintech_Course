@@ -3,7 +3,7 @@ package org.example.foodru_microservice.configuration.kafka;
 import lombok.Data;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.StringSerializer;
-import org.example.foodru_microservice.model.request.IngredientRequest;
+import org.example.foodru_microservice.model.dto.IngredientDto;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -23,7 +23,7 @@ public class KafkaProducerConfig {
     private String bootstrapAddress;
 
     @Bean
-    public ProducerFactory<String, IngredientRequest> producerFactory() {
+    public ProducerFactory<String, IngredientDto> producerFactory() {
         Map<String, Object> configProps = new HashMap<>();
         configProps.put(
                 ProducerConfig.BOOTSTRAP_SERVERS_CONFIG,
@@ -38,7 +38,7 @@ public class KafkaProducerConfig {
     }
 
     @Bean
-    public KafkaTemplate<String, IngredientRequest> kafkaTemplate() {
+    public KafkaTemplate<String, IngredientDto> kafkaTemplate() {
         return new KafkaTemplate<>(producerFactory());
     }
 }

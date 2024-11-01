@@ -45,12 +45,19 @@ public class MealController {
         return mealService.getMealsIngredients(id);
     }
 
+    @GetMapping("/meals/{id}/ingredients/cheapest")
+    public MealWithIngredientDto getCheapestMealIngredients(@PathVariable Integer id) {
+        mealService.getCheapestMealsIngredients(id);
+        return null;
+    }
+
+
     @GetMapping("/mail/{email}")
     public String getMail(@PathVariable String email) throws IOException {
 
 
         // kafkaProducer.sendMessage("Hello from FoodRu" + email);
-       pdfService.generateAndSendPdfReport(new ArrayList<>());
+        pdfService.generateAndSendPdfReport(new ArrayList<>());
         // emailService.sendEmailWithAttachment("danigpro1337@gmail.com", "C:\\Users\\danil\\Desktop\\2305_L1_Палев_Гловацкий.pdf");
         return "mail";
 
