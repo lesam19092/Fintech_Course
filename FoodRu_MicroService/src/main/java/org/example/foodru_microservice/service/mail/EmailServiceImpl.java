@@ -4,23 +4,21 @@ import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
 import jakarta.mail.util.ByteArrayDataSource;
 import lombok.Data;
-import org.springframework.boot.context.properties.ConfigurationProperties;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
 @Service
 @Data
-@ConfigurationProperties("spring.mail")
+@RequiredArgsConstructor
 public class EmailServiceImpl implements EmailService {
 
     private final JavaMailSender mailSender;
 
+    @Value("${spring.mail.username}")
     private String username;
-
-    public EmailServiceImpl(JavaMailSender mailSender) {
-        this.mailSender = mailSender;
-    }
 
     @Override
     public void sendEmailWithAttachment(String toAddress, byte[] bytes) throws MessagingException {
