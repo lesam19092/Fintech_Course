@@ -1,14 +1,16 @@
 package org.example.foodru_microservice.model.dto;
 
-
 import lombok.Builder;
 import lombok.Data;
 import lombok.ToString;
 
+import java.util.List;
+
+
 @Data
-@Builder
 @ToString
-public class IngredientDto {
-    private String name;
-    private Double measure;
+public class ListIngredientDto {
+
+    private List<IngredientDto> ingredientDtoList;
+
 }
