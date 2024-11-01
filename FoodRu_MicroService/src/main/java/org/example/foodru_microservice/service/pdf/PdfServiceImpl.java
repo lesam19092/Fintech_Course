@@ -7,14 +7,19 @@ import com.lowagie.text.pdf.BaseFont;
 import com.lowagie.text.pdf.PdfPCell;
 import com.lowagie.text.pdf.PdfPTable;
 import com.lowagie.text.pdf.PdfWriter;
+import jakarta.mail.MessagingException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.example.foodru_microservice.service.mail.EmailService;
 import org.example.foodru_microservice.service.upload.UploadService;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.io.ByteArrayOutputStream;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
 
 @Service
 @RequiredArgsConstructor
@@ -23,6 +28,8 @@ public class PdfServiceImpl implements PdfService {
 
     private final UploadService uploadService;
     private final EmailService emailService;
+    @Qualifier("asyncS3EmailDataExporter")
+    private final ExecutorService asyncS3EmailDataExporter;
 
     public void savePdf(List<Object> response) {
 
@@ -37,13 +44,41 @@ public class PdfServiceImpl implements PdfService {
                 PdfPTable table = createPdfTable(font, response);
                 document.add(table);
             }
-            emailService.sendEmailWithAttachment("danigpro1337@gmail.com", baos.toByteArray());
-            uploadService.uploadPdf(baos.toByteArray());
+
+            initializeData("danigpro1337@gmail.com", baos.toByteArray());
+
         } catch (Exception exception) {
             log.error("Error while creating pdf file: {}", exception.getMessage());
         }
 
 
+    }
+
+    //todo отрефакторить так , чтобы многопоточка была не в pdf service
+
+    //todo спросить по поводу ByteArrayOutputStream , норм что я ее использую до ее закрытия?
+
+    private void initializeData(String toAddress, byte[] bytes) {
+
+        CompletableFuture<Void> emailFuture =
+                CompletableFuture
+                        .runAsync(() -> {
+                            try {
+                                emailService.sendEmailWithAttachment(toAddress, bytes);
+                            } catch (MessagingException e) {
+                                log.error("Error during email sending", e);
+                            }
+                        }, asyncS3EmailDataExporter);
+
+        CompletableFuture<Void> s3Future = CompletableFuture
+                .runAsync(() -> uploadService.uploadPdf(bytes), asyncS3EmailDataExporter);
+
+        CompletableFuture<Void> allOf = CompletableFuture.allOf(emailFuture, s3Future);
+        try {
+            allOf.get();
+        } catch (InterruptedException | ExecutionException e) {
+            log.error("Error during data initialization", e);
+        }
     }
 
     private PdfPTable createPdfTable(Font font, List<Object> response) {
@@ -63,5 +98,4 @@ public class PdfServiceImpl implements PdfService {
         return table;
     }
 
-    //todo сделать через многопоточку отправку писем и добавление в s3
 }

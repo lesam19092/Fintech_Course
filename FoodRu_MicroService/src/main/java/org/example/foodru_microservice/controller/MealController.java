@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -48,14 +49,13 @@ public class MealController {
     public String getMail(@PathVariable String email) throws IOException {
 
 
-        kafkaProducer.sendMessage("Hello from FoodRu" + email);
-       /* pdfService.savePdf(new ArrayList<>());
+        // kafkaProducer.sendMessage("Hello from FoodRu" + email);
+       pdfService.savePdf(new ArrayList<>());
         // emailService.sendEmailWithAttachment("danigpro1337@gmail.com", "C:\\Users\\danil\\Desktop\\2305_L1_Палев_Гловацкий.pdf");
         return "mail";
 
         //pdfService.savePdf(new ArrayList<>());*/
 
-        return "mail";
 
     }
 }

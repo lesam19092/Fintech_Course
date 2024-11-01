@@ -18,7 +18,7 @@ import java.util.UUID;
 public class UploadServiceImpl implements UploadService {
 
     private final AmazonS3 s3Client;
-    @Value("${spring.s3.bucketName}")
+        @Value("${spring.s3.bucketName}")
     private String bucketName;
 
     @Override
