@@ -1,6 +1,5 @@
 package org.example.foodru_microservice.service.meal;
 
-import com.amazonaws.services.dynamodbv2.xspec.M;
 import lombok.RequiredArgsConstructor;
 import org.example.foodru_microservice.mapper.MealMapper;
 import org.example.foodru_microservice.model.dto.ListIngredientDto;

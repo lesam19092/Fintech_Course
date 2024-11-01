@@ -1,6 +1,5 @@
 package org.example.foodru_microservice.model.dto;
 
-import lombok.Builder;
 import lombok.Data;
 import lombok.ToString;
 

@@ -6,8 +6,8 @@ import org.example.foodru_microservice.model.dto.IngredientDto;
 import org.example.foodru_microservice.model.dto.ListIngredientDto;
 import org.example.foodru_microservice.model.dto.MealDto;
 import org.example.foodru_microservice.model.dto.MealWithIngredientDto;
-import org.example.foodru_microservice.service.meal.MealService;
 import org.example.foodru_microservice.service.mail.EmailService;
+import org.example.foodru_microservice.service.meal.MealService;
 import org.example.foodru_microservice.service.pdf.PdfService;
 import org.example.foodru_microservice.service.sender.KafkaProducer;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -66,7 +65,7 @@ public class MealController {
         listIngredientDto.setIngredientDtoList(List.of(ingredientDto, ingredientDto1, ingredientDto2));
 
         kafkaProducer.sendMessage(listIngredientDto);
-       // pdfService.generateAndSendPdfReport(new ArrayList<>());
+        // pdfService.generateAndSendPdfReport(new ArrayList<>());
         // emailService.sendEmailWithAttachment("danigpro1337@gmail.com", "C:\\Users\\danil\\Desktop\\2305_L1_Палев_Гловацкий.pdf");
         return "mail";
 
