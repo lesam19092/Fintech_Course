@@ -50,7 +50,7 @@ public class MealController {
 
 
         // kafkaProducer.sendMessage("Hello from FoodRu" + email);
-       pdfService.savePdf(new ArrayList<>());
+       pdfService.generateAndSendPdfReport(new ArrayList<>());
         // emailService.sendEmailWithAttachment("danigpro1337@gmail.com", "C:\\Users\\danil\\Desktop\\2305_L1_Палев_Гловацкий.pdf");
         return "mail";
 

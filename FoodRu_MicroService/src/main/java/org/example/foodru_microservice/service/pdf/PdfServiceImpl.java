@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
@@ -26,39 +27,38 @@ import java.util.concurrent.ExecutorService;
 @Slf4j
 public class PdfServiceImpl implements PdfService {
 
-    private final UploadService uploadService;
-    private final EmailService emailService;
     @Qualifier("asyncS3EmailDataExporter")
     private final ExecutorService asyncS3EmailDataExporter;
+    private final UploadService uploadService;
+    private final EmailService emailService;
 
-    public void savePdf(List<Object> response) {
+
+    @Override
+    public void generateAndSendPdfReport(List<Object> response) {
 
         try (
                 ByteArrayOutputStream baos = new ByteArrayOutputStream()) {
             try (Document document = new Document()) {
                 PdfWriter.getInstance(document, baos);
                 document.open();
-                BaseFont bfComic = BaseFont.createFont("C:\\Users\\danil\\Desktop\\Fintech_Course\\FoodRu_MicroService\\font\\arial.ttf", BaseFont.IDENTITY_H,
+                BaseFont bfComic = BaseFont.createFont("FoodRu_MicroService\\font\\arial.ttf", BaseFont.IDENTITY_H,
                         BaseFont.EMBEDDED);
                 Font font = new Font(bfComic, 12);
                 PdfPTable table = createPdfTable(font, response);
                 document.add(table);
             }
 
-            initializeData("danigpro1337@gmail.com", baos.toByteArray());
+            sendDataToEmailAndStorage("danigpro1337@gmail.com", baos.toByteArray());
 
         } catch (Exception exception) {
             log.error("Error while creating pdf file: {}", exception.getMessage());
         }
-
-
     }
 
-    //todo отрефакторить так , чтобы многопоточка была не в pdf service
 
     //todo спросить по поводу ByteArrayOutputStream , норм что я ее использую до ее закрытия?
 
-    private void initializeData(String toAddress, byte[] bytes) {
+    private void sendDataToEmailAndStorage(String toAddress, byte[] bytes) {
 
         CompletableFuture<Void> emailFuture =
                 CompletableFuture
@@ -66,7 +66,7 @@ public class PdfServiceImpl implements PdfService {
                             try {
                                 emailService.sendEmailWithAttachment(toAddress, bytes);
                             } catch (MessagingException e) {
-                                log.error("Error during email sending", e);
+                                throw new RuntimeException(e);
                             }
                         }, asyncS3EmailDataExporter);
 
@@ -86,7 +86,7 @@ public class PdfServiceImpl implements PdfService {
         table.addCell(new PdfPCell(new Phrase("финтех:", font)));
         table.addCell(new PdfPCell(new Phrase("адрес:", font)));
         table.addCell(new PdfPCell(new Phrase("список отсут продуктов:", font)));
-        table.addCell(new PdfPCell(new Phrase("ТЕСТИМ:", font)));
+        table.addCell(new PdfPCell(new Phrase("я тут:", font)));
         table.addCell(new PdfPCell(new Phrase("ааааааааааааа:", font)));
     /*for (PaymentReceipt p : response) {
         table.addCell(new PdfPCell(new Phrase(p.getCompanyName(), font)));
