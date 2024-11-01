@@ -1,4 +1,4 @@
-package org.example.foodru_microservice.configuration;
+package org.example.foodru_microservice.configuration.db;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.jdbc.DataSourceBuilder;
