@@ -1,4 +1,4 @@
-package org.example.foodru_microservice.configuration;
+package org.example.foodru_microservice.configuration.s3;
 
 import com.amazonaws.auth.AWSStaticCredentialsProvider;
 import com.amazonaws.auth.BasicAWSCredentials;
@@ -19,14 +19,16 @@ public class ObjectStorageConfig {
 
     private String accessKeyId;
     private String secretAccessKey;
+    private String serviceEndpoint;
+    private String signingRegion;
 
     @Bean
     public AmazonS3 s3Client() {
         return AmazonS3ClientBuilder.standard()
                 .withEndpointConfiguration(
                         new com.amazonaws.client.builder.AwsClientBuilder.EndpointConfiguration(
-                                "https://storage.yandexcloud.net",
-                                "ru-central1"
+                                serviceEndpoint,
+                                signingRegion
                         )
                 )
                 .withCredentials(new AWSStaticCredentialsProvider(new BasicAWSCredentials(accessKeyId, secretAccessKey)))
