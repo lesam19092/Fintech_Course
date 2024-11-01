@@ -1,9 +1,9 @@
-package org.example.foodru_microservice.configuration;
+package org.example.foodru_microservice.configuration.kafka;
 
+import lombok.Data;
 import org.apache.kafka.clients.admin.AdminClientConfig;
-import org.apache.kafka.clients.admin.KafkaAdminClient;
 import org.apache.kafka.clients.admin.NewTopic;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.kafka.core.KafkaAdmin;
@@ -12,10 +12,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Configuration
+@Data
+@ConfigurationProperties(prefix = "spring.properties.kafka")
 public class KafkaTopicConfig {
 
-    @Value(value = "${spring.kafka.bootstrap-servers}")
     private String bootstrapAddress;
+    private String topicEdadilToFoodRu;
+    private String topicFoodRuToEdadil;
 
     @Bean
     public KafkaAdmin kafkaAdmin() {
@@ -26,11 +29,11 @@ public class KafkaTopicConfig {
 
     @Bean
     public NewTopic topicEdadilToFoodRu() {
-        return new NewTopic("topicEdadilToFoodRu", 1, (short) 1);
+        return new NewTopic(topicFoodRuToEdadil, 1, (short) 1);
     }
 
     @Bean
     public NewTopic topicFoodRuToEdadil() {
-        return new NewTopic("topicFoodRuToEdadil", 1, (short) 1);
+        return new NewTopic(topicFoodRuToEdadil, 1, (short) 1);
     }
 }
