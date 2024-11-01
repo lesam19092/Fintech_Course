@@ -21,8 +21,8 @@ spring:
   mail:
     host: smtp.yandex.ru
     port: 587
-    username: daniil.glovatsky@yandex.ru
-    password: hngnlwgjftlauomk
+    username: ${username}
+    password: ${password}
     properties:
       mail:
         smtp:
@@ -32,9 +32,9 @@ spring:
   s3:
     serviceEndpoint: https://storage.yandexcloud.net
     signingRegion: ru-central1
-    bucketName: bucket-for-s3
-    accessKeyId: YCAJE0sU1RpxZtayJhor-EAg3
-    secretAccessKey: YCPGq37wBlm2LlC0k35_qwqncdf0RROs5FTtKAKo
+    bucketName: ${bucketName}
+    accessKeyId: ${accessKeyId}
+    secretAccessKey: ${secretAccessKey}
 
   kafka:
     bootstrap-servers: localhost:29092
@@ -45,5 +45,9 @@ spring:
       bootstrapAddress: localhost:29092
       topicEdadilToFoodRu: topicEdadilToFoodRu
       topicFoodRuToEdadil: topicFoodRuToEdadil
+
+thread:
+  threadCount: 2
+
 server:
   port: 7070
