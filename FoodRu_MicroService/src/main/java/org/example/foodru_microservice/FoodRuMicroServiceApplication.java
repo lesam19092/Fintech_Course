@@ -11,6 +11,5 @@ public class FoodRuMicroServiceApplication {
     public static void main(String[] args) {
         SpringApplication.run(FoodRuMicroServiceApplication.class, args);
     }
-    //TODO УБРАТЬ ПЕРЕМЕННЫЕ В COMPOSE.YML В ENV
 
 }
