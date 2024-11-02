@@ -1,6 +1,5 @@
 package com.example.edadil_microservice.model.dto;
 
-import lombok.Builder;
 import lombok.Data;
 import lombok.ToString;
 

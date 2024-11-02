@@ -13,7 +13,7 @@ public class PaymentReceiptResponse {
     private List<IngredientResponse> ingredients = new ArrayList<>();
     private boolean hasMissingIngredients;
     private List<String> missingIngredients = new ArrayList<>();
-    private Double cost;
+    private double cost;
 
 
     public void addIngredient(IngredientResponse ingredient) {
