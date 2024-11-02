@@ -1,9 +1,9 @@
-package org.example.foodru_microservice.service.sender;
+package org.example.foodru_microservice.service.kafka;
 
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.example.foodru_microservice.model.dto.ListIngredientDto;
+import org.example.foodru_microservice.model.dto.kafka.ListIngredientDto;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
