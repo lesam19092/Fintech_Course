@@ -1,8 +1,10 @@
 package com.example.edadil_microservice.config;
 
 import com.example.edadil_microservice.model.dto.ListIngredientDto;
+import lombok.Data;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.common.serialization.StringDeserializer;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.kafka.annotation.EnableKafka;
@@ -16,7 +18,13 @@ import java.util.Map;
 
 @EnableKafka
 @Configuration
+@Data
+@ConfigurationProperties("spring.properties.kafka")
 public class KafkaConsumerConfig {
+
+    private String bootstrapAddress;
+    private String groupId;
+
 
     @Bean
     public ConsumerFactory<String, ListIngredientDto> consumerFactory() {
@@ -29,10 +37,10 @@ public class KafkaConsumerConfig {
 
         props.put(
                 ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG,
-                "localhost:29092");
+                bootstrapAddress);
         props.put(
                 ConsumerConfig.GROUP_ID_CONFIG,
-                "myGroup");
+                groupId);
         props.put(
                 ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG,
                 StringDeserializer.class);
