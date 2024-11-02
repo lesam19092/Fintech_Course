@@ -7,6 +7,7 @@ import com.example.edadil_microservice.model.response.PaymentReceiptResponse;
 import com.example.edadil_microservice.model.response.ProductResponse;
 import com.example.edadil_microservice.model.response.ShopProductResponse;
 import com.example.edadil_microservice.service.company.CompanyService;
+import com.example.edadil_microservice.service.kafka.KafkaProducer;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -27,6 +28,8 @@ public class CalculationServiceImpl implements CalculationService {
 
 
     private final CompanyService companyService;
+
+    private final KafkaProducer kafkaProducer;
 
 
     @Override
@@ -68,6 +71,9 @@ public class CalculationServiceImpl implements CalculationService {
                         .getCost())
                 .toList();
 
+        kafkaProducer.sendMessage(cheapestPayments.get(0));
+
+
         return requireNonEmptyCollection(cheapestPayments);
     }
 
@@ -81,7 +87,6 @@ public class CalculationServiceImpl implements CalculationService {
         paymentReceiptResponse.setCompanyName(shop.getShop().getCompanyName());
 
         response.forEach(item -> processIngredient(item, shop, paymentReceiptResponse));
-
         return paymentReceiptResponse;
     }
 
@@ -105,9 +110,9 @@ public class CalculationServiceImpl implements CalculationService {
 
     private IngredientResponse createIngredientResponse(IngredientDto item, ProductResponse product) {
         return new IngredientResponse(item.getName(),
-                        item.getMeasure(),
-                        product.getFirm(),
-                        product.getPrice() * item.getMeasure());
+                item.getMeasure(),
+                product.getFirm(),
+                product.getPrice() * item.getMeasure());
     }
 
 }

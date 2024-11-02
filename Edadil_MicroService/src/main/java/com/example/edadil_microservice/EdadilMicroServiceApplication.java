@@ -15,4 +15,3 @@ public class EdadilMicroServiceApplication {
     }
 }
 
-//todo connect hikaricp

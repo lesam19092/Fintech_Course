@@ -14,6 +14,20 @@ spring:
     password: postgres
     poolName: myPool
 
+
+
+  kafka:
+    bootstrap-servers: localhost:29092
+    consumer:
+      group-id: edadilGroup
+
+  properties:
+    kafka:
+      bootstrapAddress: localhost:29092
+      topicEdadilToFoodRu: topicEdadilToFoodRu
+      topicFoodRuToEdadil: topicFoodRuToEdadil
+      groupId: edadilGroup
+
 management:
   endpoints.web.exposure.include: 'prometheus, health'
   metrics:
