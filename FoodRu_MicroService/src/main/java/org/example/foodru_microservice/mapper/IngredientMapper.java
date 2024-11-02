@@ -1,7 +1,7 @@
 package org.example.foodru_microservice.mapper;
 
 
-import org.example.foodru_microservice.model.dto.IngredientDto;
+import org.example.foodru_microservice.model.dto.kafka.IngredientDto;
 import org.example.foodru_microservice.model.entity.MealsIngredient;
 import org.springframework.stereotype.Component;
 

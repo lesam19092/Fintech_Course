@@ -2,14 +2,14 @@ package org.example.foodru_microservice.controller;
 
 
 import lombok.RequiredArgsConstructor;
-import org.example.foodru_microservice.model.dto.IngredientDto;
-import org.example.foodru_microservice.model.dto.ListIngredientDto;
+import org.example.foodru_microservice.model.dto.kafka.IngredientDto;
+import org.example.foodru_microservice.model.dto.kafka.ListIngredientDto;
 import org.example.foodru_microservice.model.dto.MealDto;
 import org.example.foodru_microservice.model.dto.MealWithIngredientDto;
 import org.example.foodru_microservice.service.mail.EmailService;
 import org.example.foodru_microservice.service.meal.MealService;
 import org.example.foodru_microservice.service.pdf.PdfService;
-import org.example.foodru_microservice.service.sender.KafkaProducer;
+import org.example.foodru_microservice.service.kafka.KafkaProducer;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
