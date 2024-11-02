@@ -17,7 +17,6 @@ import java.util.Map;
 public class KafkaTopicConfig {
 
     private String bootstrapAddress;
-    private String topicEdadilToFoodRu;
     private String topicFoodRuToEdadil;
 
     @Bean
@@ -25,11 +24,6 @@ public class KafkaTopicConfig {
         Map<String, Object> configs = new HashMap<>();
         configs.put(AdminClientConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapAddress);
         return new KafkaAdmin(configs);
-    }
-
-    @Bean
-    public NewTopic topicEdadilToFoodRu() {
-        return new NewTopic(topicFoodRuToEdadil, 1, (short) 1);
     }
 
     @Bean

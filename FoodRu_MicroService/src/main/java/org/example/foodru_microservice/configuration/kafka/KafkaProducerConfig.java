@@ -3,7 +3,7 @@ package org.example.foodru_microservice.configuration.kafka;
 import lombok.Data;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.StringSerializer;
-import org.example.foodru_microservice.model.dto.ListIngredientDto;
+import org.example.foodru_microservice.model.dto.kafka.ListIngredientDto;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
