@@ -13,14 +13,13 @@ import static com.example.edadil_microservice.utils.EntityUtils.requireNonEmptyC
 public class ShopResponseMapper {
 
 
-    //todo сделать раньше проверку на пустоту
     public static Set<ShopResponse> convertShopsToShopResponses(Set<Shop> shops) {
-        Set<ShopResponse> set = shops.stream()
+
+        requireNonEmptyCollection(shops);
+
+        return shops.stream()
                 .map(ShopResponseMapper::buildShopResponse)
                 .collect(Collectors.toSet());
-
-
-        return requireNonEmptyCollection(set);
     }
 
 
