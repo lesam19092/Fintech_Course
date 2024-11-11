@@ -1,0 +1,68 @@
+{
+  "groups": [
+    {
+      "name": "spring.datasource",
+      "type": "javax.sql.DataSource",
+      "sourceType": "org.example.foodru_microservice.configuration.db.DataSourceConfig",
+      "sourceMethod": "myDataSource()"
+    },
+    {
+      "name": "spring.properties.kafka",
+      "type": "org.example.foodru_microservice.configuration.kafka.KafkaConsumerConfig",
+      "sourceType": "org.example.foodru_microservice.configuration.kafka.KafkaConsumerConfig"
+    },
+    {
+      "name": "spring.s3",
+      "type": "org.example.foodru_microservice.configuration.s3.ObjectStorageConfig",
+      "sourceType": "org.example.foodru_microservice.configuration.s3.ObjectStorageConfig"
+    },
+    {
+      "name": "thread",
+      "type": "org.example.foodru_microservice.configuration.executor.ExecutorConfig",
+      "sourceType": "org.example.foodru_microservice.configuration.executor.ExecutorConfig"
+    }
+  ],
+  "properties": [
+    {
+      "name": "spring.properties.kafka.bootstrap-address",
+      "type": "java.lang.String",
+      "sourceType": "org.example.foodru_microservice.configuration.kafka.KafkaConsumerConfig"
+    },
+    {
+      "name": "spring.properties.kafka.group-id",
+      "type": "java.lang.String",
+      "sourceType": "org.example.foodru_microservice.configuration.kafka.KafkaConsumerConfig"
+    },
+    {
+      "name": "spring.properties.kafka.topic-food-ru-to-edadil",
+      "type": "java.lang.String",
+      "sourceType": "org.example.foodru_microservice.configuration.kafka.KafkaTopicConfig"
+    },
+    {
+      "name": "spring.s3.access-key-id",
+      "type": "java.lang.String",
+      "sourceType": "org.example.foodru_microservice.configuration.s3.ObjectStorageConfig"
+    },
+    {
+      "name": "spring.s3.secret-access-key",
+      "type": "java.lang.String",
+      "sourceType": "org.example.foodru_microservice.configuration.s3.ObjectStorageConfig"
+    },
+    {
+      "name": "spring.s3.service-endpoint",
+      "type": "java.lang.String",
+      "sourceType": "org.example.foodru_microservice.configuration.s3.ObjectStorageConfig"
+    },
+    {
+      "name": "spring.s3.signing-region",
+      "type": "java.lang.String",
+      "sourceType": "org.example.foodru_microservice.configuration.s3.ObjectStorageConfig"
+    },
+    {
+      "name": "thread.thread-count",
+      "type": "java.lang.Integer",
+      "sourceType": "org.example.foodru_microservice.configuration.executor.ExecutorConfig"
+    }
+  ],
+  "hints": []
+}

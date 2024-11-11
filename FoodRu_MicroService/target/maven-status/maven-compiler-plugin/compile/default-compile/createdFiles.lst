@@ -1,0 +1,3 @@
+org\example\foodru_microservice\configuration\KafkaTopicConfig.class
+org\example\foodru_microservice\configuration\KafkaProducerConfig.class
+org\example\foodru_microservice\configuration\DataSourceConfig.class

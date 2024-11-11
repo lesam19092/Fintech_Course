@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: Authentication_Service
+
+
+server:
+  port: 1010
+
