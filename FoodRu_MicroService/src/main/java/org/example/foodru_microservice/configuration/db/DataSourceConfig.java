@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Configuration;
 
 import javax.sql.DataSource;
 
+
 @Configuration
 public class DataSourceConfig {
 
@@ -16,3 +17,4 @@ public class DataSourceConfig {
         return DataSourceBuilder.create().build();
     }
 }
+

@@ -46,4 +46,10 @@ public class RestExceptionHandle {
     public ApiError handleNotFoundExceptions(RuntimeException ex) {
         return new ApiError(HttpStatus.NOT_FOUND, String.format("Сообщение: Ошибка: %s%n", ex.getMessage()));
     }
+
+    @ExceptionHandler(Exception.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    public ApiError handleGenericException(Exception ex) {
+        return new ApiError(HttpStatus.INTERNAL_SERVER_ERROR, String.format("Сообщение: Внутренняя ошибка сервера\nОшибка: %s%n", ex.getMessage()));
+    }
 }

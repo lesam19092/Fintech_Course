@@ -11,7 +11,8 @@ public class KafkaConsumer {
 
 
     //todo сделать так , чтобы те сообщения , которые не удалось обработать сразу - отправлялись позже
-    @KafkaListener(topics = "${spring.properties.kafka.topicEdadilToFoodRu}", groupId = "${spring.properties.kafka.groupId}")
+    @KafkaListener(topics = "${spring.properties.kafka.topicEdadilToFoodRu}"
+                 , groupId = "${spring.properties.kafka.groupId}")
     public void listenGroupFoo(PaymentReceiptResponse paymentReceiptResponse) {
         System.out.println("Received Message in group foo: " + paymentReceiptResponse.toString());
     }

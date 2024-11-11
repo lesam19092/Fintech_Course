@@ -1,10 +1,10 @@
 package org.example.foodru_microservice.configuration.kafka;
 
 import lombok.Data;
+import lombok.RequiredArgsConstructor;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.StringSerializer;
 import org.example.foodru_microservice.model.dto.kafka.ListIngredientDto;
-import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.kafka.core.DefaultKafkaProducerFactory;
@@ -17,17 +17,17 @@ import java.util.Map;
 
 @Configuration
 @Data
-@ConfigurationProperties(prefix = "spring.properties.kafka")
+@RequiredArgsConstructor
 public class KafkaProducerConfig {
 
-    private String bootstrapAddress;
+    private final KafkaPropertiesConfig config;
 
     @Bean
     public ProducerFactory<String, ListIngredientDto> producerFactory() {
         Map<String, Object> configProps = new HashMap<>();
         configProps.put(
                 ProducerConfig.BOOTSTRAP_SERVERS_CONFIG,
-                bootstrapAddress);
+                config.getBootstrapAddress());
         configProps.put(
                 ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG,
                 StringSerializer.class);

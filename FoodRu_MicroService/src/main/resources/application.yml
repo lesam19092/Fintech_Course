@@ -34,10 +34,6 @@ spring:
     accessKeyId: ${accessKeyId}
     secretAccessKey: ${secretAccessKey}
 
-  kafka:
-    bootstrap-servers: localhost:29092
-    consumer:
-      group-id: foodRuGroup
 
   properties:
     kafka:
