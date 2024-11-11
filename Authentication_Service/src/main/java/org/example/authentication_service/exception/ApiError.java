@@ -1,4 +1,4 @@
-package org.example.authentication_service.exception;
+package main.java.org.example.authentication_service.exception;
 
 import lombok.Data;
 

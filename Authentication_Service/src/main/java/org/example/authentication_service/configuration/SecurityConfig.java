@@ -1,8 +1,7 @@
-package org.example.authentication_service.configuration;
-
+package main.java.org.example.authentication_service.configuration;
 
 import lombok.RequiredArgsConstructor;
-import org.example.registration.service.user.UserService;
+import main.java.org.example.authentication_service.service.user.UserService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpStatus;

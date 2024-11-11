@@ -1,5 +1,9 @@
-package org.example.authentication_service.exception;
+package main.java.org.example.authentication_service.exception;
 
+import main.java.org.example.authentication_service.exception.ApiError;
+import main.java.org.example.authentication_service.exception.CodeMismatchException;
+import main.java.org.example.authentication_service.exception.DuplicateUsernameException;
+import main.java.org.example.authentication_service.exception.PasswordMismatchException;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;

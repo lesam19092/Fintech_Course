@@ -1,5 +1,4 @@
-package org.example.authentication_service.controller;
-
+package main.java.org.example.authentication_service.controller;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

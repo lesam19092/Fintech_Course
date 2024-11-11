@@ -1,9 +1,9 @@
-package org.example.authentication_service.service.user;
+package main.java.org.example.authentication_service.service.user;
 
 import lombok.RequiredArgsConstructor;
+import main.java.org.example.authentication_service.service.user.UserService;
 import org.example.authentication_service.model.dto.PasswordResetRequest;
 import org.example.authentication_service.model.dto.RegistrationUserDto;
-import org.example.authentication_service.model.entity.User;
 import org.example.registration.exception.CodeMismatchException;
 import org.example.registration.exception.PasswordMismatchException;
 import org.example.registration.model.dto.PasswordResetRequest;

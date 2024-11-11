@@ -1,4 +1,4 @@
-package org.example.authentication_service.configuration;
+package main.java.org.example.authentication_service.configuration;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

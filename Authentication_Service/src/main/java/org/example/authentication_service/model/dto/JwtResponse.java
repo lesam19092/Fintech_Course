@@ -1,4 +1,4 @@
-package org.example.authentication_service.model.dto;
+package main.java.org.example.authentication_service.model.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

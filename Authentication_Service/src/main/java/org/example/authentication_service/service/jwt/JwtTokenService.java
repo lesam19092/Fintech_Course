@@ -1,5 +1,4 @@
-package org.example.authentication_service.service.jwt;
-
+package main.java.org.example.authentication_service.service.jwt;
 
 import org.springframework.security.core.userdetails.UserDetails;
 
