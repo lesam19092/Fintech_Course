@@ -1,4 +1,4 @@
-package main.java.org.example.authentication_service.model.dto;
+package org.example.authentication_service.model.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -6,6 +6,7 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class UserDto {
+
     private Integer id;
     private String username;
     private String email;
