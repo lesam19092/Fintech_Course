@@ -1,38 +1,25 @@
-CREATE TYPE role AS ENUM ('ADMIN', 'USER');
+create table services
+(
+    id           INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+    service_name VARCHAR(100)
+);
 
-CREATE TABLE users_edadil
+CREATE TABLE users
 (
     id        INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
     name      VARCHAR(100),
     email     VARCHAR(100),
     password  VARCHAR(100),
-    user_role role
+    user_role varchar(100),
+    service_id INT,
+    FOREIGN KEY (service_id) REFERENCES services (id)
 );
-
-
-CREATE TABLE users_foodru
-(
-    id        INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
-    name      VARCHAR(50),
-    email     VARCHAR(100),
-    password  VARCHAR(100),
-    user_role role
-);
-
-create table tokens_edadil
+create table tokens
 (
     id            INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
     access_token  VARCHAR(200),
     is_logged_out boolean,
     user_id       INT,
-    FOREIGN KEY (user_id) REFERENCES users_edadil (id)
+    FOREIGN KEY (user_id) REFERENCES users (id)
 );
 
-create table tokens_foodru
-(
-    id            INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
-    access_token  VARCHAR(200),
-    is_logged_out boolean,
-    user_id       INT,
-    FOREIGN KEY (user_id) REFERENCES users_foodru (id)
-);
