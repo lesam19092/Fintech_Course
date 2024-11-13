@@ -13,9 +13,10 @@ CREATE TABLE users_edadil
 CREATE TABLE users_foodru
 (
     id        INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
-    user_name VARCHAR(50),
-    user_role role,
-    password  VARCHAR(100)
+    name      VARCHAR(50),
+    email     VARCHAR(100),
+    password  VARCHAR(100),
+    user_role role
 );
 
 create table tokens_edadil

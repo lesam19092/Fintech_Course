@@ -1,17 +1,15 @@
-package main.java.org.example.authentication_service.service.user;
+package org.example.authentication_service.service.user_foodru;
 
 import lombok.RequiredArgsConstructor;
-import main.java.org.example.authentication_service.service.user.UserService;
+import org.example.authentication_service.exception.CodeMismatchException;
+import org.example.authentication_service.exception.PasswordMismatchException;
 import org.example.authentication_service.model.dto.PasswordResetRequest;
 import org.example.authentication_service.model.dto.RegistrationUserDto;
-import org.example.registration.exception.CodeMismatchException;
-import org.example.registration.exception.PasswordMismatchException;
-import org.example.registration.model.dto.PasswordResetRequest;
-import org.example.registration.model.dto.RegistrationUserDto;
-import org.example.registration.model.entity.Role;
-import org.example.registration.model.entity.User;
-import org.example.registration.repository.UserRepository;
+import org.example.authentication_service.model.entity.Role;
+import org.example.authentication_service.model.entity.UserFoodRu;
+import org.example.authentication_service.repository.UserFoodRuRepository;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -20,14 +18,16 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+
 @Service
 @RequiredArgsConstructor
-public class UserServiceImpl implements UserService {
-    private final UserRepository userRepository;
+public class UserFoodRuServiceImpl implements UserFoodRuService {
+
+    private final UserFoodRuRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
     @Override
-    public User findByUsername(String username) {
+    public UserFoodRu findByUsername(String username) {
         return userRepository.findByName(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
     }
@@ -36,32 +36,28 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = findByUsername(username);
-        return new org.springframework.security.core.userdetails.User(
+        UserFoodRu user = findByUsername(username);
+        return new User(
                 user.getUsername(),
                 user.getPassword(),
                 List.of(new SimpleGrantedAuthority(user.getRole().getAuthority()))
         );
     }
 
+
     @Override
-    public User createNewUser(RegistrationUserDto registrationUserDto) {
-        User user = new User();
+    public UserFoodRu createNewUser(RegistrationUserDto registrationUserDto) {
+        UserFoodRu user = new UserFoodRu();
         user.setName(registrationUserDto.getUsername());
-        user.setEmail(registrationUserDto.getEmail());
         user.setPassword(passwordEncoder.encode(registrationUserDto.getPassword()));
-        user.setRole(Role.ROLE_USER);
+        user.setRole(Role.USER);
+        user.setEmail(registrationUserDto.getEmail());
         return userRepository.save(user);
     }
 
     @Override
     public boolean existsByUsername(String username) {
         return userRepository.findByName(username).isPresent();
-    }
-
-    @Override
-    public void resetPassword(PasswordResetRequest request) {
-
     }
 
     @Override
@@ -74,7 +70,7 @@ public class UserServiceImpl implements UserService {
             throw new PasswordMismatchException("Passwords do not match");
         }
 
-        User user = findByUsername(request.getName());
+        UserFoodRu user = findByUsername(request.getName());
         user.setPassword(passwordEncoder.encode(request.getNewPassword()));
         userRepository.save(user);
     }
