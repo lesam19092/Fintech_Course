@@ -1,8 +1,11 @@
-package main.java.org.example.authentication_service.service.token;
+package org.example.authentication_service.service.token;
+
+
 
 import lombok.RequiredArgsConstructor;
-import main.java.org.example.authentication_service.model.entity.Token;
-import main.java.org.example.authentication_service.model.entity.User;
+import org.example.authentication_service.model.entity.Token;
+import org.example.authentication_service.model.entity.User;
+import org.example.authentication_service.repository.TokenRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
