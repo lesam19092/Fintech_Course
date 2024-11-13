@@ -2,6 +2,7 @@ package org.example.authentication_service.model.dto;
 
 import jakarta.validation.constraints.Size;
 import lombok.Data;
+import org.example.authentication_service.model.consts.UserType;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
 
@@ -16,6 +17,7 @@ public class RegistrationUserDto {
      * "password": "123456",
      * "confirmPassword" : "123456",
      * "email": "danigpro1337@gmail.com"
+     * "userType": "ADMIN"
      * }
      */
 
@@ -34,4 +36,6 @@ public class RegistrationUserDto {
     @NotBlank
     @Email(message = "Email should be valid")
     private String email;
+
+    private UserType userType;
 }
