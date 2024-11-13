@@ -1,9 +1,5 @@
-package main.java.org.example.authentication_service.exception;
+package org.example.authentication_service.exception;
 
-import main.java.org.example.authentication_service.exception.ApiError;
-import main.java.org.example.authentication_service.exception.CodeMismatchException;
-import main.java.org.example.authentication_service.exception.DuplicateUsernameException;
-import main.java.org.example.authentication_service.exception.PasswordMismatchException;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;
@@ -48,11 +44,10 @@ public class RestExceptionHandle {
         return new ResponseEntity<>(new ApiError(HttpStatus.BAD_REQUEST.value(), "Invalid confirmation code"), HttpStatus.BAD_REQUEST);
     }
 
-
     @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    public ResponseEntity<?> handleGenericException(Exception ex) {
-        return new ResponseEntity<>(new ApiError(HttpStatus.INTERNAL_SERVER_ERROR.value(), "Внутренняя ошибка сервера"), HttpStatus.INTERNAL_SERVER_ERROR);
+    public ApiError handleGenericException(Exception ex) {
+        return new ApiError(HttpStatus.INTERNAL_SERVER_ERROR.value(), String.format("Сообщение: Внутренняя ошибка сервера\nОшибка: %s%n", ex.getMessage()));
     }
 
 
