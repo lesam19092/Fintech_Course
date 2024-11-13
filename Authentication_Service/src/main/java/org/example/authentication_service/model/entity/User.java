@@ -1,6 +1,7 @@
 package org.example.authentication_service.model.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
@@ -12,29 +13,32 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
-@Table(name = "users_edadil")
-public class UserEdadil implements UserDetails {
+@Table(name = "users")
+public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Integer id;
 
+    @Size(max = 100)
     @Column(name = "name", length = 100)
     private String name;
 
+    @Size(max = 100)
     @Column(name = "email", length = 100)
     private String email;
 
+    @Size(max = 100)
     @Column(name = "password", length = 100)
     private String password;
-
-    @OneToMany(mappedBy = "user")
-    private List<TokenEdadil> tokens;
-
 
     @Column(name = "user_role", length = 100)
     @Enumerated(EnumType.STRING)
     private Role role;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "service_id")
+    private Instance instance;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
