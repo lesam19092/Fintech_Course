@@ -1,8 +1,26 @@
 spring:
   application:
     name: Authentication_Service
+  jpa:
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    jdbcUrl: jdbc:postgresql://localhost:5437/registration_db?stringtype=unspecified
+    username: postgres
+    password: postgres
+    poolName: myPool
 
+jwt:
+  secret: 984hg493gh0439rthr0429uruj2309yh937gc763fe87t3f89723gf
 
 server:
   port: 1010
+
+duration:
+  shortTime: 10
+  longTime: 43200
 
