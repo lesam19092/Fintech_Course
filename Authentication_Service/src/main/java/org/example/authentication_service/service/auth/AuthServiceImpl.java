@@ -2,11 +2,10 @@ package org.example.authentication_service.service.auth;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.example.authentication_service.model.consts.UserType;
 import org.example.authentication_service.model.dto.*;
-import org.example.authentication_service.model.entity.UserEdadil;
+import org.example.authentication_service.model.entity.User;
 import org.example.authentication_service.service.jwt.JwtTokenService;
-import org.example.authentication_service.service.user_edadil.UserEdadilService;
+import org.example.authentication_service.service.user.UserService;
 import org.example.authentication_service.utils.Checker;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -22,7 +21,7 @@ public class AuthServiceImpl implements AuthService {
 
 
     //todo убрать
-    private final UserEdadilService userEdadilService;
+    private final UserService userServicea;
     private final JwtTokenService jwtTokenService;
     private final DaoAuthenticationProvider edadilAuthProvider;
     private final Checker checker;
@@ -36,7 +35,7 @@ public class AuthServiceImpl implements AuthService {
         String password = authRequest.getPassword();
         edadilAuthProvider.authenticate(new UsernamePasswordAuthenticationToken(username, password));
 
-        UserDetails userDetails = userEdadilService.loadUserByUsername(username);
+        UserDetails userDetails = userServicea.loadUserByUsername(username);
         String token = jwtTokenService.generateToken(userDetails,
                 authRequest.getRememberMe() ? 1000
                         : 10);
@@ -50,9 +49,9 @@ public class AuthServiceImpl implements AuthService {
         log.info("Creating new user: {}", registrationUserDto.getUsername());
 
         checker.checkPassword(registrationUserDto);
-        checker.checkUsername(registrationUserDto, UserType.Edadil);
+        checker.checkUsername(registrationUserDto);
 
-        UserEdadil user = userEdadilService.createNewUser(registrationUserDto);
+        User user = userServicea.createNewUser(registrationUserDto);
         log.info("New user created successfully: {}", user.getUsername());
         return ResponseEntity.ok(new UserDto(user.getId(), user.getUsername(), user.getEmail()));
     }
@@ -60,7 +59,7 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public ResponseEntity<?> resetPassword(PasswordResetRequest request) {
         log.info("Resetting password for user: {}", request.getName());
-        userEdadilService.resetPassword(request);
+        userServicea.resetPassword(request);
         log.info("Password reset successfully for user: {}", request.getName());
         return ResponseEntity.ok("Password reset successfully");
     }

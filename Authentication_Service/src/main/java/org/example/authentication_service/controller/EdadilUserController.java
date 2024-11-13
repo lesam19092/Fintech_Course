@@ -1,13 +1,12 @@
 package org.example.authentication_service.controller;
 
-/*
 
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import org.example.authentication_service.model.dto.LoginUserDto;
 import org.example.authentication_service.model.dto.PasswordResetRequest;
 import org.example.authentication_service.model.dto.RegistrationUserDto;
 import org.example.authentication_service.service.auth.AuthService;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,15 +15,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/edadil")
+@RequiredArgsConstructor
 public class EdadilUserController {
 
     private final AuthService authService;
 
-    public EdadilUserController(
-            @Qualifier("authEdadilServiceImpl")
-            AuthService authService) {
-        this.authService = authService;
-    }
 
     @PostMapping("/login")
     public ResponseEntity<?> createAuthToken(@RequestBody LoginUserDto authRequest) {
@@ -46,4 +41,4 @@ public class EdadilUserController {
     }
 
 
-}*/
+}
