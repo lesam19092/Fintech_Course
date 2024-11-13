@@ -17,7 +17,7 @@ public class RegistrationUserDto {
      * "password": "123456",
      * "confirmPassword" : "123456",
      * "email": "danigpro1337@gmail.com"
-     * "userType": "ADMIN"
+     * "userType": "FoodRu"
      * }
      */
 
@@ -37,5 +37,6 @@ public class RegistrationUserDto {
     @Email(message = "Email should be valid")
     private String email;
 
+    @NotBlank
     private UserType userType;
 }
