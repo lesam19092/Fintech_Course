@@ -7,13 +7,13 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 import java.util.Optional;
 
-public interface TokenRepository extends JpaRepository<Token, Integer> {
+public interface TokenRepository extends JpaRepository<Token, Long> {
 
     @Query("""
             select t from Token t join fetch t.user
             where t.user.id = :userId and t.isLoggedOut = false
             """)
-    List<Token> findAllAccessTokensByUser(Integer userId);
+    List<Token> findAllAccessTokensByUser(Long userId);
 
     Optional<Token> findByAccessToken(String token);
 }

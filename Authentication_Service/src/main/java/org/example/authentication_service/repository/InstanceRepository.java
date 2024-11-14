@@ -5,7 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
 
-public interface InstanceRepository extends JpaRepository<Instance, Integer> {
+public interface InstanceRepository extends JpaRepository<Instance, Long> {
 
     Optional<Instance> findByName(String name);
 }
