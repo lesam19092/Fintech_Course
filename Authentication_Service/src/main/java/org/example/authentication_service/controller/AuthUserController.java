@@ -17,14 +17,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping(EndPoints.AUTH)
 @RequiredArgsConstructor
-//todo поменять навзвание
-
 public class AuthUserController {
 
 
     private final AuthService authService;
 
-    //todo добавить в логин имя сервис
 
     @PostMapping(EndPoints.LOGIN)
     public ResponseEntity<?> createAuthToken(@Valid
