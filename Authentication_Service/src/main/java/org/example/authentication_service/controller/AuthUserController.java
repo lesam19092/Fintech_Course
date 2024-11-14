@@ -3,6 +3,7 @@ package org.example.authentication_service.controller;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.example.authentication_service.model.consts.EndPoints;
 import org.example.authentication_service.model.dto.LoginUserDto;
 import org.example.authentication_service.model.dto.PasswordResetRequest;
 import org.example.authentication_service.model.dto.RegistrationUserDto;
@@ -14,26 +15,32 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/edadil")
+@RequestMapping(EndPoints.AUTH)
 @RequiredArgsConstructor
-public class EdadilUserController {
+//todo поменять навзвание
+
+public class AuthUserController {
+
 
     private final AuthService authService;
 
+    //todo добавить в логин имя сервис
 
-    @PostMapping("/login")
-    public ResponseEntity<?> createAuthToken(@RequestBody LoginUserDto authRequest) {
+    @PostMapping(EndPoints.LOGIN)
+    public ResponseEntity<?> createAuthToken(@Valid
+                                             @RequestBody
+                                             LoginUserDto authRequest) {
         return authService.createAuthToken(authRequest);
     }
 
-    @PostMapping("/registration")
+    @PostMapping(EndPoints.REGISTRATION)
     public ResponseEntity<?> createNewUser(@Valid
                                            @RequestBody
                                            RegistrationUserDto registrationUserDto) {
         return authService.createNewUser(registrationUserDto);
     }
 
-    @PostMapping("/reset-password")
+    @PostMapping(EndPoints.RESET_PASSWORD)
     public ResponseEntity<?> resetPassword(@Valid
                                            @RequestBody
                                            PasswordResetRequest request) {

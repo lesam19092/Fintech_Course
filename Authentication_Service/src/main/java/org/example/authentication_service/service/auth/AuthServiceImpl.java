@@ -23,7 +23,7 @@ public class AuthServiceImpl implements AuthService {
     //todo убрать
     private final UserService userServicea;
     private final JwtTokenService jwtTokenService;
-    private final DaoAuthenticationProvider edadilAuthProvider;
+    private final DaoAuthenticationProvider daoAuthProvider;
     private final Checker checker;
 
 
@@ -33,7 +33,7 @@ public class AuthServiceImpl implements AuthService {
 
         String username = authRequest.getUsername();
         String password = authRequest.getPassword();
-        edadilAuthProvider.authenticate(new UsernamePasswordAuthenticationToken(username, password));
+        daoAuthProvider.authenticate(new UsernamePasswordAuthenticationToken(username, password));
 
         UserDetails userDetails = userServicea.loadUserByUsername(username);
         String token = jwtTokenService.generateToken(userDetails,
