@@ -10,7 +10,7 @@ import javax.sql.DataSource;
 @Configuration
 public class DataSourceConfig {
 
-    @Bean(name = "myDataSource")
+    @Bean(name = "authDataSource")
     @ConfigurationProperties("spring.datasource")
     public DataSource myDataSource() {
         return DataSourceBuilder.create().build();
