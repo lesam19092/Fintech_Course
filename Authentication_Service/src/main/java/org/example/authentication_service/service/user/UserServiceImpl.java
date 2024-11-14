@@ -2,10 +2,10 @@ package org.example.authentication_service.service.user;
 
 
 import lombok.RequiredArgsConstructor;
+import org.example.authentication_service.controller.dto.PasswordResetRequest;
+import org.example.authentication_service.controller.dto.RegistrationUserDto;
 import org.example.authentication_service.exception.CodeMismatchException;
 import org.example.authentication_service.exception.PasswordMismatchException;
-import org.example.authentication_service.model.dto.PasswordResetRequest;
-import org.example.authentication_service.model.dto.RegistrationUserDto;
 import org.example.authentication_service.model.entity.Instance;
 import org.example.authentication_service.model.entity.User;
 import org.example.authentication_service.repository.UserRepository;
@@ -38,8 +38,23 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = findByUsername(username);
+    public UserDetails loadUserByUsername(String usernameAndInstance) throws UsernameNotFoundException {
+        String[] parts = splitUsername(usernameAndInstance);
+        String actualUsername = parts[0];
+        String userType = parts[1];
+
+                User user = findByUsernameAndInstance(actualUsername, userType);
+        return new org.springframework.security.core.userdetails.User(
+                user.getName(),
+                user.getPassword(),
+                List.of(new SimpleGrantedAuthority(user.getRole().getAuthority()))
+        );
+    }
+
+    @Transactional
+    @Override
+    public UserDetails loadUserByUsernameAndInstance(String username, String instanceName) throws UsernameNotFoundException {
+        User user = findByUsernameAndInstance(username, instanceName);
         return new org.springframework.security.core.userdetails.User(
                 user.getName(),
                 user.getPassword(),
@@ -78,6 +93,12 @@ public class UserServiceImpl implements UserService {
         userRepository.save(user);
     }
 
+    @Override
+    public User findByUsernameAndInstance(String username, String instanceName) {
+        return userRepository.findByUsernameAndInstance(username, instanceName)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+    }
+
     private User buildUserFromDto(RegistrationUserDto registrationUserDto, Instance instance) {
         User user = new User();
         user.setInstance(instance);
@@ -86,5 +107,13 @@ public class UserServiceImpl implements UserService {
         user.setPassword(passwordEncoder.encode(registrationUserDto.getPassword()));
         user.setRole(ROLE_USER);
         return user;
+    }
+
+    private String[] splitUsername(String username) {
+        String[] parts = username.split(":");
+        if (parts.length != 2) {
+            throw new UsernameNotFoundException("Invalid username format");
+        }
+        return parts;
     }
 }
