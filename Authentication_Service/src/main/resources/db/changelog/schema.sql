@@ -1,7 +1,7 @@
-create table services
+create table instance
 (
     id           INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
-    service_name VARCHAR(100)
+    instance_name VARCHAR(100)
 );
 
 CREATE TABLE users
@@ -11,13 +11,13 @@ CREATE TABLE users
     email     VARCHAR(100),
     password  VARCHAR(100),
     user_role varchar(100),
-    service_id INT,
-    FOREIGN KEY (service_id) REFERENCES services (id)
+    instance_id INT,
+    FOREIGN KEY (instance_id) REFERENCES instance (id)
 );
 create table tokens
 (
     id            INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
-    access_token  VARCHAR(200),
+    access_token  VARCHAR(300),
     is_logged_out boolean,
     user_id       INT,
     FOREIGN KEY (user_id) REFERENCES users (id)
