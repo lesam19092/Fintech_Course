@@ -1,8 +1,7 @@
-package org.example.authentication_service.model.dto;
+package org.example.authentication_service.controller.dto;
 
 import jakarta.validation.constraints.Size;
 import lombok.Data;
-import org.hibernate.validator.constraints.NotBlank;
 
 import javax.validation.constraints.NotEmpty;
 

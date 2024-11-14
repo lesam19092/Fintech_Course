@@ -1,4 +1,4 @@
-package org.example.authentication_service.model.dto;
+package org.example.authentication_service.controller.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

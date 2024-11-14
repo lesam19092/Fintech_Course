@@ -1,4 +1,4 @@
-package org.example.authentication_service.model.dto;
+package org.example.authentication_service.controller.dto;
 
 import jakarta.validation.constraints.Size;
 import lombok.Data;
@@ -17,7 +17,7 @@ public class RegistrationUserDto {
      * "username": "даня",
      * "password": "123456",
      * "confirmPassword" : "123456",
-     * "email": "danigpro1337@gmail.com"
+     * "email": "danigpro1337@gmail.com",
      * "userType": "FoodRu"
      * }
      */
@@ -43,5 +43,4 @@ public class RegistrationUserDto {
 }
 //todo написать отрпавление аккаунта на почту
 //todo сделать сброс через почту
-//todo обновить токен
 //todo вынести токен в env
