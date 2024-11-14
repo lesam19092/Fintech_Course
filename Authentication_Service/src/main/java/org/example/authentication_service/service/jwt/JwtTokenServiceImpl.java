@@ -5,27 +5,25 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.example.authentication_service.model.entity.User;
 import org.example.authentication_service.service.token.TokenService;
 import org.example.authentication_service.service.user.UserService;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 @Service
 @Data
 @ConfigurationProperties(prefix = "jwt")
 @RequiredArgsConstructor
+@Slf4j
 public class JwtTokenServiceImpl implements JwtTokenService {
 
-//TODO убрать
     private String secret;
 
     private final TokenService tokenService;
@@ -33,13 +31,14 @@ public class JwtTokenServiceImpl implements JwtTokenService {
     private final UserService userService;
 
     @Override
-    public String generateToken(UserDetails userDetails, long minutes) {
-        Map<String, Object> claims = createClaims(userDetails);
+    public String generateToken(User user, String instanceNamse, long minutes) {
+
+
+        Map<String, Object> claims = createClaims(user);
         Date issuedDate = new Date();
         Date expiredDate = calculateExpirationDate(issuedDate, minutes);
 
-        User user = userService.findByUsername(userDetails.getUsername());
-        String jwtToken = buildJwtToken(userDetails, claims, issuedDate, expiredDate);
+        String jwtToken = buildJwtToken(claims, issuedDate, expiredDate);
 
         tokenService.revokeAllTokenByUser(user);
         tokenService.saveToken(user, jwtToken);
@@ -70,12 +69,12 @@ public class JwtTokenServiceImpl implements JwtTokenService {
                 .getBody();
     }
 
-    private Map<String, Object> createClaims(UserDetails userDetails) {
+    private Map<String, Object> createClaims(User user) {
         Map<String, Object> claims = new HashMap<>();
-        List<String> rolesList = userDetails.getAuthorities().stream()
-                .map(GrantedAuthority::getAuthority)
-                .collect(Collectors.toList());
-        claims.put("roles", rolesList);
+        claims.put("id", String.valueOf(user.getId()));
+        claims.put("instance", user.getInstance().getName());
+        claims.put("role", String.valueOf(user.getRole()));
+        claims.put("email", user.getEmail());
         return claims;
     }
 
@@ -83,10 +82,9 @@ public class JwtTokenServiceImpl implements JwtTokenService {
         return new Date(issuedDate.getTime() + minutes * 60 * 1000);
     }
 
-    private String buildJwtToken(UserDetails userDetails, Map<String, Object> claims, Date issuedDate, Date expiredDate) {
+    private String buildJwtToken(Map<String, Object> claims, Date issuedDate, Date expiredDate) {
         return Jwts.builder()
                 .setClaims(claims)
-                .setSubject(userDetails.getUsername())
                 .setIssuedAt(issuedDate)
                 .setExpiration(expiredDate)
                 .signWith(SignatureAlgorithm.HS256, secret)
