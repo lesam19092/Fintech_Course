@@ -43,4 +43,3 @@ public class RegistrationUserDto {
 }
 //todo написать отрпавление аккаунта на почту
 //todo сделать сброс через почту
-//todo вынести токен в env
