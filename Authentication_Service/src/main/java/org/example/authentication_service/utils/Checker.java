@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.example.authentication_service.exception.DuplicateUsernameException;
 import org.example.authentication_service.exception.PasswordMismatchException;
-import org.example.authentication_service.model.dto.RegistrationUserDto;
+import org.example.authentication_service.controller.dto.RegistrationUserDto;
 import org.example.authentication_service.service.user.UserService;
 import org.springframework.stereotype.Component;
 
