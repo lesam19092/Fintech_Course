@@ -8,19 +8,19 @@ import lombok.Setter;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
+
 @Getter
 @Setter
 @Entity
-@Table(name = "services")
+@Table(name = "instance")
 public class Instance {
-    //todo поменять название таблицы
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
-    private Integer id;
+    @Column(name = "id")
+    private Long id;
 
     @Size(max = 100)
-    @Column(name = "service_name", length = 100)
+    @Column(name = "instance_name", length = 100)
     private String name;
 
     @OneToMany(mappedBy = "instance", cascade = CascadeType.ALL)

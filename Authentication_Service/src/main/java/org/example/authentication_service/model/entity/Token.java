@@ -12,11 +12,11 @@ import lombok.Setter;
 public class Token {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
-    private Integer id;
+    @Column(name = "id")
+    private Long id;
 
-    @Size(max = 200)
-    @Column(name = "access_token", length = 200)
+    @Size(max = 400)
+    @Column(name = "access_token", length = 400)
     private String accessToken;
 
     @Column(name = "is_logged_out")
