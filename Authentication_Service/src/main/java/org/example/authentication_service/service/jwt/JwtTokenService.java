@@ -8,7 +8,7 @@ import java.util.List;
 public interface JwtTokenService {
 
 
-    String generateToken(User user, String instanceName, long minutes);
+    String generateToken(User user, long minutes);
 
     List<String> getRoles(String token);
 
