@@ -1,5 +1,6 @@
 package org.example.authentication_service.exception;
 
+import jakarta.mail.MessagingException;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.Ordered;
@@ -11,6 +12,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+
+import java.util.concurrent.CompletionException;
 
 @Order(Ordered.HIGHEST_PRECEDENCE)
 @RestControllerAdvice
@@ -75,6 +78,19 @@ public class RestExceptionHandle {
         log.error("EntityNotFoundException: {}", ex.getMessage());
         return new ResponseEntity<>(new ApiError(HttpStatus.BAD_REQUEST.value(), "Entity not found"), HttpStatus.BAD_REQUEST);
     }
+
+    @ExceptionHandler(CompletionException.class)
+    public ResponseEntity<?> handleCompletionException(CompletionException ex) {
+        log.error("CompletionException: {}", ex.getMessage());
+        return new ResponseEntity<>(new ApiError(HttpStatus.BAD_REQUEST.value(), "Completion exception"), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(MessagingException.class)
+    public ResponseEntity<?> handleMessagingException(MessagingException ex) {
+        log.error("MessagingException: {}", ex.getMessage());
+        return new ResponseEntity<>(new ApiError(HttpStatus.BAD_REQUEST.value(), "к сожалению, не удалось отправить сообщение на почту"), HttpStatus.BAD_REQUEST);
+    }
+
 
 
 }
