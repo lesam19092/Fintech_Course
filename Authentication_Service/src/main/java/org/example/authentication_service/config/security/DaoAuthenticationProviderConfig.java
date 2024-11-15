@@ -1,4 +1,4 @@
-package org.example.authentication_service.config;
+package org.example.authentication_service.config.security;
 
 import lombok.RequiredArgsConstructor;
 import org.example.authentication_service.service.user.UserService;

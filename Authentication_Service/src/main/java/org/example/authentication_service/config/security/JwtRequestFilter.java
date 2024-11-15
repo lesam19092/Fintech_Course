@@ -1,4 +1,4 @@
-package org.example.authentication_service.config;
+package org.example.authentication_service.config.security;
 
 
 import io.jsonwebtoken.ExpiredJwtException;
