@@ -41,5 +41,4 @@ public class RegistrationUserDto {
     @NotEmpty
     private UserType userType;
 }
-//todo написать отрпавление аккаунта на почту
 //todo сделать сброс через почту
