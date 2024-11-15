@@ -1,4 +1,4 @@
-package org.example.authentication_service.config;
+package org.example.authentication_service.config.db;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.jdbc.DataSourceBuilder;
