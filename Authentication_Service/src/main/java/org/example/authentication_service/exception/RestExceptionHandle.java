@@ -1,5 +1,6 @@
 package org.example.authentication_service.exception;
 
+import jakarta.persistence.EntityNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
@@ -57,4 +58,23 @@ public class RestExceptionHandle {
         log.error("Exception: {}", ex.getMessage());
         return new ApiError(HttpStatus.INTERNAL_SERVER_ERROR.value(), String.format("Сообщение: Внутренняя ошибка сервера\nОшибка: %s%n", ex.getMessage()));
     }
+
+    @ExceptionHandler(DuplicateEmailException.class)
+    public ResponseEntity<?> handleDuplicateEmailException(DuplicateEmailException ex) {
+        log.error("DuplicateEmailException: {}", ex.getMessage());
+        return new ResponseEntity<>(new ApiError(HttpStatus.BAD_REQUEST.value(), "Пользователь с указанным email уже существует"), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(UserNotVerifiedException.class)
+    public ResponseEntity<?> handleUserNotVerifiedException(UserNotVerifiedException ex) {
+        log.error("UserNotVerifiedException: {}", ex.getMessage());
+        return new ResponseEntity<>(new ApiError(HttpStatus.BAD_REQUEST.value(), "Пользователь не подтвержден"), HttpStatus.BAD_REQUEST);
+    }
+    @ExceptionHandler(EntityNotFoundException.class)
+    public ResponseEntity<?> handleEntityNotFoundException(EntityNotFoundException ex) {
+        log.error("EntityNotFoundException: {}", ex.getMessage());
+        return new ResponseEntity<>(new ApiError(HttpStatus.BAD_REQUEST.value(), "Entity not found"), HttpStatus.BAD_REQUEST);
+    }
+
+
 }
