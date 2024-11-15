@@ -14,8 +14,21 @@ spring:
     password: postgres
     poolName: myPool
 
+  mail:
+    host: smtp.yandex.ru
+    port: 587
+    username: ${username}
+    password: ${password}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
 jwt:
   secret: ${JWT_TOKEN}
+
 
 server:
   port: 1010
