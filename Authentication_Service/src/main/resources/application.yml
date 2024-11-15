@@ -29,6 +29,8 @@ spring:
 jwt:
   secret: ${JWT_TOKEN}
 
+thread:
+  threadCount: 3
 
 server:
   port: 1010
