@@ -1,5 +1,6 @@
 package org.example.authentication_service.service.auth;
 
+import jakarta.mail.MessagingException;
 import org.example.authentication_service.controller.dto.LoginUserDto;
 import org.example.authentication_service.controller.dto.PasswordResetRequest;
 import org.example.authentication_service.controller.dto.RegistrationUserDto;
@@ -9,7 +10,9 @@ public interface AuthService {
 
     ResponseEntity<?> createAuthToken(LoginUserDto authRequest);
 
-    ResponseEntity<?> createNewUser(RegistrationUserDto registrationUserDto);
+    ResponseEntity<?> createNewUser(RegistrationUserDto registrationUserDto) ;
 
     ResponseEntity<?> resetPassword(PasswordResetRequest request);
+
+    ResponseEntity<?> confirmUserAccount(String confirmationToken);
 }

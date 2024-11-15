@@ -2,13 +2,17 @@ package org.example.authentication_service.service.user;
 
 
 import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
 import org.example.authentication_service.controller.dto.PasswordResetRequest;
 import org.example.authentication_service.controller.dto.RegistrationUserDto;
 import org.example.authentication_service.exception.CodeMismatchException;
 import org.example.authentication_service.exception.PasswordMismatchException;
+import org.example.authentication_service.model.entity.ConfirmationToken;
 import org.example.authentication_service.model.entity.Instance;
 import org.example.authentication_service.model.entity.User;
 import org.example.authentication_service.repository.UserRepository;
+import org.example.authentication_service.service.confirm_token.ConfirmTokenService;
+import org.example.authentication_service.service.email.EmailService;
 import org.example.authentication_service.service.instance.InstanceService;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -18,6 +22,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.UUID;
 
 import static org.example.authentication_service.model.entity.Role.ROLE_USER;
 
@@ -28,12 +33,8 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final InstanceService instanceService;
     private final PasswordEncoder passwordEncoder;
-
-    @Override
-    public User findByUsername(String username) {
-        return userRepository.findByName(username)
-                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
-    }
+    private final ConfirmTokenService confirmTokenService;
+    private final EmailService emailService;
 
 
     @Override
@@ -43,7 +44,7 @@ public class UserServiceImpl implements UserService {
         String actualUsername = parts[0];
         String userType = parts[1];
 
-                User user = findByUsernameAndInstance(actualUsername, userType);
+        User user = findUserByNameAndInstance(actualUsername, userType);
         return new org.springframework.security.core.userdetails.User(
                 user.getName(),
                 user.getPassword(),
@@ -51,25 +52,23 @@ public class UserServiceImpl implements UserService {
         );
     }
 
-    @Transactional
     @Override
-    public UserDetails loadUserByUsernameAndInstance(String username, String instanceName) throws UsernameNotFoundException {
-        User user = findByUsernameAndInstance(username, instanceName);
-        return new org.springframework.security.core.userdetails.User(
-                user.getName(),
-                user.getPassword(),
-                List.of(new SimpleGrantedAuthority(user.getRole().getAuthority()))
-        );
+    public boolean existsByEmailAndInstance(String email, String instanceName) {
+        return userRepository.findByMailAndInstance(email, instanceName).isPresent();
     }
 
-
+    @SneakyThrows
     @Override
     public User createNewUser(RegistrationUserDto registrationUserDto) {
         Instance instance = instanceService.getByName(registrationUserDto.getUserType().name());
-        User user = buildUserFromDto(registrationUserDto, instance);
-        return userRepository.save(user);
-    }
 
+        User user = buildUserFromDto(registrationUserDto, instance);
+        saveUserWithConfirmToken(user);
+
+        emailService.sendEmail(registrationUserDto.getEmail(), user.getConfirmationToken().getConfirmationToken());
+
+        return user;
+    }
 
     @Override
     public boolean existsByUsernameAndInstance(String username, String instanceName) {
@@ -77,7 +76,29 @@ public class UserServiceImpl implements UserService {
     }
 
 
+    @Override
+    public Boolean isEmailConfirmed(String confirmationToken) {
+        ConfirmationToken token = confirmTokenService.findByConfirmationToken(confirmationToken);
+        User user = token.getUser();
+
+        if (!user.isEnable()) {
+            user.setEnable(true);
+            userRepository.save(user);
+            return true;
+        }
+        return false;
+    }
+
+
+    @Override
+    public boolean isVerified(String username, String instanceName) {
+        return findUserByNameAndInstance(username, instanceName).isEnable();
+    }
+
+
     //todo поменять логику
+    //todo не рефакторил
+
     @Override
     public void resetPassword(PasswordResetRequest request) {
         if (!"0000".equals(request.getConfirmationCode())) {
@@ -94,19 +115,20 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User findByUsernameAndInstance(String username, String instanceName) {
+    public User findUserByNameAndInstance(String username, String instanceName) {
         return userRepository.findByUsernameAndInstance(username, instanceName)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
     }
 
     private User buildUserFromDto(RegistrationUserDto registrationUserDto, Instance instance) {
-        User user = new User();
-        user.setInstance(instance);
-        user.setName(registrationUserDto.getUsername());
-        user.setEmail(registrationUserDto.getEmail());
-        user.setPassword(passwordEncoder.encode(registrationUserDto.getPassword()));
-        user.setRole(ROLE_USER);
-        return user;
+        return User.builder()
+                .instance(instance)
+                .name(registrationUserDto.getUsername())
+                .email(registrationUserDto.getEmail())
+                .enable(false)
+                .password(passwordEncoder.encode(registrationUserDto.getPassword()))
+                .role(ROLE_USER)
+                .build();
     }
 
     private String[] splitUsername(String username) {
@@ -116,4 +138,19 @@ public class UserServiceImpl implements UserService {
         }
         return parts;
     }
+
+    private User findByUsername(String username) {
+        return userRepository.findByName(username)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+    }
+
+    private void saveUserWithConfirmToken(User user) {
+        String confirmToken = UUID.randomUUID().toString();
+        ConfirmationToken confirmationToken = new ConfirmationToken(confirmToken, user);
+
+        confirmTokenService.saveConfirmToken(confirmationToken);
+        user.setConfirmationToken(confirmationToken);
+        userRepository.save(user);
+    }
+
 }

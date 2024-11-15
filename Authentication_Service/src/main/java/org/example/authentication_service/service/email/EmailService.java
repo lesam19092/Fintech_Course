@@ -1,5 +1,6 @@
 package org.example.authentication_service.service.email;
 
+
 import jakarta.mail.MessagingException;
 
 public interface EmailService {

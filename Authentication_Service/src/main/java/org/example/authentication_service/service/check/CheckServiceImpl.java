@@ -32,18 +32,32 @@ public class CheckServiceImpl implements CheckService {
     public void checkUser(RegistrationUserDto registrationUserDto) {
 
         CompletableFuture<Void> passwordFuture =
-                CompletableFuture
-                        .runAsync(() -> checkPassword(registrationUserDto), userDataProcessingService);
+               runAsync(() -> checkPassword(registrationUserDto), userDataProcessingService);
 
-        CompletableFuture<Void> nameFuture = runAsync(() -> checkUsername(registrationUserDto), userDataProcessingService);
+        CompletableFuture<Void> nameFuture =
+                runAsync(() -> checkUsername(registrationUserDto), userDataProcessingService);
 
-        CompletableFuture<Void> emailFuture = runAsync(() -> checkEmail(registrationUserDto), userDataProcessingService);
+        CompletableFuture<Void> emailFuture =
+                runAsync(() -> checkEmail(registrationUserDto), userDataProcessingService);
 
         CompletableFuture<Void> allOf = CompletableFuture.allOf(nameFuture, emailFuture, passwordFuture);
+
         try {
             allOf.get();
-        } catch (InterruptedException | ExecutionException e) {
+        } catch (ExecutionException e) {
+
+
+            Throwable cause = e.getCause();
+            //todo убрать classcast
+            if (cause instanceof RuntimeException) {
+                throw (RuntimeException) cause;
+            } else {
+                log.error("Error during data initialization", e);
+            }
+
+        } catch (InterruptedException e) {
             log.error("Error during data initialization", e);
+            Thread.currentThread().interrupt();
         }
     }
 
@@ -58,21 +72,18 @@ public class CheckServiceImpl implements CheckService {
 
     private void checkPassword(RegistrationUserDto registrationUserDto) {
         if (!registrationUserDto.getPassword().equals(registrationUserDto.getConfirmPassword())) {
-            log.warn("Password mismatch for user: {}", registrationUserDto.getUsername());
             throw new PasswordMismatchException("Пароли не совпадают");
         }
     }
 
     private void checkUsername(RegistrationUserDto registrationUserDto) {
         if (userService.existsByUsernameAndInstance(registrationUserDto.getUsername(), registrationUserDto.getUserType().name())) {
-            log.warn("Duplicate username found: {}", registrationUserDto.getUsername());
             throw new DuplicateUsernameException("Пользователь с таким именем уже существует");
         }
     }
 
     private void checkEmail(RegistrationUserDto registrationUserDto) {
         if (userService.existsByEmailAndInstance(registrationUserDto.getEmail(), registrationUserDto.getUserType().name())) {
-            log.warn("Duplicate email found: {}", registrationUserDto.getEmail());
             throw new DuplicateEmailException("Пользователь с таким email уже существует");
         }
     }
