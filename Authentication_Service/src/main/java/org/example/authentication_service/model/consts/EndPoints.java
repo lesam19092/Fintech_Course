@@ -10,4 +10,5 @@ public interface EndPoints {
     String INFO = "/info";
     String ADMIN = "/admin";
     String LOGOUT = "/logout";
+    String CONFIRM_ACCOUNT = "/confirm-account";
 }
