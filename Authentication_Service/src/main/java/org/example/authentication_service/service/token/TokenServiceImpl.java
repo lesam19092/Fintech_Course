@@ -1,7 +1,6 @@
 package org.example.authentication_service.service.token;
 
 
-
 import lombok.RequiredArgsConstructor;
 import org.example.authentication_service.model.entity.Token;
 import org.example.authentication_service.model.entity.User;
@@ -16,13 +15,9 @@ public class TokenServiceImpl implements TokenService {
 
     private final TokenRepository tokenRepository;
 
-
     @Override
     public Token saveToken(User user, String token) {
-        Token tokenEntity = new Token();
-        tokenEntity.setAccessToken(token);
-        tokenEntity.setIsLoggedOut(false);
-        tokenEntity.setUser(user);
+        Token tokenEntity = createTokenEntity(user, token);
         tokenRepository.save(tokenEntity);
         return tokenEntity;
     }
@@ -42,5 +37,13 @@ public class TokenServiceImpl implements TokenService {
                 .findByAccessToken(token)
                 .map(t -> !t.getIsLoggedOut())
                 .orElse(false);
+    }
+
+    private Token createTokenEntity(User user, String token) {
+        Token tokenEntity = new Token();
+        tokenEntity.setAccessToken(token);
+        tokenEntity.setIsLoggedOut(false);
+        tokenEntity.setUser(user);
+        return tokenEntity;
     }
 }
