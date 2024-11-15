@@ -15,4 +15,8 @@ public interface UserRepository extends JpaRepository<User, Long> {
     Optional<User> findByUsernameAndInstance(String username, String instanceName);
 
 
+    @Query("SELECT u FROM User u JOIN FETCH u.instance WHERE u.email = :email AND u.instance.name = :instanceName")
+    Optional<User> findByMailAndInstance(String email, String instanceName);
+
+
 }
