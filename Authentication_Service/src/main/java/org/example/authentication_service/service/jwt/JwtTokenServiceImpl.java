@@ -31,7 +31,7 @@ public class JwtTokenServiceImpl implements JwtTokenService {
     private final UserService userService;
 
     @Override
-    public String generateToken(User user, long minutes) {
+    public String generateToken(User user, Long minutes) {
 
 
         Map<String, Object> claims = createClaims(user);
