@@ -37,21 +37,21 @@ public class RestExceptionHandle {
 
     @ExceptionHandler(DuplicateUsernameException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ResponseEntity<?> handelDuplicateUsernameException(DuplicateUsernameException ex) {
+    public ResponseEntity<?> handleDuplicateUsernameException(DuplicateUsernameException ex) {
         log.error("DuplicateUsernameException: {}", ex.getMessage());
         return new ResponseEntity<>(new ApiError(HttpStatus.BAD_REQUEST.value(), "Пользователь с указанным именем уже существует"), HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(UsernameNotFoundException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ResponseEntity<?> handelUsernameNotFoundException(UsernameNotFoundException ex) {
+    public ResponseEntity<?> handleUsernameNotFoundException(UsernameNotFoundException ex) {
         log.error("UsernameNotFoundException: {}", ex.getMessage());
         return new ResponseEntity<>(new ApiError(HttpStatus.BAD_REQUEST.value(), "Пользователь c указанным именем не найдем "), HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(CodeMismatchException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ResponseEntity<?> handlePasswordMismatchException(CodeMismatchException ex) {
+    public ResponseEntity<?> handleCodeMismatchException(CodeMismatchException ex) {
         log.error("CodeMismatchException: {}", ex.getMessage());
         return new ResponseEntity<>(new ApiError(HttpStatus.BAD_REQUEST.value(), "Invalid confirmation code"), HttpStatus.BAD_REQUEST);
     }
