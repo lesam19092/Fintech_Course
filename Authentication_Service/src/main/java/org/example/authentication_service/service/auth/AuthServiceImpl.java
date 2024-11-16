@@ -4,8 +4,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.example.authentication_service.controller.dto.JwtResponse;
 import org.example.authentication_service.controller.dto.LoginUserDto;
-import org.example.authentication_service.controller.dto.PasswordResetRequest;
 import org.example.authentication_service.controller.dto.RegistrationUserDto;
+import org.example.authentication_service.model.consts.Duration;
 import org.example.authentication_service.model.entity.User;
 import org.example.authentication_service.service.check.CheckService;
 import org.example.authentication_service.service.jwt.JwtTokenService;
@@ -31,54 +31,37 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public ResponseEntity<?> createAuthToken(LoginUserDto authRequest) {
         log.info("Creating auth token for user: {}", authRequest.getUsername());
-
-        String username = authRequest.getUsername();
-        String password = authRequest.getPassword();
-
-
-        check.checkVerification(authRequest);
-        //todo тут костыль
-        daoAuthProvider.authenticate(new UsernamePasswordAuthenticationToken(username + ":" + authRequest.getUserType().name(), password));
-
-
-        User user = userService.findUserByNameAndInstance(username, authRequest.getUserType().name());
+        authenticateUser(authRequest);
+        User user = userService.findUserByNameAndInstance(authRequest.getUsername(), authRequest.getUserType().name());
         String token = jwtTokenService.generateToken(user,
-                authRequest.getRememberMe() ? 1000
-                        : 10);
-
-        log.info("Auth token created successfully for user: {}", username);
+                authRequest.getRememberMe() ? Duration.LONG
+                        : Duration.SHORT);
+        log.info("Auth token created successfully for user: {}", authRequest.getUsername());
         return ResponseEntity.ok(new JwtResponse(token));
     }
 
     @Override
     public ResponseEntity<?> createNewUser(RegistrationUserDto registrationUserDto) {
         log.info("Creating new user: {}", registrationUserDto.getUsername());
-
         check.checkUser(registrationUserDto);
-
         userService.createNewUser(registrationUserDto);
-
         log.info("New user created successfully: {}", registrationUserDto.getUsername());
         return ResponseEntity.ok("Verify email by the link sent on your email address");
     }
 
-
-    //todo реализовать другую логику
     @Override
-    public ResponseEntity<?> resetPassword(PasswordResetRequest request) {
-        log.info("Resetting password for user: {}", request.getName());
-        userService.resetPassword(request);
-        log.info("Password reset successfully for user: {}", request.getName());
-        return ResponseEntity.ok("Password reset successfully");
+    public ResponseEntity<String> confirmUserAccount(String confirmationToken) {
+        boolean isConfirmed = userService.isEmailConfirmed(confirmationToken);
+        String message = isConfirmed ? "Email verified successfully!" : "Email already verified!";
+        return ResponseEntity.ok(message);
     }
 
-    @Override
-    public ResponseEntity<?> confirmUserAccount(String confirmationToken) {
-        if (userService.isEmailConfirmed(confirmationToken)) {
-            return ResponseEntity.ok("Email verified successfully!");
-        }
-        return ResponseEntity.ok("Email already verified!");
+    private void authenticateUser(LoginUserDto authRequest) {
+        String username = authRequest.getUsername();
+        String password = authRequest.getPassword();
+        String userType = authRequest.getUserType().name();
+        check.checkVerification(authRequest);
+        daoAuthProvider.authenticate(new UsernamePasswordAuthenticationToken(username + ":" + userType, password));
     }
-
 
 }

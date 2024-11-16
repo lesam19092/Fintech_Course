@@ -12,7 +12,5 @@ public interface AuthService {
 
     ResponseEntity<?> createNewUser(RegistrationUserDto registrationUserDto) ;
 
-    ResponseEntity<?> resetPassword(PasswordResetRequest request);
-
     ResponseEntity<?> confirmUserAccount(String confirmationToken);
 }
