@@ -47,6 +47,9 @@ public class User {
     @OneToOne(mappedBy = "user")
     private ConfirmationToken confirmationToken;
 
+    @OneToOne(mappedBy = "user")
+    private PasswordResetToken passwordResetToken;
+
     @OneToMany(mappedBy = "user")
     private Set<Token> tokens = new LinkedHashSet<>();
 
