@@ -19,14 +19,12 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import java.io.IOException;
 import java.util.stream.Collectors;
 
+import static org.example.authentication_service.model.consts.JwtFilter.*;
+
 @Configuration
 @RequiredArgsConstructor
 @Slf4j
 public class JwtRequestFilter extends OncePerRequestFilter {
-
-    private static final int BEARER_PREFIX_LENGTH = 7;
-    private static final String BEARER_PREFIX = "Bearer ";
-    private static final String AUTHORIZATION_HEADER = "Authorization";
 
 
     private final JwtTokenService jwtTokenService;
@@ -48,9 +46,17 @@ public class JwtRequestFilter extends OncePerRequestFilter {
             }
 
         }
+        System.out.println("я сюда не зашел");
 
-
+        //todo проверить нужно ли мне это тут или нет
+        //todo в самом конце проверить нужен ли этот фильтр
+        ///todo посмотреь на static recources после повторного нажатия подтвережения по сслыке через почтк
+        //todo посмотреть на n+1
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null && jwtTokenService.isValid(jwt)) {
+
+            System.out.println("я сюда зашел");
+
+
             UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(
                     username,
                     null,
