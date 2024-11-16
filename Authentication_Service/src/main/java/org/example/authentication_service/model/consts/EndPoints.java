@@ -7,6 +7,7 @@ public interface EndPoints {
     String SECURED = "/secured";
     String REGISTRATION = "/registration";
     String RESET_PASSWORD = "/reset-password";
+    String RESTORE_PASSWORD = "/restore-password";
     String INFO = "/info";
     String ADMIN = "/admin";
     String LOGOUT = "/logout";
