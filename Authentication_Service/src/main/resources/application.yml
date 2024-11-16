@@ -30,12 +30,11 @@ jwt:
   secret: ${JWT_TOKEN}
 
 thread:
-  threadCount: 3
+  threadCountForUser: 3
+  threadCountForEmail: 2
+
 
 server:
   port: 1010
 
-duration:
-  shortTime: 10
-  longTime: 43200
 
