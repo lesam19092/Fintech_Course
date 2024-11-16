@@ -3,12 +3,14 @@ package org.example.authentication_service.model.entity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
 @Setter
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @Table(name = "password_reset_token")
 public class PasswordResetToken {
     @Id

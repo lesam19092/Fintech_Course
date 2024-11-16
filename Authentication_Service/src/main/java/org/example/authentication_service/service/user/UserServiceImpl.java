@@ -1,12 +1,13 @@
 package org.example.authentication_service.service.user;
 
 
+import jakarta.mail.MessagingException;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.example.authentication_service.controller.dto.PasswordResetRequest;
 import org.example.authentication_service.controller.dto.RegistrationUserDto;
-import org.example.authentication_service.exception.CodeMismatchException;
-import org.example.authentication_service.exception.PasswordMismatchException;
+import org.example.authentication_service.hadler.exception.EmailNotFoundException;
+import org.example.authentication_service.hadler.exception.UserNotVerifiedException;
 import org.example.authentication_service.model.entity.ConfirmationToken;
 import org.example.authentication_service.model.entity.Instance;
 import org.example.authentication_service.model.entity.User;
@@ -14,6 +15,7 @@ import org.example.authentication_service.repository.UserRepository;
 import org.example.authentication_service.service.confirm_token.ConfirmTokenService;
 import org.example.authentication_service.service.email.EmailService;
 import org.example.authentication_service.service.instance.InstanceService;
+import org.example.authentication_service.service.password_token.PasswordResetTokenService;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -35,6 +37,7 @@ public class UserServiceImpl implements UserService {
     private final PasswordEncoder passwordEncoder;
     private final ConfirmTokenService confirmTokenService;
     private final EmailService emailService;
+    private final PasswordResetTokenService passwordResetTokenService;
 
 
     @Override
@@ -59,15 +62,16 @@ public class UserServiceImpl implements UserService {
 
     @SneakyThrows
     @Override
-    public User createNewUser(RegistrationUserDto registrationUserDto) {
+    public void createNewUser(RegistrationUserDto registrationUserDto) {
         Instance instance = instanceService.getByName(registrationUserDto.getUserType().name());
 
         User user = buildUserFromDto(registrationUserDto, instance);
         saveUserWithConfirmToken(user);
 
-        emailService.sendEmail(registrationUserDto.getEmail(), user.getConfirmationToken().getConfirmationToken());
-
-        return user;
+        emailService.sendEmailWithVerification(
+                registrationUserDto.getEmail(),
+                user.getConfirmationToken().getToken()
+        );
     }
 
     @Override
@@ -81,12 +85,13 @@ public class UserServiceImpl implements UserService {
         ConfirmationToken token = confirmTokenService.findByConfirmationToken(confirmationToken);
         User user = token.getUser();
 
-        if (!user.isEnable()) {
-            user.setEnable(true);
-            userRepository.save(user);
-            return true;
+        if (user.isEnable()) {
+            return false;
         }
-        return false;
+
+        user.setEnable(true);
+        userRepository.save(user);
+        return true;
     }
 
 
@@ -95,28 +100,38 @@ public class UserServiceImpl implements UserService {
         return findUserByNameAndInstance(username, instanceName).isEnable();
     }
 
+    @Override
+    public void updatePassword(User user, String password) {
+        user.getPasswordResetToken().setUsed(true);
+        user.setPassword(passwordEncoder.encode(password));
+        userRepository.save(user);
+    }
 
-    //todo поменять логику
-    //todo не рефакторил
 
     @Override
-    public void resetPassword(PasswordResetRequest request) {
-        if (!"0000".equals(request.getConfirmationCode())) {
-            throw new CodeMismatchException("Invalid confirmation code");
-        }
-
-        if (!request.getNewPassword().equals(request.getConfirmPassword())) {
-            throw new PasswordMismatchException("Passwords do not match");
-        }
-
-        User user = findByUsername(request.getName());
-        user.setPassword(passwordEncoder.encode(request.getNewPassword()));
-        userRepository.save(user);
+    public void resetPassword(PasswordResetRequest request) throws MessagingException {
+        User user = findByMailAndInstance(request.getEmail(), request.getUserType());
+        validateUserIsEnabled(user);
+        String token = generatePasswordResetToken(user);
+        emailService.sendEmailWithRestorePassword(request.getEmail(), token);
     }
 
     @Override
     public User findUserByNameAndInstance(String username, String instanceName) {
         return userRepository.findByUsernameAndInstance(username, instanceName)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+    }
+
+    @Override
+    public User findByMailAndInstance(String mail, String instanceName) {
+        return userRepository.findByMailAndInstance(mail, instanceName)
+                .orElseThrow(() -> new EmailNotFoundException("User not found with email: " + mail + " and instance: " + instanceName));
+
+    }
+
+    @Override
+    public User findUserByPasswordToken(String passwordToken) {
+        return userRepository.findUserByPasswordResetToken(passwordToken)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
     }
 
@@ -139,11 +154,6 @@ public class UserServiceImpl implements UserService {
         return parts;
     }
 
-    private User findByUsername(String username) {
-        return userRepository.findByName(username)
-                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
-    }
-
     private void saveUserWithConfirmToken(User user) {
         String confirmToken = UUID.randomUUID().toString();
         ConfirmationToken confirmationToken = new ConfirmationToken(confirmToken, user);
@@ -151,6 +161,21 @@ public class UserServiceImpl implements UserService {
         confirmTokenService.saveConfirmToken(confirmationToken);
         user.setConfirmationToken(confirmationToken);
         userRepository.save(user);
+    }
+
+    private void validateUserIsEnabled(User user) {
+        if (!user.isEnable()) {
+            throw new UserNotVerifiedException("User not verified");
+        }
+    }
+
+    private String generatePasswordResetToken(User user) {
+        String token = UUID.randomUUID().toString();
+        if (user.getPasswordResetToken() != null) {
+            passwordResetTokenService.delete(user.getPasswordResetToken());
+        }
+        passwordResetTokenService.save(token, user);
+        return token;
     }
 
 }
