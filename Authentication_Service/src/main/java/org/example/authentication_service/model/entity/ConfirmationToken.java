@@ -22,7 +22,7 @@ public class ConfirmationToken {
 
     @Size(max = 200)
     @Column(name = "confirmation_token", length = 200)
-    private String confirmationToken;
+    private String token;
 
     @Column(name = "date")
     private LocalDateTime date;
@@ -32,8 +32,8 @@ public class ConfirmationToken {
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    public ConfirmationToken(String confirmationToken, User user) {
-        this.confirmationToken = confirmationToken;
+    public ConfirmationToken(String token, User user) {
+        this.token = token;
         this.date = LocalDateTime.now();
         this.user = user;
     }
