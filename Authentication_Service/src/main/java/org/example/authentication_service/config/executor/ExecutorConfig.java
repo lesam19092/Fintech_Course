@@ -16,20 +16,24 @@ import java.util.concurrent.Executors;
 @EnableAsync
 public class ExecutorConfig {
 
-    private int threadCount;
+    private int threadCountForUser;
+
+    private int threadCountForEmail;
 
     @Bean
     ExecutorService userDataProcessingService() {
         BasicThreadFactory factory = new BasicThreadFactory.Builder()
                 .namingPattern("UserDataProcessingThread-%d").priority(Thread.MAX_PRIORITY).build();
-        return Executors.newFixedThreadPool(threadCount, factory);
+        return Executors.newFixedThreadPool(threadCountForUser, factory);
     }
 
     @Bean
     ExecutorService forSendingEmail() {
         BasicThreadFactory factory = new BasicThreadFactory.Builder()
                 .namingPattern("forSendingEmail-%d").priority(Thread.MAX_PRIORITY).build();
-        return Executors.newFixedThreadPool(1, factory);
+        return Executors.newFixedThreadPool(threadCountForEmail, factory);
+
+
     }
 
 
