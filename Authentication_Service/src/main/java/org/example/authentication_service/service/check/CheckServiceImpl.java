@@ -32,7 +32,7 @@ public class CheckServiceImpl implements CheckService {
     public void checkUser(RegistrationUserDto registrationUserDto) {
 
         CompletableFuture<Void> passwordFuture =
-               runAsync(() -> checkPassword(registrationUserDto), userDataProcessingService);
+                runAsync(() -> checkPassword(registrationUserDto), userDataProcessingService);
 
         CompletableFuture<Void> nameFuture =
                 runAsync(() -> checkUsername(registrationUserDto), userDataProcessingService);
