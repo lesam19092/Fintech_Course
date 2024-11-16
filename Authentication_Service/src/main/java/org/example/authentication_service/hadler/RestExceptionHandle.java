@@ -1,8 +1,9 @@
-package org.example.authentication_service.exception;
+package org.example.authentication_service.hadler;
 
 import jakarta.mail.MessagingException;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.extern.slf4j.Slf4j;
+import org.example.authentication_service.hadler.exception.*;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;
@@ -43,7 +44,7 @@ public class RestExceptionHandle {
 
     @ExceptionHandler(UsernameNotFoundException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ResponseEntity<?> handelUsernameNotFoundException(DuplicateUsernameException ex) {
+    public ResponseEntity<?> handelUsernameNotFoundException(UsernameNotFoundException ex) {
         log.error("UsernameNotFoundException: {}", ex.getMessage());
         return new ResponseEntity<>(new ApiError(HttpStatus.BAD_REQUEST.value(), "Пользователь c указанным именем не найдем "), HttpStatus.BAD_REQUEST);
     }
@@ -89,6 +90,12 @@ public class RestExceptionHandle {
     public ResponseEntity<?> handleMessagingException(MessagingException ex) {
         log.error("MessagingException: {}", ex.getMessage());
         return new ResponseEntity<>(new ApiError(HttpStatus.BAD_REQUEST.value(), "к сожалению, не удалось отправить сообщение на почту"), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(EmailNotFoundException.class)
+    public ResponseEntity<?> handleEmailNotFoundException(EmailNotFoundException ex) {
+        log.error("EmailNotFoundException: {}", ex.getMessage());
+        return new ResponseEntity<>(new ApiError(HttpStatus.BAD_REQUEST.value(), "Пользователь с указанным email не найден"), HttpStatus.BAD_REQUEST);
     }
 
 
