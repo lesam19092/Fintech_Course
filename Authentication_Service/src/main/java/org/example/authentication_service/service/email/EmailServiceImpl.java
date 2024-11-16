@@ -1,6 +1,7 @@
 package org.example.authentication_service.service.email;
 
 
+import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
@@ -24,27 +25,34 @@ public class EmailServiceImpl implements EmailService {
     @Value("${spring.mail.username}")
     private String username;
 
-    //todo добавить properties
 
     @Override
     @SneakyThrows
     @Async("forSendingEmail")
-    public void sendEmail(String toAddress, String confirmToken) {
+    public void sendEmailWithVerification(String toAddress, String confirmToken) {
+        sendEmail(toAddress, Email.COMPLETE_REGISTRATION, Email.CONFIRM_MESSAGE + confirmToken);
+    }
+
+    @Override
+    @SneakyThrows
+    @Async("forSendingEmail")
+    public void sendEmailWithRestorePassword(String toAddress, String passwordToken) {
+        sendEmail(toAddress, Email.RESTORE_PASSWORD, Email.CONFIRM_MESSAGE_RESTORE + passwordToken);
+    }
+
+    private void sendEmail(String toAddress, String subject, String text) throws MessagingException {
         log.info("Creating MIME message for email to {}", toAddress);
 
         MimeMessage mimeMessage = mailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true);
 
-
         helper.setFrom(username);
         helper.setTo(toAddress);
-        helper.setSubject(Email.SUBJECT);
-        helper.setText(Email.MESSAGE + confirmToken);
-
+        helper.setSubject(subject);
+        helper.setText(text);
 
         log.info("Sending email to {}", toAddress);
         mailSender.send(mimeMessage);
         log.info("Email sent successfully to {}", toAddress);
-
     }
 }
