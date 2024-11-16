@@ -4,10 +4,10 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.example.authentication_service.controller.dto.LoginUserDto;
 import org.example.authentication_service.controller.dto.RegistrationUserDto;
-import org.example.authentication_service.exception.DuplicateEmailException;
-import org.example.authentication_service.exception.DuplicateUsernameException;
-import org.example.authentication_service.exception.PasswordMismatchException;
-import org.example.authentication_service.exception.UserNotVerifiedException;
+import org.example.authentication_service.hadler.exception.DuplicateEmailException;
+import org.example.authentication_service.hadler.exception.DuplicateUsernameException;
+import org.example.authentication_service.hadler.exception.PasswordMismatchException;
+import org.example.authentication_service.hadler.exception.UserNotVerifiedException;
 import org.example.authentication_service.service.user.UserService;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
@@ -45,16 +45,7 @@ public class CheckServiceImpl implements CheckService {
         try {
             allOf.get();
         } catch (ExecutionException e) {
-
-
-            Throwable cause = e.getCause();
-            //todo убрать classcast
-            if (cause instanceof RuntimeException) {
-                throw (RuntimeException) cause;
-            } else {
-                log.error("Error during data initialization", e);
-            }
-
+            throw (RuntimeException) e.getCause();
         } catch (InterruptedException e) {
             log.error("Error during data initialization", e);
             Thread.currentThread().interrupt();
