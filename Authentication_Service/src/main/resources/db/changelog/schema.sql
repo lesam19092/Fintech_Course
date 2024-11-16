@@ -15,6 +15,17 @@ CREATE TABLE users
     instance_id INT,
     FOREIGN KEY (instance_id) REFERENCES instance (id)
 );
+
+create table password_reset_token
+(
+    id      bigserial PRIMARY KEY,
+    token   VARCHAR(200),
+    user_id bigserial unique,
+    is_used boolean,
+    FOREIGN KEY (user_id) REFERENCES users (id)
+);
+
+
 create table tokens
 (
     id            bigserial PRIMARY KEY,
@@ -29,8 +40,7 @@ create table confirmation_token
     id                 bigserial PRIMARY KEY,
     confirmation_token VARCHAR(200),
     date               TIMESTAMP,
-    user_id             bigserial UNIQUE ,
+    user_id            bigserial UNIQUE,
     FOREIGN KEY (user_id) REFERENCES users (id)
-
 )
 
