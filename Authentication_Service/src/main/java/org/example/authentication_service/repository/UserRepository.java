@@ -19,4 +19,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
     Optional<User> findByMailAndInstance(String email, String instanceName);
 
 
+    @Query("SELECT u FROM User u JOIN FETCH u.passwordResetToken prt WHERE prt.token = :passwordToken")
+    Optional<User> findUserByPasswordResetToken(String passwordToken);
+
 }
