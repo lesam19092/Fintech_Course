@@ -4,7 +4,6 @@ package org.example.authentication_service.controller;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.example.authentication_service.controller.dto.LoginUserDto;
-import org.example.authentication_service.controller.dto.PasswordResetRequest;
 import org.example.authentication_service.controller.dto.RegistrationUserDto;
 import org.example.authentication_service.model.consts.EndPoints;
 import org.example.authentication_service.service.auth.AuthService;
@@ -15,7 +14,6 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping(EndPoints.AUTH)
 @RequiredArgsConstructor
 public class AuthUserController {
-
 
     private final AuthService authService;
 
@@ -34,15 +32,7 @@ public class AuthUserController {
         return authService.createNewUser(registrationUserDto);
     }
 
-    @PostMapping(EndPoints.RESET_PASSWORD)
-    public ResponseEntity<?> resetPassword(@Valid
-                                           @RequestBody
-                                           PasswordResetRequest request) {
-        return authService.resetPassword(request);
-    }
-
-
-    @GetMapping(EndPoints.CONFIRM_ACCOUNT)
+    @PostMapping(EndPoints.CONFIRM_ACCOUNT)
     public ResponseEntity<?> confirmUserAccount(@RequestParam String confirmationToken) {
         return authService.confirmUserAccount(confirmationToken);
     }
