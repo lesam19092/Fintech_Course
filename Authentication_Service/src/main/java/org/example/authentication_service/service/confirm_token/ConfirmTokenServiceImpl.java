@@ -22,7 +22,7 @@ public class ConfirmTokenServiceImpl implements ConfirmTokenService {
 
     @Override
     public ConfirmationToken findByConfirmationToken(String confirmationToken) {
-        return ConfirmationTokenRepository.findByConfirmationToken(confirmationToken)
+        return ConfirmationTokenRepository.findByToken(confirmationToken)
                 .orElseThrow(() -> new EntityNotFoundException("Invalid confirmation token: " + confirmationToken));
     }
 }
