@@ -23,7 +23,6 @@ import static org.example.authentication_service.model.consts.EndPoints.*;
 @Configuration
 public class SecurityConfig {
 
-    private final JwtRequestFilter jwtRequestFilter;
     private final LogoutHandler logoutHandler;
 
 
@@ -39,7 +38,6 @@ public class SecurityConfig {
                         .anyRequest().permitAll())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .exceptionHandling(exception -> exception.authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED)))
-                .addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class)
                 .logout(logout ->
                         logout.logoutUrl(LOGOUT)
                                 .addLogoutHandler(logoutHandler)

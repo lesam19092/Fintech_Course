@@ -8,12 +8,9 @@ import java.util.Optional;
 
 public interface UserRepository extends JpaRepository<User, Long> {
 
-    Optional<User> findByName(String name);
 
-
-    @Query("SELECT u FROM User u JOIN FETCH u.instance WHERE u.name = :username AND u.instance.name = :instanceName")
+    @Query("SELECT u FROM User u JOIN FETCH u.instance WHERE u.name = :username AND u.instance. name = :instanceName")
     Optional<User> findByUsernameAndInstance(String username, String instanceName);
-
 
     @Query("SELECT u FROM User u JOIN FETCH u.instance WHERE u.email = :email AND u.instance.name = :instanceName")
     Optional<User> findByMailAndInstance(String email, String instanceName);

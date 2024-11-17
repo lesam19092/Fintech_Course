@@ -32,7 +32,7 @@ public class AuthUserController {
         return authService.createNewUser(registrationUserDto);
     }
 
-    @PostMapping(EndPoints.CONFIRM_ACCOUNT)
+    @GetMapping(EndPoints.CONFIRM_ACCOUNT)
     public ResponseEntity<?> confirmUserAccount(@RequestParam String confirmationToken) {
         return authService.confirmUserAccount(confirmationToken);
     }
