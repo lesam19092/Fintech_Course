@@ -1,12 +1,14 @@
 package org.example.authentication_service.controller.dto;
 
 import jakarta.validation.constraints.Size;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.example.authentication_service.model.consts.UserType;
 
 import javax.validation.constraints.NotEmpty;
 
 @Data
+@AllArgsConstructor
 public class LoginUserDto {
     @NotEmpty(message = "Name cannot be blank")
     @Size(min = 3, max = 50, message = "Username must be between 3 and 50 characters")

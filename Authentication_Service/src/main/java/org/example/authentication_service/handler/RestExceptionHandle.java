@@ -1,9 +1,9 @@
-package org.example.authentication_service.hadler;
+package org.example.authentication_service.handler;
 
 import jakarta.mail.MessagingException;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.extern.slf4j.Slf4j;
-import org.example.authentication_service.hadler.exception.*;
+import org.example.authentication_service.handler.exception.*;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;

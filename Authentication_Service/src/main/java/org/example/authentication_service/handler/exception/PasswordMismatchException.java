@@ -1,4 +1,4 @@
-package org.example.authentication_service.hadler.exception;
+package org.example.authentication_service.handler.exception;
 
 public class PasswordMismatchException extends RuntimeException {
     public PasswordMismatchException(String message) {

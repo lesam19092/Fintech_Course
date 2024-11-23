@@ -1,4 +1,4 @@
-package org.example.authentication_service.hadler;
+package org.example.authentication_service.handler;
 
 import lombok.Data;
 

@@ -1,5 +1,6 @@
 package org.example.authentication_service.controller.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import javax.validation.constraints.Email;
@@ -7,6 +8,7 @@ import javax.validation.constraints.NotEmpty;
 
 
 @Data
+@AllArgsConstructor
 public class PasswordResetRequest {
 
     @NotEmpty(message = "Email cannot be blank")

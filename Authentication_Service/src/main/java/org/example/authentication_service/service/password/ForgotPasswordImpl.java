@@ -6,7 +6,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.example.authentication_service.controller.dto.PasswordResetRequest;
 import org.example.authentication_service.controller.dto.UpdatePasswordDto;
-import org.example.authentication_service.hadler.exception.PasswordMismatchException;
+import org.example.authentication_service.handler.exception.PasswordMismatchException;
 import org.example.authentication_service.model.entity.User;
 import org.example.authentication_service.service.user.UserService;
 import org.springframework.http.ResponseEntity;
