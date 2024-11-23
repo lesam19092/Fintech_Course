@@ -26,77 +26,41 @@ services:
       - ./src/main/resources/db/changelog:/liquibase/changelog
     networks:
       - backend
-  odfe-node:
-    image: elasticsearch:7.10.1
-    logging:
-      driver: "json-file"
-      options:
-        max-size: "1000m"
-        max-file: "10"
-    container_name: odfe-node
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: prometheuss
+    volumes:
+      - ./config/prometheus.yml:/etc/prometheus/prometheus.yml
+    ports:
+      - "9090:9090"
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.10.2
+    container_name: elasticsearch
     environment:
       - discovery.type=single-node
-      - node.name=odfe-node
-      - discovery.seed_hosts=odfe-node
-      - bootstrap.memory_lock=true
       - xpack.security.enabled=false
-      - "ES_JAVA_OPTS=-Xms4096m -Xmx4096m"
-    ulimits:
-      memlock:
-        soft: -1
-        hard: -1
-      nofile:
-        soft: 65536
-        hard: 65536
-    volumes:
-      - ./elasticsearch_data:/usr/share/elasticsearch/data
     ports:
       - "9200:9200"
+
+  logstash:
+    image: docker.elastic.co/logstash/logstash:8.10.2
+    container_name: logstash
+    ports:
+      - "5001:5000"
       - "9600:9600"
-    networks:
-      - odfe-net
+    volumes:
+      - ./config/logstash.conf:/usr/share/logstash/pipeline/logstash.conf
+
   kibana:
-    image: kibana:7.10.1
-    logging:
-      driver: "json-file"
-      options:
-        max-size: "100m"
-        max-file: "3"
-    container_name: odfe-kibana
+    image: docker.elastic.co/kibana/kibana:8.10.2
+    container_name: kibana
     ports:
       - "5601:5601"
-    expose:
-      - "5601"
     environment:
-      ELASTICSEARCH_URL: http://odfe-node:9200
-      ELASTICSEARCH_HOSTS: http://odfe-node:9200
-    networks:
-      - odfe-net
-  logstash:
-    user: root
-    image: docker.elastic.co/logstash/logstash-oss:7.9.1
-    logging:
-      driver: "json-file"
-      options:
-        max-size: "100m"
-        max-file: "3"
-    ports:
-      - "5044:5044"
-    depends_on:
-      - odfe-node
-    environment:
-      - PIPELINE_WORKERS=1
-      - PIPELINE_BATCH_SIZE=125
-      - PIPELINE_BATCH_DELAY=50
-    volumes:
-      - ./conf/logstash.conf:/usr/share/logstash/pipeline/logstash.conf
-      - ./logstash_data:/usr/share/logstash/data
-    networks:
-      - odfe-net
+      - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
 
 volumes:
   postgres: { }
 
 networks:
   backend: { }
-  odfe-net: { }
