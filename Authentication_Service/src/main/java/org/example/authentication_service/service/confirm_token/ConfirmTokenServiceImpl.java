@@ -16,7 +16,7 @@ public class ConfirmTokenServiceImpl implements ConfirmTokenService {
 
 
     @Override
-    public void saveConfirmToken(ConfirmationToken confirmToken){
+    public void saveConfirmToken(ConfirmationToken confirmToken) {
         ConfirmationTokenRepository.save(confirmToken);
     }
 
