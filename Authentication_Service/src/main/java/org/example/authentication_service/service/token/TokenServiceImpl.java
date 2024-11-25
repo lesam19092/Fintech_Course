@@ -31,13 +31,6 @@ public class TokenServiceImpl implements TokenService {
         }
     }
 
-    @Override
-    public boolean isValid(String token) {
-        return tokenRepository
-                .findByAccessToken(token)
-                .map(t -> !t.getIsLoggedOut())
-                .orElse(false);
-    }
 
     private Token createTokenEntity(User user, String token) {
         Token tokenEntity = new Token();

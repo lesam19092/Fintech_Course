@@ -10,6 +10,5 @@ public interface TokenService {
 
     void revokeAllTokenByUser(User user);
 
-    boolean isValid(String token);
 
 }
