@@ -7,7 +7,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.example.authentication_service.model.entity.User;
 import org.example.authentication_service.service.token.TokenService;
-import org.example.authentication_service.service.user.UserService;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Service;
 
@@ -26,7 +25,6 @@ public class JwtTokenServiceImpl implements JwtTokenService {
 
     private final TokenService tokenService;
 
-    private final UserService userService;
 
     @Override
     public String generateToken(User user, Long minutes) {
