@@ -1,6 +1,5 @@
 package org.example.authentication_service.service.jwt;
 
-import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.Data;
@@ -14,7 +13,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @Service
@@ -46,28 +44,6 @@ public class JwtTokenServiceImpl implements JwtTokenService {
         return jwtToken;
     }
 
-
-    @Override
-    public String getUsername(String token) {
-        return getAllClaimsFromToken(token).getSubject();
-    }
-
-    @Override
-    public boolean isValid(String token) {
-        return tokenService.isValid(token);
-    }
-
-    @Override
-    public List<String> getRoles(String token) {
-        return getAllClaimsFromToken(token).get("roles", List.class);
-    }
-
-    private Claims getAllClaimsFromToken(String token) {
-        return Jwts.parser()
-                .setSigningKey(secret)
-                .parseClaimsJws(token)
-                .getBody();
-    }
 
     private Map<String, Object> createClaims(User user) {
         Map<String, Object> claims = new HashMap<>();
