@@ -5,7 +5,6 @@ import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
-import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.example.authentication_service.model.consts.Email;
 import org.springframework.beans.factory.annotation.Value;
@@ -27,17 +26,23 @@ public class EmailServiceImpl implements EmailService {
 
 
     @Override
-    @SneakyThrows
     @Async("forSendingEmail")
     public void sendEmailWithVerification(String toAddress, String confirmToken) {
-        sendEmail(toAddress, Email.COMPLETE_REGISTRATION, Email.CONFIRM_MESSAGE + confirmToken);
+        try {
+            sendEmail(toAddress, Email.COMPLETE_REGISTRATION, Email.CONFIRM_MESSAGE + confirmToken);
+        } catch (MessagingException e) {
+            log.error("Error sending email", e);
+        }
     }
 
     @Override
-    @SneakyThrows
     @Async("forSendingEmail")
     public void sendEmailWithRestorePassword(String toAddress, String passwordToken) {
-        sendEmail(toAddress, Email.RESTORE_PASSWORD, Email.CONFIRM_MESSAGE_RESTORE + passwordToken);
+        try {
+            sendEmail(toAddress, Email.RESTORE_PASSWORD, Email.CONFIRM_MESSAGE_RESTORE + passwordToken);
+        } catch (MessagingException e) {
+            log.error("Error sending email", e);
+        }
     }
 
     private void sendEmail(String toAddress, String subject, String text) throws MessagingException {

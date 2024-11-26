@@ -3,7 +3,7 @@ package org.example.authentication_service.service.user;
 
 import jakarta.mail.MessagingException;
 import lombok.RequiredArgsConstructor;
-import lombok.SneakyThrows;
+import lombok.extern.slf4j.Slf4j;
 import org.example.authentication_service.controller.dto.PasswordResetRequest;
 import org.example.authentication_service.controller.dto.RegistrationUserDto;
 import org.example.authentication_service.handler.exception.EmailNotFoundException;
@@ -30,6 +30,7 @@ import static org.example.authentication_service.model.entity.Role.ROLE_USER;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
@@ -60,7 +61,6 @@ public class UserServiceImpl implements UserService {
         return userRepository.findByMailAndInstance(email, instanceName).isPresent();
     }
 
-    @SneakyThrows
     @Override
     public void createNewUser(RegistrationUserDto registrationUserDto) {
         Instance instance = instanceService.getByName(registrationUserDto.getUserType().name());
@@ -68,10 +68,14 @@ public class UserServiceImpl implements UserService {
         User user = buildUserFromDto(registrationUserDto, instance);
         saveUserWithConfirmToken(user);
 
-        emailService.sendEmailWithVerification(
-                registrationUserDto.getEmail(),
-                user.getConfirmationToken().getToken()
-        );
+        try {
+            emailService.sendEmailWithVerification(
+                    registrationUserDto.getEmail(),
+                    user.getConfirmationToken().getToken()
+            );
+        } catch (MessagingException e) {
+            log.error("Error sending email", e);
+        }
     }
 
     @Override
