@@ -11,7 +11,7 @@ on:
       - master
       - auth
     paths:
-    - Authentication_Service/.github/workflows/auth.yml
+    - /Authentication_Service/.github/workflows/auth.yml
 
 
 
