@@ -299,6 +299,7 @@
                         <exclude>org/example/authentication_service/handler/**</exclude>
                         <exclude>org/example/authentication_service/config/**</exclude>
                         <exclude>org/example/authentication_service/model/**</exclude>
+                        <exclude>com/baeldung/openapi/model/**</exclude>
                         <exclude>org/example/authentication_service/AuthenticationServiceApplication.class</exclude>
 
                     </excludes>
