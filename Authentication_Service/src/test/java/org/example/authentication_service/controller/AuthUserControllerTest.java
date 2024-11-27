@@ -6,9 +6,10 @@ import org.example.authentication_service.controller.dto.RegistrationUserDto;
 import org.example.authentication_service.model.consts.EndPoints;
 import org.example.authentication_service.model.consts.UserType;
 import org.example.authentication_service.service.auth.AuthService;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -16,20 +17,27 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.context.DynamicPropertyRegistry;
+import org.springframework.test.context.DynamicPropertySource;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
-import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+import org.testcontainers.containers.PostgreSQLContainer;
 
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@SpringBootTest
+@ExtendWith(SpringExtension.class)
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
-@DirtiesContext
 class AuthUserControllerTest {
+
+    static PostgreSQLContainer<?> postgres = new PostgreSQLContainer<>("postgres:17")
+            .withDatabaseName("integration-tests-db")
+            .withUsername("sa")
+            .withPassword("sa");
+
 
     @Autowired
     private MockMvc mockMvc;
@@ -38,6 +46,17 @@ class AuthUserControllerTest {
     private AuthService authService;
 
     private static final ObjectMapper mapper = new ObjectMapper();
+
+    @BeforeAll
+    static void beforeAll() {
+        postgres.start();
+    }
+
+    @AfterAll
+    static void afterAll() {
+        postgres.stop();
+    }
+
 
     @Test
     void createAuthToken() throws Exception {
@@ -97,6 +116,7 @@ class AuthUserControllerTest {
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isUnauthorized());
     }
+
     @Test
     void createNewUser_withExistingUsername_shouldReturnConflict() throws Exception {
         RegistrationUserDto registrationUserDto = new RegistrationUserDto("existingUsername", "password", "password", "email@example.com", UserType.Edadil);
@@ -111,6 +131,7 @@ class AuthUserControllerTest {
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isConflict());
     }
+
     @Test
     void confirmUserAccount_withInvalidToken_shouldReturnBadRequest() throws Exception {
         String invalidToken = "invalidToken";
