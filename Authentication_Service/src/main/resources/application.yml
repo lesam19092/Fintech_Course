@@ -12,7 +12,6 @@ spring:
     jdbcUrl: jdbc:postgresql://localhost:5437/registration_db?stringtype=unspecified
     username: postgres
     password: postgres
-    poolName: myPool
 
   mail:
     host: smtp.yandex.ru
