@@ -12,7 +12,7 @@ on:
       - auth
     paths:
     - .github/workflows/auth.yml
-    - Authentication_Service
+   # - Authentication_Service
 
 jobs:
   build:
