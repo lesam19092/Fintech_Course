@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Authentication_Service/Authentication_Service.iml" filepath="$PROJECT_DIR$/Authentication_Service/Authentication_Service.iml" />
       <module fileurl="file://$PROJECT_DIR$/Fintech_Course.iml" filepath="$PROJECT_DIR$/Fintech_Course.iml" />
     </modules>
   </component>
