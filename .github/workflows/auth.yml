@@ -74,7 +74,7 @@ jobs:
 
       - name: Build Docker image
         run: |
-          docker build -t ghcr.io/lesam19092/auth:latest .  # Tag for GitHub Container Registry
+          docker build -t ghcr.io/lesam19092/auth:latest Authentication_Service  # Tag for GitHub Container Registry
 
       - name: Log in to GitHub Container Registry
         uses: docker/login-action@v2
