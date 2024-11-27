@@ -5,7 +5,7 @@ on:
   push:
     branches:
       - master
-      - hw14
+      - auth
   pull_request:
     branches:
       - master
