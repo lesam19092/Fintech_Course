@@ -71,6 +71,7 @@ jobs:
       # - name: Run Codacy Analysis CLI
       #   uses: codacy/codacy-analysis-cli-action@master
 
+
       - name: Build Docker image
         run: |
           docker build -t ghcr.io/lesam19092/auth:latest .  # Tag for GitHub Container Registry
