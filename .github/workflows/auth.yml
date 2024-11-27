@@ -85,5 +85,6 @@ jobs:
       - name: Push Docker image to GitHub Container Registry
         run: docker push ghcr.io/lesam19092/auth:latest
 
+
       - name: Verify Docker image
         run: docker images ghcr.io/lesam19092/auth:latest
