@@ -11,7 +11,8 @@ on:
       - master
       - auth
     paths:
-    - Fintech_Course/Authentication_Service/.github/workflows/auth.yml
+    - .github/workflows/auth.yml
+    - Authentication_Service
 
 
 
