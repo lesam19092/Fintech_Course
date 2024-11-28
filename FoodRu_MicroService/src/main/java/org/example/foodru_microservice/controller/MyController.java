@@ -11,9 +11,8 @@ public class MyController {
 
 
     @GetMapping("check")
-    public void check(Principal principal) {
-        System.out.println(principal.getClass());
-
+    public String check(Principal principal) {
+        return principal.getName();
     }
 
 }
