@@ -9,6 +9,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.example.foodru_microservice.service.jwt.JwtTokenService;
+import org.example.foodru_microservice.service.user.UserService;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -16,7 +17,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
-import java.util.stream.Collectors;
+import java.util.List;
 
 @Configuration
 @RequiredArgsConstructor
@@ -29,6 +30,8 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 
 
     private final JwtTokenService jwtTokenService;
+
+    private final UserService userService;
 
 
     @Override
@@ -52,13 +55,12 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
 
-
+            userService.saveUser(jwt);
 
             UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(
                     username,
                     null,
-                    jwtTokenService.getRoles(jwt).stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList())
-            );
+                    List.of(new SimpleGrantedAuthority(jwtTokenService.getRole(jwt))));
             SecurityContextHolder.getContext().setAuthentication(token);
         }
         filterChain.doFilter(request, response);
