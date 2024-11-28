@@ -12,7 +12,7 @@
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="Edadil_MicroService" target="21" />
-      <module name="FoodRu_MicroService" target="1.5" />
+      <module name="FoodRu_MicroService" target="21" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
