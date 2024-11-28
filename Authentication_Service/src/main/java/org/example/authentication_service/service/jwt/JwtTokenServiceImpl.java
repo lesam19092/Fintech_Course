@@ -46,7 +46,6 @@ public class JwtTokenServiceImpl implements JwtTokenService {
     private Map<String, Object> createClaims(User user) {
         Map<String, Object> claims = new HashMap<>();
         claims.put("username", user.getName());
-        claims.put("id", String.valueOf(user.getId()));
         claims.put("instance", user.getInstance().getName());
         claims.put("role", String.valueOf(user.getRole()));
         claims.put("email", user.getEmail());
