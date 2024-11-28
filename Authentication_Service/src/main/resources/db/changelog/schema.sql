@@ -12,7 +12,7 @@ CREATE TABLE users
     password    VARCHAR(100),
     user_role   varchar(100),
     is_enabled  boolean,
-    instance_id INT,
+    instance_id bigserial,
     FOREIGN KEY (instance_id) REFERENCES instance (id)
 );
 
