@@ -40,6 +40,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
             jwt = authHeader.substring(BEARER_PREFIX_LENGTH);
             try {
                 username = jwtTokenService.getUsername(jwt);
+                System.out.println(username);
             } catch (ExpiredJwtException e) {
                 log.error("Время жизни токена вышло");
             } catch (SignatureException e) {

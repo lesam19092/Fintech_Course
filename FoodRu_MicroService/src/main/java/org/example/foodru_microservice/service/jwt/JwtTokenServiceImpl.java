@@ -20,14 +20,17 @@ public class JwtTokenServiceImpl implements JwtTokenService {
 
     @Override
     public String getUsername(String token) {
-        return getAllClaimsFromToken(token).getSubject();
+        String instance = getAllClaimsFromToken(token).get("instance", String.class);
+        if (!"FoodRu".equals(instance)) {
+            throw new IllegalArgumentException("Invalid instance in token");
+        }
+        return instance;
     }
 
-    @Override
     public List<String> getRoles(String token) {
-        return getAllClaimsFromToken(token).get("roles", List.class);
+        String roles = getAllClaimsFromToken(token).get("role", String.class);
+        return List.of(roles);
     }
-
     private Claims getAllClaimsFromToken(String token) {
         return Jwts.parser()
                 .setSigningKey(secret)

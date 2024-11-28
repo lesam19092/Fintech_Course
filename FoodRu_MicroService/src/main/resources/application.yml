@@ -47,3 +47,6 @@ thread:
 
 server:
   port: 7070
+
+jwt:
+  secret: ${JWT_TOKEN}
