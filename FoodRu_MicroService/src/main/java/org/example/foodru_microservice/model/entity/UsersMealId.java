@@ -16,11 +16,11 @@ import java.util.Objects;
 public class UsersMealId implements Serializable {
     @NotNull
     @Column(name = "user_id", nullable = false)
-    private Integer userId;
+    private Long userId;
 
     @NotNull
     @Column(name = "meal_id", nullable = false)
-    private Integer mealId;
+    private Long mealId;
 
     @Override
     public boolean equals(Object o) {

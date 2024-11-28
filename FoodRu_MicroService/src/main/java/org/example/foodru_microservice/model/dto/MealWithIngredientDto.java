@@ -10,7 +10,7 @@ import java.util.List;
 @Builder
 public class MealWithIngredientDto {
 
-    private Integer id;
+    private Long id;
     private String name;
     private String cookInstructions;
     private List<IngredientDto> ingredients;

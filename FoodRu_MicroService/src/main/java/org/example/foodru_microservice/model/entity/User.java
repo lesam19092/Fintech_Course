@@ -17,7 +17,7 @@ import java.util.List;
 public class User implements UserDetails {
     @Id
     @Column(name = "id", nullable = false)
-    private Integer id;
+    private Long id;
 
     @Size(max = 100)
     @Column(name = "name", length = 100)
@@ -28,10 +28,6 @@ public class User implements UserDetails {
     private String email;
 
     @Size(max = 100)
-    @Column(name = "password", length = 100)
-    private String password;
-
-    @Size(max = 100)
     @Column(name = "user_role", length = 100)
     @Enumerated(EnumType.STRING)
     private Role role;
@@ -40,6 +36,11 @@ public class User implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of();
+    }
+
+    @Override
+    public String getPassword() {
+        return "";
     }
 
     @Override

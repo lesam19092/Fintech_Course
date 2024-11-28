@@ -4,5 +4,6 @@
     <option name="defaultUnitInitialized" value="true" />
     <option name="renamerInitialized" value="true" />
     <option name="reverseEngineeringLastDbConnectionId" value="e2cfe849-e9e0-477b-88ee-7722a07302eb" />
+    <option name="reLastEntityCreationPackage" value="FoodRu_MicroService/src/main/java/org/example/foodru_microservice/model/ampl" />
   </component>
 </project>
