@@ -7,8 +7,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 @Service
 @Data
 @ConfigurationProperties(prefix = "jwt")
@@ -17,6 +15,11 @@ public class JwtTokenServiceImpl implements JwtTokenService {
 
 
     private String secret;
+
+    @Override
+    public String getRole(String token) {
+        return getAllClaimsFromToken(token).get("role", String.class);
+    }
 
     @Override
     public String getUsername(String token) {
@@ -28,10 +31,12 @@ public class JwtTokenServiceImpl implements JwtTokenService {
         return claims.get("username", String.class);
     }
 
-    public List<String> getRoles(String token) {
-        String roles = getAllClaimsFromToken(token).get("role", String.class);
-        return List.of(roles);
+    @Override
+    public String getEmail(String token) {
+        return getAllClaimsFromToken(token).get("email", String.class);
     }
+
+
     private Claims getAllClaimsFromToken(String token) {
         return Jwts.parser()
                 .setSigningKey(secret)

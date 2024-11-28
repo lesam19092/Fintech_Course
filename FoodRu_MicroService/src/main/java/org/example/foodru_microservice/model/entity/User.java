@@ -16,6 +16,7 @@ import java.util.List;
 @Table(name = "users")
 public class User implements UserDetails {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
 
@@ -27,8 +28,7 @@ public class User implements UserDetails {
     @Column(name = "email", length = 100)
     private String email;
 
-    @Size(max = 100)
-    @Column(name = "user_role", length = 100)
+    @Column(name = "role", length = 100)
     @Enumerated(EnumType.STRING)
     private Role role;
 
