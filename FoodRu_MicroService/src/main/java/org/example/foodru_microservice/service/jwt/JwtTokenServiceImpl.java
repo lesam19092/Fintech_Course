@@ -4,6 +4,7 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
+import org.example.foodru_microservice.handler.exception.InvalidInstanceException;
 import org.example.foodru_microservice.model.consts.JwtParam;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Service;
