@@ -24,6 +24,7 @@ public class SecurityConfig {
 
     private final JwtRequestFilter jwtRequestFilter;
 
+    //todo добавить сюда логику и отрефакторить
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -56,8 +57,8 @@ public class SecurityConfig {
         return daoAuthenticationProvider;
     }*/
 
-    @Bean
+/*    @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
         return authenticationConfiguration.getAuthenticationManager();
-    }
+    }*/
 }

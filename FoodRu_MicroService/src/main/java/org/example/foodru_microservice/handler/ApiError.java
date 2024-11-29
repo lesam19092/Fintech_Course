@@ -1,4 +1,4 @@
-package org.example.foodru_microservice.exception;
+package org.example.foodru_microservice.handler;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
