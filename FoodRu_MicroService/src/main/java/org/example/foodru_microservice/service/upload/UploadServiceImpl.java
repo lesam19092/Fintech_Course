@@ -18,7 +18,7 @@ import java.util.UUID;
 public class UploadServiceImpl implements UploadService {
 
     private final AmazonS3 s3Client;
-        @Value("${spring.s3.bucketName}")
+    @Value("${spring.s3.bucketName}")
     private String bucketName;
 
     @Override
@@ -41,6 +41,6 @@ public class UploadServiceImpl implements UploadService {
     // TODO: Implement userId-date-uuid format for file names
     private String generateUniqueName() {
         UUID uuid = UUID.randomUUID();
-        return uuid +".pdf";
+        return uuid + ".pdf";
     }
 }

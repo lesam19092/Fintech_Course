@@ -80,6 +80,8 @@ public class PdfServiceImpl implements PdfService {
         }
     }
 
+    //todo перенсти в константы
+
     private PdfPTable createPdfTable(Font font, List<Object> response) {
         PdfPTable table = new PdfPTable(5);
         table.addCell(new PdfPCell(new Phrase("финтех:", font)));
