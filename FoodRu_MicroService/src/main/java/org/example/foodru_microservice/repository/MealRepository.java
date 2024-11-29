@@ -6,9 +6,9 @@ import org.springframework.data.jpa.repository.Query;
 
 import java.util.Optional;
 
-public interface MealRepository extends JpaRepository<Meal, Integer> {
+public interface MealRepository extends JpaRepository<Meal,Long> {
 
 
     @Query("SELECT m FROM Meal m JOIN FETCH m.mealsIngredients mi JOIN FETCH mi.ingredient WHERE m.id = :id")
-    Optional<Meal> getMealWithIngredients(Integer id);
+    Optional<Meal> getMealWithIngredients(Long id);
 }

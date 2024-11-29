@@ -2,6 +2,7 @@ package org.example.foodru_microservice.service.meal;
 
 import org.example.foodru_microservice.controller.dto.MealDto;
 import org.example.foodru_microservice.controller.dto.MealWithIngredientDto;
+import org.example.foodru_microservice.model.entity.Meal;
 
 import java.util.List;
 
@@ -10,9 +11,11 @@ public interface MealService {
 
     List<MealDto> getAllMeals();
 
-    MealDto getMealById(Integer id);
+    MealDto getMealDtoById(Long id);
 
-    MealWithIngredientDto getMealsIngredients(Integer id);
+    Meal getMealById(Long id);
 
-    void getCheapestMealsIngredients(Integer id);
+    MealWithIngredientDto getMealsIngredients(Long id);
+
+    void getCheapestMealsIngredients(Long id);
 }

@@ -39,17 +39,19 @@ public class MealController {
     }
 
     @GetMapping("/meals/{id}")
-    public MealDto getMealById(@PathVariable Integer id) {
-        return mealService.getMealById(id);
+    public MealDto getMealById(@PathVariable Long id) {
+        return mealService.getMealDtoById(id);
     }
 
     @GetMapping("/meals/{id}/ingredients")
-    public MealWithIngredientDto getMealIngredients(@PathVariable Integer id) {
+    public MealWithIngredientDto getMealIngredients(@PathVariable Long id) {
         return mealService.getMealsIngredients(id);
     }
 
+
+
     @GetMapping("/meals/{id}/ingredients/cheapest")
-    public MealWithIngredientDto getCheapestMealIngredients(@PathVariable Integer id) {
+    public MealWithIngredientDto getCheapestMealIngredients(@PathVariable Long id) {
         mealService.getCheapestMealsIngredients(id);
         return null;
     }

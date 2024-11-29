@@ -1,12 +1,13 @@
 package org.example.foodru_microservice.service.meal;
 
 import lombok.RequiredArgsConstructor;
-import org.example.foodru_microservice.mapper.MealMapper;
-import org.example.foodru_microservice.service.kafka.dto.ListIngredientDto;
 import org.example.foodru_microservice.controller.dto.MealDto;
 import org.example.foodru_microservice.controller.dto.MealWithIngredientDto;
+import org.example.foodru_microservice.mapper.MealMapper;
+import org.example.foodru_microservice.model.entity.Meal;
 import org.example.foodru_microservice.repository.MealRepository;
 import org.example.foodru_microservice.service.kafka.KafkaProducer;
+import org.example.foodru_microservice.service.kafka.dto.ListIngredientDto;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -34,7 +35,7 @@ public class MealServiceImpl implements MealService {
     }
 
     @Override
-    public MealDto getMealById(Integer id) {
+    public MealDto getMealDtoById(Long id) {
         return mealMapper.toDto(
                 requirePresentEntity(
                         mealRepository.findById(id)
@@ -43,7 +44,15 @@ public class MealServiceImpl implements MealService {
     }
 
     @Override
-    public MealWithIngredientDto getMealsIngredients(Integer id) {
+    public Meal getMealById(Long id) {
+        return
+                requirePresentEntity(
+                        mealRepository.findById(id)
+                );
+    }
+
+    @Override
+    public MealWithIngredientDto getMealsIngredients(Long id) {
 
         return mealMapper.toDtoWithIngredients(
                 requirePresentEntity(
@@ -54,7 +63,7 @@ public class MealServiceImpl implements MealService {
     }
 
     @Override
-    public void getCheapestMealsIngredients(Integer id) {
+    public void getCheapestMealsIngredients(Long id) {
 
         MealWithIngredientDto mealWithIngredientDto = getMealsIngredients(id);
 

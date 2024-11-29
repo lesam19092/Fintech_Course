@@ -31,8 +31,8 @@ public class SecurityConfig {
                 .cors(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("check").authenticated()
-                        // .requestMatchers(SECURED).authenticated()
-                        //  .requestMatchers(INFO).authenticated()
+                        .requestMatchers("/api-v1/meals/{id}/ingredients/add").authenticated()
+                          .requestMatchers("/api-v1/get-meals").authenticated()
                         // .requestMatchers(ADMIN).hasRole("ADMIN")
                         .anyRequest().permitAll())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
