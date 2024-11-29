@@ -1,7 +1,7 @@
 package org.example.foodru_microservice.service.meal;
 
-import org.example.foodru_microservice.model.dto.MealDto;
-import org.example.foodru_microservice.model.dto.MealWithIngredientDto;
+import org.example.foodru_microservice.controller.dto.MealDto;
+import org.example.foodru_microservice.controller.dto.MealWithIngredientDto;
 
 import java.util.List;
 

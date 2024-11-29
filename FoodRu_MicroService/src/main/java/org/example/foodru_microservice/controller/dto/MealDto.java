@@ -1,4 +1,4 @@
-package org.example.foodru_microservice.model.dto;
+package org.example.foodru_microservice.controller.dto;
 
 import lombok.Builder;
 import lombok.Data;

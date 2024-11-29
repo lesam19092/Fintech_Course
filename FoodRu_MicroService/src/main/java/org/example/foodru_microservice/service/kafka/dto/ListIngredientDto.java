@@ -1,4 +1,4 @@
-package org.example.foodru_microservice.model.dto.kafka;
+package org.example.foodru_microservice.service.kafka.dto;
 
 import lombok.Data;
 import lombok.ToString;

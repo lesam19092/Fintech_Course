@@ -4,7 +4,7 @@ import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.StringSerializer;
-import org.example.foodru_microservice.model.dto.kafka.ListIngredientDto;
+import org.example.foodru_microservice.service.kafka.dto.ListIngredientDto;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.kafka.core.DefaultKafkaProducerFactory;

@@ -2,9 +2,9 @@ package org.example.foodru_microservice.service.meal;
 
 import lombok.RequiredArgsConstructor;
 import org.example.foodru_microservice.mapper.MealMapper;
-import org.example.foodru_microservice.model.dto.kafka.ListIngredientDto;
-import org.example.foodru_microservice.model.dto.MealDto;
-import org.example.foodru_microservice.model.dto.MealWithIngredientDto;
+import org.example.foodru_microservice.service.kafka.dto.ListIngredientDto;
+import org.example.foodru_microservice.controller.dto.MealDto;
+import org.example.foodru_microservice.controller.dto.MealWithIngredientDto;
 import org.example.foodru_microservice.repository.MealRepository;
 import org.example.foodru_microservice.service.kafka.KafkaProducer;
 import org.springframework.stereotype.Service;

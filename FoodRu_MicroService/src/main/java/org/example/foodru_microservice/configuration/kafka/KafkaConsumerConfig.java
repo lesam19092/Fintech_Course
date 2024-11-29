@@ -5,7 +5,7 @@ import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.common.serialization.StringDeserializer;
-import org.example.foodru_microservice.model.dto.kafka.PaymentReceiptResponse;
+import org.example.foodru_microservice.service.kafka.dto.PaymentReceiptResponse;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.kafka.annotation.EnableKafka;

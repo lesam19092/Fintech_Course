@@ -1,8 +1,8 @@
 package org.example.foodru_microservice.mapper;
 
 import lombok.RequiredArgsConstructor;
-import org.example.foodru_microservice.model.dto.MealDto;
-import org.example.foodru_microservice.model.dto.MealWithIngredientDto;
+import org.example.foodru_microservice.controller.dto.MealDto;
+import org.example.foodru_microservice.controller.dto.MealWithIngredientDto;
 import org.example.foodru_microservice.model.entity.Meal;
 import org.springframework.stereotype.Component;
 

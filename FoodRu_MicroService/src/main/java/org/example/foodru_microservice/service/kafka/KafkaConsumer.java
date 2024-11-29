@@ -1,7 +1,7 @@
 package org.example.foodru_microservice.service.kafka;
 
 import lombok.Data;
-import org.example.foodru_microservice.model.dto.kafka.PaymentReceiptResponse;
+import org.example.foodru_microservice.service.kafka.dto.PaymentReceiptResponse;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
 

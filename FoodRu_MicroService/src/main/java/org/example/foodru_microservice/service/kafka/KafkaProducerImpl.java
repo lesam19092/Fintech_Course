@@ -4,7 +4,7 @@ import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.example.foodru_microservice.configuration.kafka.KafkaPropertiesConfig;
-import org.example.foodru_microservice.model.dto.kafka.ListIngredientDto;
+import org.example.foodru_microservice.service.kafka.dto.ListIngredientDto;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 

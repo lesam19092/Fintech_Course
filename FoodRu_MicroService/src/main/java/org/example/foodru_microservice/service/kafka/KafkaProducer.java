@@ -1,6 +1,6 @@
 package org.example.foodru_microservice.service.kafka;
 
-import org.example.foodru_microservice.model.dto.kafka.ListIngredientDto;
+import org.example.foodru_microservice.service.kafka.dto.ListIngredientDto;
 
 public interface KafkaProducer {
 
