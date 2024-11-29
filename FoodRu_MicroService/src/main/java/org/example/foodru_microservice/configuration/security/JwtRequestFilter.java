@@ -19,14 +19,12 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import java.io.IOException;
 import java.util.List;
 
+import static org.example.foodru_microservice.model.consts.Filter.*;
+
 @Configuration
 @RequiredArgsConstructor
 @Slf4j
 public class JwtRequestFilter extends OncePerRequestFilter {
-
-    private static final int BEARER_PREFIX_LENGTH = 7;
-    private static final String BEARER_PREFIX = "Bearer ";
-    private static final String AUTHORIZATION_HEADER = "Authorization";
 
 
     private final JwtTokenService jwtTokenService;
