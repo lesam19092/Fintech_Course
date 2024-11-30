@@ -1,0 +1,36 @@
+package org.example.foodru_microservice.controller;
+
+
+import lombok.RequiredArgsConstructor;
+import org.example.foodru_microservice.controller.dto.MealDto;
+import org.example.foodru_microservice.controller.dto.MenuDto;
+import org.example.foodru_microservice.model.consts.endpoints.MenuEndPoints;
+import org.example.foodru_microservice.service.menu.MenuService;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.security.Principal;
+import java.util.List;
+
+@RestController
+@RequiredArgsConstructor
+public class MenuController {
+
+    private final MenuService menuService;
+
+
+    //todo secured
+    @GetMapping(MenuEndPoints.MENUS)
+    public List<MenuDto> getMenus(Principal principal) {
+        return menuService.getMenusByUsername(principal.getName());
+    }
+
+    //todo secured
+    @GetMapping(MenuEndPoints.MENU)
+    public List<MealDto> getMealsById(@PathVariable Long id) {
+        return menuService.getMealsByMenuId(id);
+    }
+
+
+}

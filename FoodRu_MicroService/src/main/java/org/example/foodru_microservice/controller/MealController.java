@@ -2,25 +2,26 @@ package org.example.foodru_microservice.controller;
 
 
 import lombok.RequiredArgsConstructor;
-import org.example.foodru_microservice.service.kafka.dto.IngredientDto;
-import org.example.foodru_microservice.service.kafka.dto.ListIngredientDto;
 import org.example.foodru_microservice.controller.dto.MealDto;
 import org.example.foodru_microservice.controller.dto.MealWithIngredientDto;
+import org.example.foodru_microservice.model.consts.endpoints.MealEndPoints;
+import org.example.foodru_microservice.service.kafka.KafkaProducer;
+import org.example.foodru_microservice.service.kafka.dto.IngredientDto;
+import org.example.foodru_microservice.service.kafka.dto.ListIngredientDto;
 import org.example.foodru_microservice.service.mail.EmailService;
 import org.example.foodru_microservice.service.meal.MealService;
 import org.example.foodru_microservice.service.pdf.PdfService;
-import org.example.foodru_microservice.service.kafka.KafkaProducer;
+import org.example.foodru_microservice.service.user.UserService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
+import java.security.Principal;
 import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api-v1")
 public class MealController {
 
 
@@ -32,28 +33,34 @@ public class MealController {
 
     private final KafkaProducer kafkaProducer;
 
+    private final UserService userService;
 
-    @GetMapping("/meals")
+
+    @GetMapping(MealEndPoints.MEALS)
     public List<MealDto> getMeals() {
         return mealService.getAllMeals();
     }
 
-    @GetMapping("/meals/{id}")
+    @GetMapping(MealEndPoints.MEAL)
     public MealDto getMealById(@PathVariable Long id) {
         return mealService.getMealDtoById(id);
     }
 
-    @GetMapping("/meals/{id}/ingredients")
+    @GetMapping(MealEndPoints.MEAL_INGREDIENTS)
     public MealWithIngredientDto getMealIngredients(@PathVariable Long id) {
         return mealService.getMealsIngredients(id);
     }
 
 
-
-    @GetMapping("/meals/{id}/ingredients/cheapest")
+    @GetMapping(MealEndPoints.MEAL_CHEAPEST)
     public MealWithIngredientDto getCheapestMealIngredients(@PathVariable Long id) {
         mealService.getCheapestMealsIngredients(id);
         return null;
+    }
+
+    @GetMapping(MealEndPoints.USER_MEALS)
+    public List<MealDto> getAllMeals(Principal principal) {
+        return userService.getAllMeals(principal.getName());
     }
 
 
