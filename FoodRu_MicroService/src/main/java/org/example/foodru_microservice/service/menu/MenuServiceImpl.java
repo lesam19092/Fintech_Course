@@ -4,21 +4,21 @@ package org.example.foodru_microservice.service.menu;
 import lombok.RequiredArgsConstructor;
 import org.example.foodru_microservice.controller.dto.MealDto;
 import org.example.foodru_microservice.controller.dto.MenuDto;
+import org.example.foodru_microservice.handler.exception.EntitySearchException;
+import org.example.foodru_microservice.handler.exception.MenuAlreadyExistsException;
 import org.example.foodru_microservice.mapper.MealMapper;
 import org.example.foodru_microservice.mapper.MenuMapper;
 import org.example.foodru_microservice.model.entity.Meal;
 import org.example.foodru_microservice.model.entity.Menu;
-import org.example.foodru_microservice.model.entity.Type;
 import org.example.foodru_microservice.model.entity.User;
 import org.example.foodru_microservice.repository.MenuRepository;
-import org.example.foodru_microservice.repository.TypeRepository;
+import org.example.foodru_microservice.service.menu_meals.MenuMealService;
+import org.example.foodru_microservice.service.user_meal.UserMealService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
-
-import static org.example.foodru_microservice.utils.EntityUtils.requireNonEmptyCollection;
 
 @Service
 @RequiredArgsConstructor
@@ -27,35 +27,31 @@ public class MenuServiceImpl implements MenuService {
     private final MenuRepository menuRepository;
     private final MenuMapper menuMapper;
     private final MealMapper mealMapper;
-    //todo убрать type из проекта вообще
-    private final TypeRepository typeRepository;
+    private final UserMealService userMealService;
+
+    private final MenuMealService menuMealService;
+
+
+    //todo отрефакторить
 
     @Override
-    public boolean createMenu(User user, String menuName) {
-        if (menuRepository.existsByUserAndName(user, menuName)) {
-            return false;
+    public void createMenu(User user, String menuName) {
+        if (userHasMenu(user, menuName)) {
+            throw new MenuAlreadyExistsException("User already has a menu with this name.");
         }
-
-        Menu menu = new Menu();
-        menu.setUser(user);
-        menu.setName(menuName);
-
-        Optional<Type> type = typeRepository.findById(1L);
-        menu.setType(type.get());
-
-
-        //todo убрать type из проекта вообще
-
+        Menu menu = Menu.builder().name(menuName).user(user).build();
 
         menuRepository.save(menu);
-        return true;
 
 
     }
 
     @Override
     public List<MenuDto> getMenusByUsername(String username) {
-        List<Menu> usersMenus = requireNonEmptyCollection(menuRepository.findMenuByUserName(username));
+
+        List<Menu> usersMenus = Optional.ofNullable(menuRepository.findMenuByUserName(username))
+                .filter(menus -> !menus.isEmpty())
+                .orElseThrow(() -> new EntitySearchException("Menus not found. Please create a menu."));
 
         return usersMenus.stream()
                 .map(menuMapper::toDto)
@@ -65,11 +61,38 @@ public class MenuServiceImpl implements MenuService {
     @Override
     public List<MealDto> getMealsByMenuId(Long id) {
 
-        List<Meal> menus = requireNonEmptyCollection(menuRepository.findMealsByMenuId(id));
+        List<Meal> meals = Optional.ofNullable(menuRepository.findMealsByMenuId(id))
+                .filter(mealList -> !mealList.isEmpty())
+                .orElseThrow(() -> new EntitySearchException("Meals not found. Please add meals to the menu."));
 
-        return menus.stream()
+        return meals.stream()
                 .map(mealMapper::toDto)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public boolean userHasMenu(User user, String menuName) {
+        return menuRepository.existsByUserAndName(user, menuName);
+    }
+
+
+    //todo отрефакторить
+    @Override
+    public void addMealToMenu(Meal meal, String menuName, User user) {
+        Menu menu = findMenuByUserAndName(user, menuName);
+        List<Meal> meals = menuRepository.findMealsByMenuId(menu.getId());
+
+        if (meals.contains(meal)) {
+            throw new EntitySearchException("Meal already exists in the menu.");
+        }
+        userMealService.addMeal(meal, user);
+        menuMealService.addMealToMenu(menu, meal);
+    }
+
+
+    private Menu findMenuByUserAndName(User user, String menuName) {
+        return menuRepository.findByMenuByUserAndName(user, menuName)
+                .orElseThrow(() -> new EntitySearchException("Menu not found"));
     }
 
 

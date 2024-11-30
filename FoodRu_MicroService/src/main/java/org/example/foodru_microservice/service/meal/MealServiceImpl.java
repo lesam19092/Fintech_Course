@@ -15,7 +15,6 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static org.example.foodru_microservice.utils.EntityUtils.requirePresentEntity;
 
 @Service
 @RequiredArgsConstructor
@@ -54,7 +53,7 @@ public class MealServiceImpl implements MealService {
     }
 
 
-    //todo это отрефакторить
+    //todo дополнить эту логику для edadil
 
     @Override
     public void getCheapestMealsIngredients(Long id) {

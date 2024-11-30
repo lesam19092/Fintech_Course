@@ -9,12 +9,14 @@ public interface UserService {
 
     void saveUser(String jwtToken);
 
-    boolean addMeal(Long id, String username);
+    void addMeal(Long id, String username);
 
     User getUserByName(String username);
 
     List<MealDto> getAllMeals(String username);
 
-    boolean createMenu(String username, String menuName);
+    void createMenu(String username, String menuName);
+
+    void addMealToMenu(Long mealId, String menuName, String userName);
 
 }

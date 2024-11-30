@@ -31,8 +31,8 @@ public class SecurityConfig {
                 .cors(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("check").authenticated()
-                        .requestMatchers("/api-v1/meals/{id}/ingredients/add").authenticated()
-                          .requestMatchers("/api-v1/get-meals").authenticated()
+                        .requestMatchers("/meals/{id}/ingredients/add").authenticated()
+                          .requestMatchers("/get-meals").authenticated()
                         // .requestMatchers(ADMIN).hasRole("ADMIN")
                         .anyRequest().permitAll())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
@@ -46,17 +46,4 @@ public class SecurityConfig {
         return http.build();
     }
 
-
-  /*  @Bean
-    public DaoAuthenticationProvider daoAuthenticationProvider() {
-        DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
-        daoAuthenticationProvider.setPasswordEncoder(passwordEncoder);
-        daoAuthenticationProvider.setUserDetailsService(userService);
-        return daoAuthenticationProvider;
-    }
-
-   @Bean
-    public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
-        return authenticationConfiguration.getAuthenticationManager();
-    }*/
 }

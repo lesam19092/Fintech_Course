@@ -3,6 +3,7 @@ package org.example.foodru_microservice.service.user;
 import lombok.RequiredArgsConstructor;
 import org.example.foodru_microservice.controller.dto.MealDto;
 import org.example.foodru_microservice.handler.exception.EntitySearchException;
+import org.example.foodru_microservice.handler.exception.MenuNotFoundException;
 import org.example.foodru_microservice.model.entity.Meal;
 import org.example.foodru_microservice.model.entity.Role;
 import org.example.foodru_microservice.model.entity.User;
@@ -41,10 +42,10 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean addMeal(Long id, String username) {
+    public void addMeal(Long id, String username) {
         User user = getUserByName(username);
         Meal meal = mealService.getMealById(id);
-        return userMealService.addMeal(meal, user);
+         userMealService.addMeal(meal, user);
     }
 
     @Override
@@ -59,13 +60,22 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean createMenu(String username, String menuName) {
-        return menuService.createMenu(getUserByName(username), menuName);
+    public void createMenu(String username, String menuName) {
+        menuService.createMenu(getUserByName(username), menuName);
+    }
+
+    @Override
+    public void addMealToMenu(Long mealId, String menuName, String userName) {
+        User user = getUserByName(userName);
+        if (!menuService.userHasMenu(user, menuName)) {
+            throw new MenuNotFoundException("Menu not found for user: " + userName);
+        }
+        Meal meal = mealService.getMealById(mealId);
+        menuService.addMealToMenu(meal, menuName, user);
     }
 
 
     private User createUserFromToken(String jwtToken) {
-
         User user = new User();
         user.setName(jwtTokenService.getUsername(jwtToken));
         user.setRole(Role.valueOf(jwtTokenService.getRole(jwtToken)));

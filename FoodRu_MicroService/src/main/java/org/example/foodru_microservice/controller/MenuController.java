@@ -6,6 +6,7 @@ import org.example.foodru_microservice.controller.dto.MealDto;
 import org.example.foodru_microservice.controller.dto.MenuDto;
 import org.example.foodru_microservice.model.consts.endpoints.MenuEndPoints;
 import org.example.foodru_microservice.service.menu.MenuService;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,15 +21,15 @@ public class MenuController {
     private final MenuService menuService;
 
 
-    //todo secured
+    @PreAuthorize("isAuthenticated()")
     @GetMapping(MenuEndPoints.MENUS)
     public List<MenuDto> getMenus(Principal principal) {
         return menuService.getMenusByUsername(principal.getName());
     }
 
-    //todo secured
+    @PreAuthorize("isAuthenticated()")
     @GetMapping(MenuEndPoints.MENU)
-    public List<MealDto> getMealsById(@PathVariable Long id) {
+    public List<MealDto> getMealsByMenuId(@PathVariable Long id) {
         return menuService.getMealsByMenuId(id);
     }
 
