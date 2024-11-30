@@ -10,7 +10,4 @@ public interface MealEndPoints {
 
     String MEAL_CHEAPEST = "/meals/{id}/ingredients/cheapest";
 
-    String USER_MEALS = "/get-meals";
-
-
 }
