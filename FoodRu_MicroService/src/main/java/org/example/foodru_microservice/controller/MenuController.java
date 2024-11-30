@@ -16,18 +16,17 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
+@PreAuthorize("isAuthenticated()")
 public class MenuController {
 
     private final MenuService menuService;
 
 
-    @PreAuthorize("isAuthenticated()")
     @GetMapping(MenuEndPoints.MENUS)
     public List<MenuDto> getMenus(Principal principal) {
         return menuService.getMenusByUsername(principal.getName());
     }
 
-    @PreAuthorize("isAuthenticated()")
     @GetMapping(MenuEndPoints.MENU)
     public List<MealDto> getMealsByMenuId(@PathVariable Long id) {
         return menuService.getMealsByMenuId(id);

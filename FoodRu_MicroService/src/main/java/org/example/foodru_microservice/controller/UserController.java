@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.example.foodru_microservice.controller.dto.MealDto;
 import org.example.foodru_microservice.model.consts.endpoints.UserEndPoints;
 import org.example.foodru_microservice.service.user.UserService;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,6 +16,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
+@PreAuthorize("isAuthenticated()")
 public class UserController {
 
     private final UserService userService;

@@ -34,8 +34,7 @@ public class MealController {
     public MealWithIngredientDto getMealIngredients(@PathVariable Long id) {
         return mealService.getMealsIngredients(id);
     }
-
-
+    //todo реализовать логику
     @GetMapping(MealEndPoints.MEAL_CHEAPEST)
     public MealWithIngredientDto getCheapestMealIngredients(@PathVariable Long id) {
         mealService.getCheapestMealsIngredients(id);
