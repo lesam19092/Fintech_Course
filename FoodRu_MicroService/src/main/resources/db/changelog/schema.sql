@@ -1,18 +1,11 @@
-
 CREATE TABLE users
 (
-    id        bigserial PRIMARY KEY,
-    name      VARCHAR(100),
-    email     VARCHAR(100),
-    role varchar(100)
+    id    bigserial PRIMARY KEY,
+    name  VARCHAR(100),
+    email VARCHAR(100),
+    role  varchar(100)
 );
 
-
-CREATE TABLE types
-(
-    id  bigserial PRIMARY KEY,
-    name VARCHAR(100) NOT NULL
-);
 
 CREATE TABLE ingredients
 (
@@ -26,8 +19,7 @@ CREATE TABLE menu
     name    VARCHAR(100) NOT NULL,
     user_id bigserial,
     type_id bigserial,
-    FOREIGN KEY (user_id) REFERENCES users (id),
-    FOREIGN KEY (type_id) REFERENCES types (id)
+    FOREIGN KEY (user_id) REFERENCES users (id)
 );
 
 CREATE TABLE meals
