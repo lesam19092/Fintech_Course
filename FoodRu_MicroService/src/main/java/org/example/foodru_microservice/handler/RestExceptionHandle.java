@@ -2,6 +2,7 @@ package org.example.foodru_microservice.handler;
 
 
 import lombok.extern.slf4j.Slf4j;
+import org.example.foodru_microservice.handler.exception.EmptyResultException;
 import org.example.foodru_microservice.handler.exception.InvalidInstanceException;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
@@ -40,12 +41,19 @@ public class RestExceptionHandle {
 
     @ExceptionHandler(HttpMessageNotReadableException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-
     public ApiError handleHttpMessageNotReadable(HttpMessageNotReadableException ex) {
         String message = "Failed to read request body. Please ensure the request body is formatted correctly.";
         log.error("HttpMessageNotReadableException: {}", message, ex);
         return new ApiError(HttpStatus.BAD_REQUEST, String.format("Сообщение: %s\nОшибка: %s%n", message, ex.getMessage()));
     }
+
+    @ExceptionHandler(EmptyResultException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ApiError handleEmptyResultException(EmptyResultException ex) {
+        log.error("EmptyResultException: {}", ex.getMessage(), ex);
+        return new ApiError(HttpStatus.NOT_FOUND, String.format("Сообщение: Ошибка: %s%n", ex.getMessage()));
+    }
+
 
     @ExceptionHandler(RuntimeException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
