@@ -3,17 +3,18 @@ package org.example.foodru_microservice.service.meal;
 import lombok.RequiredArgsConstructor;
 import org.example.foodru_microservice.controller.dto.MealDto;
 import org.example.foodru_microservice.controller.dto.MealWithIngredientDto;
+import org.example.foodru_microservice.handler.exception.EntitySearchException;
 import org.example.foodru_microservice.mapper.MealMapper;
 import org.example.foodru_microservice.model.entity.Meal;
 import org.example.foodru_microservice.repository.MealRepository;
 import org.example.foodru_microservice.service.kafka.KafkaProducer;
 import org.example.foodru_microservice.service.kafka.dto.ListIngredientDto;
+import org.example.foodru_microservice.utils.EntityUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static org.example.foodru_microservice.utils.EntityUtils.requireNonEmptyCollection;
 import static org.example.foodru_microservice.utils.EntityUtils.requirePresentEntity;
 
 @Service
@@ -26,41 +27,34 @@ public class MealServiceImpl implements MealService {
 
     @Override
     public List<MealDto> getAllMeals() {
-        return requireNonEmptyCollection(
-                mealRepository.findAll()
-                        .stream()
-                        .map(mealMapper::toDto)
-                        .collect(Collectors.toList())
-        );
+        return mealRepository.findAll()
+                .stream()
+                .map(mealMapper::toDto)
+                .collect(Collectors.collectingAndThen(Collectors.toList(), EntityUtils::requireNonEmptyCollection));
     }
 
     @Override
     public MealDto getMealDtoById(Long id) {
-        return mealMapper.toDto(
-                requirePresentEntity(
-                        mealRepository.findById(id)
-                )
-        );
+        return mealRepository.findById(id)
+                .map(mealMapper::toDto)
+                .orElseThrow(() -> new EntitySearchException("Meal not found"));
     }
 
     @Override
     public Meal getMealById(Long id) {
-        return
-                requirePresentEntity(
-                        mealRepository.findById(id)
-                );
+        return mealRepository.findById(id)
+                .orElseThrow(() -> new EntitySearchException("Meal not found"));
     }
 
     @Override
     public MealWithIngredientDto getMealsIngredients(Long id) {
-
-        return mealMapper.toDtoWithIngredients(
-                requirePresentEntity(
-                        mealRepository.getMealWithIngredients(id)
-                )
-        );
-
+        return mealRepository.getMealWithIngredients(id)
+                .map(mealMapper::toDtoWithIngredients)
+                .orElseThrow(() -> new EntitySearchException("Meal not found"));
     }
+
+
+    //todo это отрефакторить
 
     @Override
     public void getCheapestMealsIngredients(Long id) {
