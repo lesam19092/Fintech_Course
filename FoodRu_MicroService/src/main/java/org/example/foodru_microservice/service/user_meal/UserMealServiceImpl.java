@@ -2,6 +2,8 @@ package org.example.foodru_microservice.service.user_meal;
 
 import lombok.RequiredArgsConstructor;
 import org.example.foodru_microservice.controller.dto.MealDto;
+import org.example.foodru_microservice.handler.exception.EntitySearchException;
+import org.example.foodru_microservice.handler.exception.MealAlreadyExistsException;
 import org.example.foodru_microservice.mapper.MealMapper;
 import org.example.foodru_microservice.model.entity.Meal;
 import org.example.foodru_microservice.model.entity.User;
@@ -23,16 +25,13 @@ public class UserMealServiceImpl implements UserMealService {
     private final MealMapper mealMapper;
 
     @Override
-    public boolean addMeal(Meal meal, User user) {
+    public void addMeal(Meal meal, User user) {
         UsersMealId usersMealId = new UsersMealId(user.getId(), meal.getId());
-
         if (usersMealRepository.existsById(usersMealId)) {
-            return false;
+            throw new MealAlreadyExistsException("Meal already exists for user");
         }
-
         UsersMeal userMeal = new UsersMeal(usersMealId, user, meal);
         usersMealRepository.save(userMeal);
-        return true;
     }
 
     @Override

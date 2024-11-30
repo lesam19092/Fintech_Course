@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface UserMealService {
 
-    boolean addMeal(Meal meal, User user);
+    void addMeal(Meal meal, User user);
 
     List<MealDto> getAllMeals(User user);
 
