@@ -2,8 +2,7 @@ package org.example.foodru_microservice.handler;
 
 
 import lombok.extern.slf4j.Slf4j;
-import org.example.foodru_microservice.handler.exception.EmptyResultException;
-import org.example.foodru_microservice.handler.exception.InvalidInstanceException;
+import org.example.foodru_microservice.handler.exception.*;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;
@@ -20,6 +19,30 @@ import java.util.Arrays;
 @RestControllerAdvice
 @Slf4j
 public class RestExceptionHandle {
+
+
+    @ExceptionHandler(MenuAlreadyExistsException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ApiError handleMenuAlreadyExistsException(MenuAlreadyExistsException ex) {
+        log.error("MenuAlreadyExistsException: {}", ex.getMessage(), ex);
+        return new ApiError(HttpStatus.BAD_REQUEST, String.format("Сообщение: Ошибка: %s%n", ex.getMessage()));
+    }
+
+    @ExceptionHandler(MenuNotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ApiError handleMenuNotFoundException(MenuNotFoundException ex) {
+        log.error("MenuNotFoundException: {}", ex.getMessage(), ex);
+        return new ApiError(HttpStatus.NOT_FOUND, String.format("Сообщение: Ошибка: %s%n", ex.getMessage()));
+    }
+
+
+    @ExceptionHandler(MealAlreadyExistsException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ApiError handleMealAlreadyExistsException(MealAlreadyExistsException ex) {
+        log.error("MealAlreadyExistsException: {}", ex.getMessage(), ex);
+        return new ApiError(HttpStatus.BAD_REQUEST, String.format("Сообщение: Ошибка: %s%n", ex.getMessage()));
+    }
+
 
     @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
