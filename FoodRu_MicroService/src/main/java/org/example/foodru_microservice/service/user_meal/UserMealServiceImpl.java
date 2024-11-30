@@ -8,12 +8,11 @@ import org.example.foodru_microservice.model.entity.User;
 import org.example.foodru_microservice.model.entity.UsersMeal;
 import org.example.foodru_microservice.model.entity.UsersMealId;
 import org.example.foodru_microservice.repository.UsersMealRepository;
+import org.example.foodru_microservice.utils.EntityUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
-
-import static org.example.foodru_microservice.utils.EntityUtils.requireNonEmptyCollection;
 
 @Service
 @RequiredArgsConstructor
@@ -25,35 +24,23 @@ public class UserMealServiceImpl implements UserMealService {
 
     @Override
     public boolean addMeal(Meal meal, User user) {
-
-        UsersMealId usersMealId = new UsersMealId();
-        usersMealId.setUserId(user.getId());
-        usersMealId.setMealId(meal.getId());
+        UsersMealId usersMealId = new UsersMealId(user.getId(), meal.getId());
 
         if (usersMealRepository.existsById(usersMealId)) {
             return false;
         }
 
-        UsersMeal userMeal = new UsersMeal();
-        userMeal.setUser(user);
-        userMeal.setMeal(meal);
-        userMeal.setId(usersMealId);
-
+        UsersMeal userMeal = new UsersMeal(usersMealId, user, meal);
         usersMealRepository.save(userMeal);
         return true;
     }
 
     @Override
     public List<MealDto> getAllMeals(User user) {
-
         List<UsersMeal> usersMeals = usersMealRepository.findByUserId(user.getId());
-
-        return
-                requireNonEmptyCollection(
-                        usersMeals.stream()
-                                .map(UsersMeal::getMeal)
-                                .map(mealMapper::toDto)
-                                .collect(Collectors.toList())
-                );
+        return usersMeals.stream()
+                .map(UsersMeal::getMeal)
+                .map(mealMapper::toDto)
+                .collect(Collectors.collectingAndThen(Collectors.toList(), EntityUtils::requireNonEmptyCollection));
     }
 }
