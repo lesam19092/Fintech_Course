@@ -9,11 +9,8 @@ import java.util.List;
 @Data
 @Builder
 public class MealWithIngredientDto {
-
     private Long id;
     private String name;
     private String cookInstructions;
     private List<IngredientDto> ingredients;
-
-
 }
