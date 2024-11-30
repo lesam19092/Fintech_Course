@@ -9,6 +9,7 @@ import org.example.foodru_microservice.model.entity.User;
 import org.example.foodru_microservice.repository.UserRepository;
 import org.example.foodru_microservice.service.jwt.JwtTokenService;
 import org.example.foodru_microservice.service.meal.MealService;
+import org.example.foodru_microservice.service.menu.MenuService;
 import org.example.foodru_microservice.service.user_meal.UserMealService;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +24,8 @@ public class UserServiceImpl implements UserService {
     private final MealService mealService;
 
     private final UserMealService userMealService;
+
+    private final MenuService menuService;
 
     private final JwtTokenService jwtTokenService;
 
@@ -54,6 +57,12 @@ public class UserServiceImpl implements UserService {
     public List<MealDto> getAllMeals(String username) {
         return userMealService.getAllMeals(getUserByName(username));
     }
+
+    @Override
+    public boolean createMenu(String username, String menuName) {
+        return menuService.createMenu(getUserByName(username), menuName);
+    }
+
 
     private User createUserFromToken(String jwtToken) {
 

@@ -15,4 +15,6 @@ public interface UserService {
 
     List<MealDto> getAllMeals(String username);
 
+    boolean createMenu(String username, String menuName);
+
 }
