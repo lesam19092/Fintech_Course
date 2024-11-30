@@ -11,7 +11,7 @@ import javax.sql.DataSource;
 @Configuration
 public class DataSourceConfig {
 
-    @Bean(name = "myDataSource")
+    @Bean(name = "foodRuDataBase")
     @ConfigurationProperties("spring.datasource")
     public DataSource myDataSource() {
         return DataSourceBuilder.create().build();
