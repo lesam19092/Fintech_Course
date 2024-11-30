@@ -41,20 +41,18 @@ public class JwtRequestFilter extends OncePerRequestFilter {
             jwt = authHeader.substring(BEARER_PREFIX_LENGTH);
             try {
                 username = jwtTokenService.getUsername(jwt);
-                System.out.println(username);
             } catch (ExpiredJwtException e) {
                 log.error("Время жизни токена вышло");
             } catch (SignatureException e) {
                 log.error("Подпись неправильная");
             }
 
+
         }
 
 
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-
             userService.saveUser(jwt);
-
             UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(
                     username,
                     null,
