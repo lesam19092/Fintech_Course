@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface MenuRepository extends JpaRepository<Menu, Long> {
 
@@ -19,5 +20,7 @@ public interface MenuRepository extends JpaRepository<Menu, Long> {
     @Query("SELECT mm.meal FROM MenuMeal mm WHERE mm.menu.id = :menuId")
     List<Meal> findMealsByMenuId(Long menuId);
 
+    @Query("SELECT m FROM Menu m JOIN FETCH m.user u WHERE u = :user AND m.name = :menuName")
+    Optional<Menu> findByMenuByUserAndName(User user, String menuName);
 
 }
