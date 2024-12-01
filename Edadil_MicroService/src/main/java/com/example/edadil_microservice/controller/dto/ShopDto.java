@@ -8,7 +8,7 @@ import lombok.Data;
 @Builder
 public class ShopDto {
     private String companyName;
-    private int id;
+    private Integer id;
     private String city;
     private String address;
 }
