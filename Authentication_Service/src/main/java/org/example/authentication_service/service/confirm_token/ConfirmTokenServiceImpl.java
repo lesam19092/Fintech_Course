@@ -12,17 +12,17 @@ import org.springframework.stereotype.Service;
 public class ConfirmTokenServiceImpl implements ConfirmTokenService {
 
 
-    private final ConfirmationTokenRepository ConfirmationTokenRepository;
+    private final ConfirmationTokenRepository confirmationTokenRepository;
 
 
     @Override
     public void saveConfirmToken(ConfirmationToken confirmToken) {
-        ConfirmationTokenRepository.save(confirmToken);
+        confirmationTokenRepository.save(confirmToken);
     }
 
     @Override
     public ConfirmationToken findByConfirmationToken(String confirmationToken) {
-        return ConfirmationTokenRepository.findByToken(confirmationToken)
+        return confirmationTokenRepository.findByToken(confirmationToken)
                 .orElseThrow(() -> new EntityNotFoundException("Invalid confirmation token: " + confirmationToken));
     }
 }

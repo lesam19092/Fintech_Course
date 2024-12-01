@@ -30,7 +30,7 @@ public class ExecutorConfig {
     @Bean
     ExecutorService forSendingEmail() {
         BasicThreadFactory factory = new BasicThreadFactory.Builder()
-                .namingPattern("forSendingEmail-%d").priority(Thread.MAX_PRIORITY).build();
+                .namingPattern("ForSendingEmail-%d").priority(Thread.MAX_PRIORITY).build();
         return Executors.newFixedThreadPool(threadCountForEmail, factory);
 
 
