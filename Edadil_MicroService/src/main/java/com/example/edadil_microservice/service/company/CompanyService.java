@@ -1,29 +1,18 @@
 package com.example.edadil_microservice.service.company;
 
-import com.example.edadil_microservice.model.entity.Company;
-import com.example.edadil_microservice.model.response.ShopProductResponse;
-import com.example.edadil_microservice.model.response.ShopResponse;
+import com.example.edadil_microservice.controller.dto.CompanyDto;
 
 import java.util.List;
-import java.util.Set;
 
 public interface CompanyService {
 
-    List<Company> findAllCompanies();
+    List<CompanyDto> findAllCompanies();
 
-    Company findCompanyById(Integer companyId);
+    CompanyDto findCompanyById(Integer companyId);
 
-    Set<ShopResponse> findCompanyShops(Integer companyId);
+    List<CompanyDto> findCompaniesSellingFirmProducts(Integer firmId);
 
-    Set<ShopResponse> findCompanyShopsInCity(Integer companyId, String city);
+    CompanyDto findCompanySellingFirmProductsById(Integer firmId, Integer companyId);
 
-    ShopResponse findCompanyShopInCityById(Integer companyId, String city, Integer shopId);
 
-    ShopProductResponse retrieveShopProducts(Integer companyId, String city, Integer shopId);
-
-    ShopProductResponse retrieveShopProducts(Integer companyId, Integer shopId);
-
-    ShopProductResponse findSpecificProductInShop(Integer companyId, String city, Integer shopId, String name);
-
-    List<ShopProductResponse> getAllShopsWithProducts();
 }

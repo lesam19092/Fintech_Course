@@ -29,5 +29,15 @@ public class CompanyController {
         return companyService.findCompanyById(companyId);
     }
 
+    @GetMapping("/firms/{firmId}/company")
+    public List<CompanyDto> getCompaniesHavingFirmProducts(@PathVariable Integer firmId) {
+        return companyService.findCompaniesSellingFirmProducts(firmId);
+    }
+
+    @GetMapping("/firms/{firmId}/company/{companyId}")
+    public CompanyDto getCompaniesHavingFirmProductsById(@PathVariable Integer firmId, @PathVariable Integer companyId) {
+        return companyService.findCompanySellingFirmProductsById(firmId, companyId);
+    }
+
 
 }
