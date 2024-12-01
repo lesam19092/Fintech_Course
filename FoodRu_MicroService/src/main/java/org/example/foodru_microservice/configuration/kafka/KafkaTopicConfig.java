@@ -1,7 +1,6 @@
 package org.example.foodru_microservice.configuration.kafka;
 
 import lombok.Data;
-import lombok.RequiredArgsConstructor;
 import org.apache.kafka.clients.admin.AdminClientConfig;
 import org.apache.kafka.clients.admin.NewTopic;
 import org.springframework.context.annotation.Bean;
@@ -13,7 +12,6 @@ import java.util.Map;
 
 @Configuration
 @Data
-@RequiredArgsConstructor
 public class KafkaTopicConfig {
 
     private final KafkaPropertiesConfig config;

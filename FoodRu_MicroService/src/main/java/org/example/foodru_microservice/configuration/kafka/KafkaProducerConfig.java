@@ -17,7 +17,6 @@ import java.util.Map;
 
 @Configuration
 @Data
-@RequiredArgsConstructor
 public class KafkaProducerConfig {
 
     private final KafkaPropertiesConfig config;

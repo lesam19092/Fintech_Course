@@ -2,7 +2,6 @@ package org.example.foodru_microservice.configuration.kafka;
 
 
 import lombok.Data;
-import lombok.RequiredArgsConstructor;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.common.serialization.StringDeserializer;
 import org.example.foodru_microservice.service.kafka.dto.PaymentReceiptResponse;
@@ -20,7 +19,6 @@ import java.util.Map;
 @EnableKafka
 @Configuration
 @Data
-@RequiredArgsConstructor
 public class KafkaConsumerConfig {
 
     private final KafkaPropertiesConfig config;
