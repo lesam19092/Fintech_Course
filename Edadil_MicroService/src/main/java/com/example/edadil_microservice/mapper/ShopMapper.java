@@ -1,7 +1,7 @@
 package com.example.edadil_microservice.mapper;
 
-import com.example.edadil_microservice.controller.response.ShopResponse;
-import com.example.edadil_microservice.entity.Shop;
+import com.example.edadil_microservice.controller.dto.ShopDto;
+import com.example.edadil_microservice.model.entity.Shop;
 import org.springframework.stereotype.Component;
 
 import java.util.Set;
@@ -10,21 +10,21 @@ import java.util.stream.Collectors;
 import static com.example.edadil_microservice.utils.EntityUtils.requireNonEmptyCollection;
 
 @Component
-public class ShopResponseMapper {
+public class ShopMapper {
 
 
-    public Set<ShopResponse> convertShopsToShopResponses(Set<Shop> shops) {
+    public Set<ShopDto> toDtoSet(Set<Shop> shops) {
 
         requireNonEmptyCollection(shops);
 
         return shops.stream()
-                .map(this::buildShopResponse)
+                .map(this::toDto)
                 .collect(Collectors.toSet());
     }
 
 
-    public ShopResponse buildShopResponse(Shop shop) {
-        return ShopResponse.builder()
+    public ShopDto toDto(Shop shop) {
+        return ShopDto.builder()
                 .companyName(shop.getNameOfCompany().getCompanyName())
                 .id(shop.getId())
                 .city(shop.getCity())

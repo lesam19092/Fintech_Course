@@ -1,7 +1,7 @@
 package com.example.edadil_microservice.mapper;
 
 import com.example.edadil_microservice.controller.dto.CompanyDto;
-import com.example.edadil_microservice.entity.Company;
+import com.example.edadil_microservice.model.entity.Company;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
