@@ -1,4 +1,4 @@
-package com.example.edadil_microservice.model.dto;
+package com.example.edadil_microservice.controller.dto;
 
 import lombok.Data;
 

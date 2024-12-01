@@ -1,4 +1,4 @@
-package com.example.edadil_microservice.model.response;
+package com.example.edadil_microservice.controller.response;
 
 
 import lombok.Builder;
