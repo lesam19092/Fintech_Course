@@ -39,7 +39,7 @@ public class CompanyServiceImpl implements CompanyService {
     @Override
     public List<CompanyDto> findCompaniesSellingFirmProducts(Integer firmId) {
         log.info("Fetching companies selling products for firm with ID: {}", firmId);
-        List<Company> companies = requireNonEmptyCollection(companyRepository.findCompaniesByFirmId(firmId);
+        List<Company> companies = requireNonEmptyCollection(companyRepository.findCompaniesByFirmId(firmId));
         return companyMapper.toDtoList(companies);
     }
 
