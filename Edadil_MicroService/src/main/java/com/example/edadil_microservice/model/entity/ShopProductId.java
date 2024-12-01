@@ -1,4 +1,4 @@
-package com.example.edadil_microservice.entity;
+package com.example.edadil_microservice.model.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;

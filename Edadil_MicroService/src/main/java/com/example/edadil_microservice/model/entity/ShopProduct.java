@@ -1,6 +1,5 @@
-package com.example.edadil_microservice.entity;
+package com.example.edadil_microservice.model.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
