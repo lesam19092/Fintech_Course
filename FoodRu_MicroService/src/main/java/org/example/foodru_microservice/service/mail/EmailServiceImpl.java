@@ -23,12 +23,15 @@ public class EmailServiceImpl implements EmailService {
     @Value("${spring.mail.username}")
     private String username;
 
-
-
-
     @Override
     public void sendEmailWithAttachment(String toAddress, byte[] bytes) throws MessagingException {
         log.info("Creating MIME message for email to {}", toAddress);
+        MimeMessage mimeMessage = createMimeMessage(toAddress, bytes);
+        mailSender.send(mimeMessage);
+        log.info("Email sent successfully to {}", toAddress);
+    }
+
+    private MimeMessage createMimeMessage(String toAddress, byte[] bytes) throws MessagingException {
         MimeMessage mimeMessage = mailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true);
 
@@ -38,8 +41,6 @@ public class EmailServiceImpl implements EmailService {
         helper.setText(EmailConstants.TEXT);
         helper.addAttachment(EmailConstants.ATTACHMENT_NAME, new ByteArrayDataSource(bytes, EmailConstants.ATTACHMENT_TYPE));
 
-        log.info("Sending email to {}", toAddress);
-        mailSender.send(mimeMessage);
-        log.info("Email sent successfully to {}", toAddress);
+        return mimeMessage;
     }
 }
