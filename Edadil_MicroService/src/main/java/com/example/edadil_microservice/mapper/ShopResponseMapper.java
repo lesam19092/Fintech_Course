@@ -1,29 +1,29 @@
 package com.example.edadil_microservice.mapper;
 
-import com.example.edadil_microservice.model.entity.Shop;
-import com.example.edadil_microservice.model.response.ShopResponse;
-import lombok.extern.slf4j.Slf4j;
+import com.example.edadil_microservice.controller.response.ShopResponse;
+import com.example.edadil_microservice.entity.Shop;
+import org.springframework.stereotype.Component;
 
 import java.util.Set;
 import java.util.stream.Collectors;
 
 import static com.example.edadil_microservice.utils.EntityUtils.requireNonEmptyCollection;
 
-@Slf4j
+@Component
 public class ShopResponseMapper {
 
 
-    public static Set<ShopResponse> convertShopsToShopResponses(Set<Shop> shops) {
+    public Set<ShopResponse> convertShopsToShopResponses(Set<Shop> shops) {
 
         requireNonEmptyCollection(shops);
 
         return shops.stream()
-                .map(ShopResponseMapper::buildShopResponse)
+                .map(this::buildShopResponse)
                 .collect(Collectors.toSet());
     }
 
 
-    public static ShopResponse buildShopResponse(Shop shop) {
+    public ShopResponse buildShopResponse(Shop shop) {
         return ShopResponse.builder()
                 .companyName(shop.getNameOfCompany().getCompanyName())
                 .id(shop.getId())
