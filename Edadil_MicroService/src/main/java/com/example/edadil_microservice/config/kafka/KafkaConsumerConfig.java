@@ -1,6 +1,6 @@
 package com.example.edadil_microservice.config.kafka;
 
-import com.example.edadil_microservice.model.dto.ListIngredientDto;
+import com.example.edadil_microservice.controller.dto.ListIngredientDto;
 import lombok.Data;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.common.serialization.StringDeserializer;
