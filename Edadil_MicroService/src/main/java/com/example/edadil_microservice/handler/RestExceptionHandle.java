@@ -1,5 +1,7 @@
-package com.example.edadil_microservice.exception;
+package com.example.edadil_microservice.handler;
 
+import com.example.edadil_microservice.handler.exception.EmptyResultException;
+import com.example.edadil_microservice.handler.exception.EntityNotFoundException;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;

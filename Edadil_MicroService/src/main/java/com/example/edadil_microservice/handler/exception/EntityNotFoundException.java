@@ -1,4 +1,4 @@
-package com.example.edadil_microservice.exception;
+package com.example.edadil_microservice.handler.exception;
 
 public class EntityNotFoundException extends RuntimeException {
     

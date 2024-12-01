@@ -1,4 +1,4 @@
-package com.example.edadil_microservice.exception;
+package com.example.edadil_microservice.handler;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -8,7 +8,7 @@ import org.springframework.http.HttpStatus;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-class ApiError {
+public class ApiError {
     private HttpStatus status;
     private String message;
 }
