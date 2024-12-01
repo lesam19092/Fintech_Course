@@ -1,10 +1,9 @@
-package com.example.edadil_microservice.config;
+package com.example.edadil_microservice.config.kafka;
 
 import com.example.edadil_microservice.model.response.PaymentReceiptResponse;
 import lombok.Data;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.StringSerializer;
-import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.kafka.core.DefaultKafkaProducerFactory;
@@ -17,17 +16,16 @@ import java.util.Map;
 
 @Configuration
 @Data
-@ConfigurationProperties(prefix = "spring.properties.kafka")
 public class KafkaProducerConfig {
 
-    private String bootstrapAddress;
+    private final KafkaPropertiesConfig config;
 
     @Bean
     public ProducerFactory<String, PaymentReceiptResponse> producerFactory() {
         Map<String, Object> configProps = new HashMap<>();
         configProps.put(
                 ProducerConfig.BOOTSTRAP_SERVERS_CONFIG,
-                bootstrapAddress);
+                config.getBootstrapAddress());
         configProps.put(
                 ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG,
                 StringSerializer.class);

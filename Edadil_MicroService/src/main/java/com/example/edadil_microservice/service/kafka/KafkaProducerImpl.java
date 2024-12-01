@@ -1,10 +1,10 @@
 package com.example.edadil_microservice.service.kafka;
 
+import com.example.edadil_microservice.config.kafka.KafkaPropertiesConfig;
 import com.example.edadil_microservice.model.response.PaymentReceiptResponse;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
@@ -12,17 +12,16 @@ import org.springframework.stereotype.Service;
 @Slf4j
 @RequiredArgsConstructor
 @Data
-@ConfigurationProperties("spring.properties.kafka")
 public class KafkaProducerImpl implements KafkaProducer {
 
 
-    private String topicEdadilToFoodRu;
+    private final KafkaPropertiesConfig config;
 
     private final KafkaTemplate<String, PaymentReceiptResponse> kafkaTemplate;
 
     @Override
     public void sendMessage(PaymentReceiptResponse listIngredientDto) {
-        kafkaTemplate.send(topicEdadilToFoodRu, listIngredientDto);
+        kafkaTemplate.send(config.getTopicEdadilToFoodRu(), listIngredientDto);
         log.info("Kafka Producer. Sent message: " + listIngredientDto.toString());
     }
 }
