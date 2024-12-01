@@ -1,11 +1,11 @@
-package com.example.edadil_microservice.controller.response;
+package com.example.edadil_microservice.controller.dto;
 
 import lombok.Builder;
 import lombok.Data;
 
 @Data
 @Builder
-public class ProductResponse {
+public class ProductDto {
     private String name;
     private String firm;
     private Integer count;
