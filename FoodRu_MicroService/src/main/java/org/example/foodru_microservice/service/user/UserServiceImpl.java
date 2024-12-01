@@ -45,7 +45,7 @@ public class UserServiceImpl implements UserService {
     public void addMeal(Long id, String username) {
         User user = getUserByName(username);
         Meal meal = mealService.getMealById(id);
-         userMealService.addMeal(meal, user);
+        userMealService.addMeal(meal, user);
     }
 
     @Override
