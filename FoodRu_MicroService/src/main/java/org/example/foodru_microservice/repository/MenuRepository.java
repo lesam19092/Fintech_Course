@@ -14,7 +14,7 @@ public interface MenuRepository extends JpaRepository<Menu, Long> {
     boolean existsByUserAndName(User user, String menuName);
 
     @Query("SELECT m FROM Menu m JOIN FETCH m.user u WHERE u.name = :username")
-    List<Menu> findMenuByUserName(String username);
+    List<Menu> findMenusByUserName(String username);
 
 
     @Query("SELECT mm.meal FROM MenuMeal mm WHERE mm.menu.id = :menuId")

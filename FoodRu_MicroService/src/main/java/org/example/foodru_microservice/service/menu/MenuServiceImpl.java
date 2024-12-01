@@ -32,27 +32,18 @@ public class MenuServiceImpl implements MenuService {
     private final MenuMealService menuMealService;
 
 
-    //todo отрефакторить
-
     @Override
     public void createMenu(User user, String menuName) {
         if (userHasMenu(user, menuName)) {
             throw new MenuAlreadyExistsException("User already has a menu with this name.");
         }
         Menu menu = Menu.builder().name(menuName).user(user).build();
-
         menuRepository.save(menu);
-
-
     }
 
     @Override
     public List<MenuDto> getMenusByUsername(String username) {
-
-        List<Menu> usersMenus = Optional.ofNullable(menuRepository.findMenuByUserName(username))
-                .filter(menus -> !menus.isEmpty())
-                .orElseThrow(() -> new EntitySearchException("Menus not found. Please create a menu."));
-
+        List<Menu> usersMenus = getUsersMenus(username);
         return usersMenus.stream()
                 .map(menuMapper::toDto)
                 .collect(Collectors.toList());
@@ -60,11 +51,7 @@ public class MenuServiceImpl implements MenuService {
 
     @Override
     public List<MealDto> getMealsByMenuId(Long id) {
-
-        List<Meal> meals = Optional.ofNullable(menuRepository.findMealsByMenuId(id))
-                .filter(mealList -> !mealList.isEmpty())
-                .orElseThrow(() -> new EntitySearchException("Meals not found. Please add meals to the menu."));
-
+        List<Meal> meals = getMealsByMenuIdOrThrow(id);
         return meals.stream()
                 .map(mealMapper::toDto)
                 .collect(Collectors.toList());
@@ -76,12 +63,10 @@ public class MenuServiceImpl implements MenuService {
     }
 
 
-    //todo отрефакторить
     @Override
     public void addMealToMenu(Meal meal, String menuName, User user) {
         Menu menu = findMenuByUserAndName(user, menuName);
         List<Meal> meals = menuRepository.findMealsByMenuId(menu.getId());
-
         if (meals.contains(meal)) {
             throw new EntitySearchException("Meal already exists in the menu.");
         }
@@ -93,6 +78,18 @@ public class MenuServiceImpl implements MenuService {
     private Menu findMenuByUserAndName(User user, String menuName) {
         return menuRepository.findByMenuByUserAndName(user, menuName)
                 .orElseThrow(() -> new EntitySearchException("Menu not found"));
+    }
+
+    private List<Menu> getUsersMenus(String username) {
+        return Optional.ofNullable(menuRepository.findMenusByUserName(username))
+                .filter(menus -> !menus.isEmpty())
+                .orElseThrow(() -> new EntitySearchException("Menus not found. Please create a menu."));
+    }
+
+    private List<Meal> getMealsByMenuIdOrThrow(Long id) {
+        return Optional.ofNullable(menuRepository.findMealsByMenuId(id))
+                .filter(mealList -> !mealList.isEmpty())
+                .orElseThrow(() -> new EntitySearchException("Meals not found. Please add meals to the menu."));
     }
 
 
