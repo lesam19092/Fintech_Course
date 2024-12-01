@@ -1,4 +1,4 @@
-package com.example.edadil_microservice.model.entity;
+package com.example.edadil_microservice.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
@@ -24,7 +24,6 @@ public class Firm {
     private String firmName;
 
     @OneToMany(mappedBy = "firm", cascade = CascadeType.ALL)
-    @JsonIgnore
     private Set<Product> products = new LinkedHashSet<>();
 
 }

@@ -1,4 +1,4 @@
-package com.example.edadil_microservice.model.entity;
+package com.example.edadil_microservice.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;

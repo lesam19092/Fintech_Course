@@ -1,4 +1,4 @@
-package com.example.edadil_microservice.model.entity;
+package com.example.edadil_microservice.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
@@ -23,7 +23,6 @@ public class Product {
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "firm_id")
-    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Firm firm;
 
 

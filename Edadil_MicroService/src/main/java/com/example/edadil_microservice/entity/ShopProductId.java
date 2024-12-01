@@ -1,4 +1,4 @@
-package com.example.edadil_microservice.model.entity;
+package com.example.edadil_microservice.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
@@ -14,7 +14,6 @@ import java.util.Objects;
 @Setter
 @Embeddable
 public class ShopProductId implements Serializable {
-    private static final long serialVersionUID = 4926665951839352466L;
     @NotNull
     @Column(name = "shop_id", nullable = false)
     private Integer shopId;

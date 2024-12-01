@@ -1,7 +1,5 @@
-package com.example.edadil_microservice.model.entity;
+package com.example.edadil_microservice.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
@@ -14,7 +12,6 @@ import java.util.Set;
 @Setter
 @Entity
 @Table(name = "companies")
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Company {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,7 +23,6 @@ public class Company {
     private String companyName;
 
     @OneToMany(mappedBy = "nameOfCompany", cascade = CascadeType.ALL)
-    @JsonIgnore
     private Set<Shop> shops = new LinkedHashSet<>();
 
 }
