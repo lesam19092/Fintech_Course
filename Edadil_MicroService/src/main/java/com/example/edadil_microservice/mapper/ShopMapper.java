@@ -4,7 +4,7 @@ import com.example.edadil_microservice.controller.dto.ShopDto;
 import com.example.edadil_microservice.model.entity.Shop;
 import org.springframework.stereotype.Component;
 
-import java.util.Set;
+import java.util.List;
 import java.util.stream.Collectors;
 
 import static com.example.edadil_microservice.utils.EntityUtils.requireNonEmptyCollection;
@@ -13,13 +13,13 @@ import static com.example.edadil_microservice.utils.EntityUtils.requireNonEmptyC
 public class ShopMapper {
 
 
-    public Set<ShopDto> toDtoSet(Set<Shop> shops) {
+    public List<ShopDto> toDtoList(List<Shop> shops) {
 
         requireNonEmptyCollection(shops);
 
         return shops.stream()
                 .map(this::toDto)
-                .collect(Collectors.toSet());
+                .collect(Collectors.toList());
     }
 
 
