@@ -33,6 +33,15 @@ public class ShopProductMapper {
 
     }
 
+    public ShopProductDto toShopProductDto(List<ShopProduct> shopProducts) {
+        return ShopProductDto.builder()
+                .shop(ShopMapper.toDto(shopProducts.getFirst().getShop()))
+                .products(shopProducts.stream()
+                        .map(this::toProductDto)
+                        .collect(Collectors.toList()))
+                .build();
+    }
+
     public List<ShopProductDto> toShopProductDtoList(List<ShopProduct> shopProducts) {
 
         return shopProducts.stream()

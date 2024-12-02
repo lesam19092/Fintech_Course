@@ -20,7 +20,7 @@ public class ShopProductController {
 
 
     @GetMapping(GET_COMPANY_SHOP_PRODUCTS)
-    public List<ShopProductDto> getCompanyShopProducts(@PathVariable Integer companyId, @PathVariable String city, @PathVariable Integer shopId) {
+    public ShopProductDto getCompanyShopProducts(@PathVariable Integer companyId, @PathVariable String city, @PathVariable Integer shopId) {
         return shopProductService.retrieveShopProducts(companyId, city, shopId);
     }
 
@@ -34,7 +34,7 @@ public class ShopProductController {
      получение продуктов магазина компании , у которых есть продукция фирмы
      */
     @GetMapping(ShopProductEndpoints.GET_FIRM_PRODUCTS_IN_SHOP)
-    public List<ShopProductDto> findFirmProductsInShop(@PathVariable Integer firmId, @PathVariable Integer companyId, @PathVariable Integer shopId) {
+    public ShopProductDto findFirmProductsInShop(@PathVariable Integer firmId, @PathVariable Integer companyId, @PathVariable Integer shopId) {
         return shopProductService.findProductsInShopByFirmAndCompany(firmId, companyId, shopId);
     }
 
