@@ -1,12 +1,12 @@
 package com.example.edadil_microservice.service.product;
 
-import com.example.edadil_microservice.model.entity.Product;
+import com.example.edadil_microservice.controller.dto.ProductDto;
 
 import java.util.List;
 
 public interface ProductService {
 
-    List<Product> getAllProducts();
+    List<ProductDto> findProductsByFirmId(Integer firmId);
 
-    Product findProductByIdAndFirmId(Integer firmId, Integer productId);
+    ProductDto findProductByIdAndFirmId(Integer firmId, Integer productId);
 }

@@ -1,31 +1,48 @@
 package com.example.edadil_microservice.service.product;
 
 
+import com.example.edadil_microservice.controller.dto.ProductDto;
+import com.example.edadil_microservice.handler.exception.EntityNotFoundException;
+import com.example.edadil_microservice.mapper.ProductMapper;
 import com.example.edadil_microservice.model.entity.Product;
 import com.example.edadil_microservice.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-import static com.example.edadil_microservice.utils.EntityUtils.requireNonEmptyCollection;
 
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class ProductServiceImpl implements ProductService {
 
 
     private final ProductRepository productRepository;
+    private final ProductMapper productMapper;
 
     @Override
-    public List<Product> getAllProducts() {
-        return requireNonEmptyCollection(productRepository.findAll());
+    public List<ProductDto> findProductsByFirmId(Integer firmId) {
+        log.info("Fetching products for firm with ID: {}", firmId);
+        List<Product> products = productRepository.findByFirmId(firmId);
+        checkNonEmptyCollection(products);
+        return productMapper.toDtoList(products);
     }
 
     @Override
-    public Product findProductByIdAndFirmId(Integer firmId, Integer productId) {
-        return null;
+    public ProductDto findProductByIdAndFirmId(Integer firmId, Integer productId) {
+        log.info("Fetching product with ID: {} for firm with ID: {}", productId, firmId);
+        Product product = productRepository.findByFirmIdAndProductId(firmId, productId)
+                .orElseThrow(() -> new EntityNotFoundException("Product not found with ID: " + productId + " for firm ID: " + firmId));
+        return productMapper.toDto(product);
+    }
+
+    private void checkNonEmptyCollection(List<Product> products) {
+        if (products == null || products.isEmpty()) {
+            throw new EntityNotFoundException("No products found for the given firm ID");
+        }
     }
 
 
