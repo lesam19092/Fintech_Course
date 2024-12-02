@@ -15,7 +15,6 @@ public class FirmController {
 
     private final FirmService firmService;
 
-
     @GetMapping("/firms")
     public List<FirmDto> getAllFirms() {
         return firmService.findAllFirms();

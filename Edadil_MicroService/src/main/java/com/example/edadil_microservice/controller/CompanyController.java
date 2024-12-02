@@ -18,7 +18,6 @@ public class CompanyController {
 
     private final CompanyService companyService;
 
-
     @GetMapping("/companies")
     public List<CompanyDto> getAllCompany() {
         return companyService.findAllCompanies();
