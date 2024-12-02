@@ -19,4 +19,7 @@ public interface ShopProductRepository extends JpaRepository<ShopProduct, Intege
 
     @Query("SELECT sp FROM ShopProduct sp JOIN FETCH sp.shop s JOIN FETCH s.nameOfCompany c JOIN FETCH sp.product p JOIN FETCH p.firm f WHERE f.id = :firmId AND c.id = :companyId AND s.id = :shopId")
     List<ShopProduct> findProductsInShopByFirmAndCompany(Integer firmId, Integer companyId, Integer shopId);
+
+    @Query("SELECT sp FROM ShopProduct sp WHERE sp.shop.id = :shopId")
+    List<ShopProduct> findByShopId(Integer shopId);
 }
