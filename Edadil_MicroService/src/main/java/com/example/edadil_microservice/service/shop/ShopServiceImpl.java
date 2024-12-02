@@ -68,6 +68,17 @@ public class ShopServiceImpl implements ShopService {
                 .collect(Collectors.toList());
     }
 
+    @Override
+    public List<Integer> getIdShops() {
+        List<Integer> shopIds = shopRepository.findAll().stream()
+                .map(Shop::getId)
+                .toList();
+        if (shopIds.isEmpty()) {
+            throw new EntityNotFoundException("No shops found");
+        }
+        return shopIds;
+    }
+
     private List<Shop> getShopsByCompanyId(Integer companyId) {
         List<Shop> shops = shopRepository.findShopsByCompanyId(companyId);
         if (shops.isEmpty()) {

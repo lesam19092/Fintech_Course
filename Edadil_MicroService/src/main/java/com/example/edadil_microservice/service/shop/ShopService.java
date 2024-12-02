@@ -16,6 +16,8 @@ public interface ShopService {
     ShopDto findShopInCompanyWithFirmProductsById(Integer firmId, Integer companyId, Integer shopId);
 
     List<ShopDto> findShopsInCompanyWithFirmProducts(Integer firmId, Integer companyId);
+
+    List<Integer> getIdShops();
 }
 
 
