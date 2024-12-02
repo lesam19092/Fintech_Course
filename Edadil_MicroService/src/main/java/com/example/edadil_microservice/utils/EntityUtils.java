@@ -1,12 +1,10 @@
 package com.example.edadil_microservice.utils;
 
-import com.example.edadil_microservice.exception.EmptyResultException;
-import com.example.edadil_microservice.exception.EntityNotFoundException;
+import com.example.edadil_microservice.handler.exception.EmptyResultException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.CollectionUtils;
 
 import java.util.Collection;
-import java.util.Optional;
 
 @Slf4j
 public class EntityUtils {
@@ -19,11 +17,4 @@ public class EntityUtils {
         throw new EmptyResultException("Empty collection: " + collection.getClass().getSimpleName());
     }
 
-    public static <E> E requirePresentEntity(Optional<E> entity) {
-        if (entity.isPresent()) {
-            return entity.get();
-        }
-        log.error("Entity with id not found");
-        throw new EntityNotFoundException("Entity with id not found: ");
-    }
 }
