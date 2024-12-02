@@ -11,6 +11,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+import static com.example.edadil_microservice.model.consts.endpoints.ProductsEndpoint.GET_FIRM_PRODUCTS;
+import static com.example.edadil_microservice.model.consts.endpoints.ProductsEndpoint.GET_FIRM_PRODUCT_BY_ID;
+
 @RestController
 @RequiredArgsConstructor
 @Slf4j
@@ -20,12 +23,12 @@ public class ProductsController {
     private final ProductService productService;
 
 
-    @GetMapping("/firms/{firmId}/products")
+    @GetMapping(GET_FIRM_PRODUCTS)
     public List<ProductDto> getFirmProducts(@PathVariable Integer firmId) {
         return productService.findProductsByFirmId(firmId);
     }
 
-    @GetMapping("/firms/{firmId}/products/{productId}")
+    @GetMapping(GET_FIRM_PRODUCT_BY_ID)
     public ProductDto getFirmProductById(@PathVariable Integer firmId, @PathVariable Integer productId) {
         return productService.findProductByIdAndFirmId(firmId, productId);
     }

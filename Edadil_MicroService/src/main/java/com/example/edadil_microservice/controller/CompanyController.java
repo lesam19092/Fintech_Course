@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+import static com.example.edadil_microservice.model.consts.endpoints.СompanyEndpoints.*;
+
 @RestController
 @RequiredArgsConstructor
 @Slf4j
@@ -18,25 +20,24 @@ public class CompanyController {
 
     private final CompanyService companyService;
 
-    @GetMapping("/companies")
+    @GetMapping(GET_ALL_COMPANIES)
     public List<CompanyDto> getAllCompany() {
         return companyService.findAllCompanies();
     }
 
-    @GetMapping("/companies/{companyId}")
+    @GetMapping(GET_COMPANY_BY_ID)
     public CompanyDto getCompanyById(@PathVariable Integer companyId) {
         return companyService.findCompanyById(companyId);
     }
 
-    @GetMapping("/firms/{firmId}/company")
+    @GetMapping(GET_COMPANIES_HAVING_FIRM_PRODUCTS)
     public List<CompanyDto> getCompaniesHavingFirmProducts(@PathVariable Integer firmId) {
         return companyService.findCompaniesSellingFirmProducts(firmId);
     }
 
-    @GetMapping("/firms/{firmId}/company/{companyId}")
+    @GetMapping(GET_COMPANIES_HAVING_FIRM_PRODUCTS_BY_ID)
     public CompanyDto getCompaniesHavingFirmProductsById(@PathVariable Integer firmId, @PathVariable Integer companyId) {
         return companyService.findCompanySellingFirmProductsById(firmId, companyId);
     }
-
 
 }

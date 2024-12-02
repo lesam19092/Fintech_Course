@@ -9,23 +9,25 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+import static com.example.edadil_microservice.model.consts.endpoints.ShopEndpoints.*;
+
 @RestController
 @RequiredArgsConstructor
 public class ShopController {
 
     private final ShopService shopService;
 
-    @GetMapping("/companies/{companyId}/shops")
+    @GetMapping(GET_COMPANY_SHOPS)
     public List<ShopDto> getCompanyShops(@PathVariable Integer companyId) {
         return shopService.findCompanyShops(companyId);
     }
 
-    @GetMapping("/companies/{companyId}/shops/{city}")
+    @GetMapping(GET_COMPANY_SHOPS_BY_CITY)
     public List<ShopDto> getCompanyShopsByCity(@PathVariable Integer companyId, @PathVariable String city) {
         return shopService.findCompanyShopsInCity(companyId, city);
     }
 
-    @GetMapping("/companies/{companyId}/shops/{city}/{shopId}")
+    @GetMapping(GET_COMPANY_SHOP_FROM_CITY_BY_ID)
     public ShopDto getCompanyShopFromCityById(@PathVariable Integer companyId, @PathVariable String city, @PathVariable Integer shopId) {
         return shopService.findCompanyShopInCityById(companyId, city, shopId);
     }
@@ -33,19 +35,17 @@ public class ShopController {
     /**
      * получение магазинов компаний , у которых есть продукция фирмы
      */
-    @GetMapping("/firms/{firmId}/company/{companyId}/shops")
+    @GetMapping(GET_SHOPS_IN_COMPANY_WITH_FIRM_PRODUCTS)
     public List<ShopDto> getShopsInCompanyWithFirmProducts(@PathVariable Integer firmId, @PathVariable Integer companyId) {
         return shopService.findShopsInCompanyWithFirmProducts(firmId, companyId);
     }
 
-
     /**
      * получение магазинов компаний , у которых есть продукция фирмы
      */
-    @GetMapping("/firms/{firmId}/company/{companyId}/shops/{shopId}")
+    @GetMapping(GET_SHOPS_IN_COMPANY_WITH_FIRM_PRODUCTS_BY_ID)
     public ShopDto getShopsInCompanyWithFirmProductsById(@PathVariable Integer firmId, @PathVariable Integer companyId, @PathVariable Integer shopId) {
         return shopService.findShopInCompanyWithFirmProductsById(firmId, companyId, shopId);
     }
-
 
 }

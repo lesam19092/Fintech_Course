@@ -9,18 +9,22 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+import static com.example.edadil_microservice.model.consts.endpoints.FirmEndpoints.GET_ALL_FIRMS;
+import static com.example.edadil_microservice.model.consts.endpoints.FirmEndpoints.GET_FIRM_BY_ID;
+
 @RestController
 @RequiredArgsConstructor
 public class FirmController {
 
     private final FirmService firmService;
 
-    @GetMapping("/firms")
+
+    @GetMapping(GET_ALL_FIRMS)
     public List<FirmDto> getAllFirms() {
         return firmService.findAllFirms();
     }
 
-    @GetMapping("/firms/{firmId}")
+    @GetMapping(GET_FIRM_BY_ID)
     public FirmDto getFirmById(@PathVariable Integer firmId) {
         return firmService.findFirmById(firmId);
     }
