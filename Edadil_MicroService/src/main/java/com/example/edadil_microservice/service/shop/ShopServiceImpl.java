@@ -12,10 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
-
-import static com.example.edadil_microservice.utils.EntityUtils.requirePresentEntity;
 
 @Service
 @RequiredArgsConstructor
@@ -60,7 +57,8 @@ public class ShopServiceImpl implements ShopService {
     @Override
     public List<ShopDto> findShopsInCompanyWithFirmProducts(Integer firmId, Integer companyId) {
         log.info("Fetching shops in company with ID: {} selling products for firm with ID: {}", companyId, firmId);
-        List<ShopProduct> shops = shopProductRepository.findShopProductsByFirmIdAndCompanyId(firmId, companyId);
+
+        List<ShopProduct> shops = getUniqueShopProductsByFirmAndCompany(firmId, companyId);
 
         if (shops.isEmpty()) {
             throw new EntityNotFoundException("No shops found in company with ID: " + companyId + " selling products for firm with ID: " + firmId);
@@ -89,6 +87,15 @@ public class ShopServiceImpl implements ShopService {
             throw new EntityNotFoundException("No shops found for company ID: " + companyId + " in city: " + city);
         }
         return shops;
+    }
+
+    private List<ShopProduct> getUniqueShopProductsByFirmAndCompany(Integer firmId, Integer companyId) {
+        return shopProductRepository.findShopProductsByFirmIdAndCompanyId(firmId, companyId)
+                .stream()
+                .collect(Collectors.toMap(sp -> sp.getId().getShopId(), sp -> sp, (sp1, sp2) -> sp1))
+                .values()
+                .stream()
+                .toList();
     }
 
 }
