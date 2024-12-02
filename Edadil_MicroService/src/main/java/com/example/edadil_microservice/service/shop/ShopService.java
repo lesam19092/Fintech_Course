@@ -1,17 +1,21 @@
 package com.example.edadil_microservice.service.shop;
 
-import com.example.edadil_microservice.model.entity.Shop;
+import com.example.edadil_microservice.controller.dto.ShopDto;
 
-import java.util.Set;
+import java.util.List;
 
 public interface ShopService {
 
-    Set<Shop> findShopsByCompanyIdAndCity(Integer companyId, String city);
 
-    Shop findShopByCompanyIdAndCityAndId(Integer companyId, String city, Integer shopId);
+    List<ShopDto> findCompanyShops(Integer companyId);
 
-    Shop findShopProductsByCompanyIdAndCityAndId(Integer companyId, String city, Integer shopId);
+    List<ShopDto> findCompanyShopsInCity(Integer companyId, String city);
 
-    Shop findShopByNameOfCompanyIdAndId(Integer companyId, Integer shopId);
+    ShopDto findCompanyShopInCityById(Integer companyId, String city, Integer shopId);
 
+    ShopDto findShopInCompanyWithFirmProductsById(Integer firmId, Integer companyId, Integer shopId);
+
+    List<ShopDto> findShopsInCompanyWithFirmProducts(Integer firmId, Integer companyId);
 }
+
+
