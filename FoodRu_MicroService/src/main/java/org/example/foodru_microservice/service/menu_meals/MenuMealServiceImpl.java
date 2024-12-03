@@ -15,7 +15,6 @@ public class MenuMealServiceImpl implements MenuMealService {
 
     private final MenuMealRepository menuMealRepository;
 
-
     @Override
     public void addMealToMenu(Menu menu, Meal meal) {
         MenuMealId menuMealId = new MenuMealId(menu.getId(), meal.getId());
