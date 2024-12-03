@@ -17,7 +17,6 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 
@@ -76,7 +75,7 @@ public class MealServiceImpl implements MealService {
         listIngredientDto.setIngredientDtoList(mealWithIngredientDto.getIngredients());
         kafkaProducer.sendMessage(listIngredientDto);
 
-        PaymentReceiptResponse response = kafkaConsumer.getResponse(1000, TimeUnit.MILLISECONDS);
+        PaymentReceiptResponse response = kafkaConsumer.getResponse();
         cachedResponses.put(id, response);
         return response;
     }

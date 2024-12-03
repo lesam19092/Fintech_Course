@@ -25,8 +25,7 @@ public class KafkaConsumerImpl implements KafkaConsumer {
 
         try {
             responseQueue.put(paymentReceiptResponse);
-            log.info("Received Message in group foo: " + paymentReceiptResponse.toString());
-
+            log.info("Received Message in group foo: {}", paymentReceiptResponse);
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }
@@ -34,11 +33,9 @@ public class KafkaConsumerImpl implements KafkaConsumer {
     }
 
     @Override
-    public PaymentReceiptResponse getResponse(long timeout, TimeUnit unit) {
+    public PaymentReceiptResponse getResponse() {
         try {
-
-
-            PaymentReceiptResponse response = responseQueue.poll(timeout, unit);
+            PaymentReceiptResponse response = responseQueue.poll(1_000, TimeUnit.MILLISECONDS);
             if (response == null) {
                 log.error("Error getting response from Kafka Consumer. Reason: Timeout");
                 throw new EntitySearchException("receipt not found");
@@ -47,7 +44,7 @@ public class KafkaConsumerImpl implements KafkaConsumer {
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
             log.error("Error getting response from Kafka Consumer. Reason: {}", e.getMessage());
-            return null;
+            throw new EntitySearchException("Thread interrupted while waiting for Kafka response.");
         }
     }
 
