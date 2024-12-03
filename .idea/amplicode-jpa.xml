@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project version="4">
-  <component name="AmplicodeJpaIdeaProjectConfig" newRepositoryParent="org.springframework.data.jpa.repository.JpaRepository">
-    <option name="defaultUnitInitialized" value="true" />
-    <option name="renamerInitialized" value="true" />
-    <option name="reverseEngineeringLastDbConnectionId" value="e2cfe849-e9e0-477b-88ee-7722a07302eb" />
-    <option name="reLastEntityCreationPackage" value="FoodRu_MicroService/src/main/java/org/example/foodru_microservice/model/ampl" />
-  </component>
-</project>
