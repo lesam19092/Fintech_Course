@@ -7,12 +7,17 @@ import org.example.foodru_microservice.handler.exception.EntitySearchException;
 import org.example.foodru_microservice.mapper.MealMapper;
 import org.example.foodru_microservice.model.entity.Meal;
 import org.example.foodru_microservice.repository.MealRepository;
+import org.example.foodru_microservice.service.kafka.KafkaConsumer;
 import org.example.foodru_microservice.service.kafka.KafkaProducer;
 import org.example.foodru_microservice.service.kafka.dto.ListIngredientDto;
+import org.example.foodru_microservice.service.kafka.dto.PaymentReceiptResponse;
 import org.example.foodru_microservice.utils.EntityUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 
@@ -23,6 +28,10 @@ public class MealServiceImpl implements MealService {
     private final MealRepository mealRepository;
     private final MealMapper mealMapper;
     private final KafkaProducer kafkaProducer;
+    private final KafkaConsumer kafkaConsumer;
+
+    private final Map<Long, PaymentReceiptResponse> cachedResponses = new ConcurrentHashMap<>();
+
 
     @Override
     public List<MealDto> getAllMeals() {
@@ -53,19 +62,32 @@ public class MealServiceImpl implements MealService {
     }
 
 
-    //todo дополнить эту логику для edadil
-
     @Override
-    public void getCheapestMealsIngredients(Long id) {
-
+    public PaymentReceiptResponse getCheapestMealsIngredients(Long id) {
         MealWithIngredientDto mealWithIngredientDto = getMealsIngredients(id);
-
 
         ListIngredientDto listIngredientDto = new ListIngredientDto();
         listIngredientDto.setIngredientDtoList(mealWithIngredientDto.getIngredients());
         kafkaProducer.sendMessage(listIngredientDto);
 
+        PaymentReceiptResponse response = kafkaConsumer.getResponse(1000, TimeUnit.MILLISECONDS);
 
+        if (response != null) {
+            cachedResponses.put(id, response);
+            return response;
+        }
+
+        throw new EntitySearchException("receipt not found");
     }
+
+    @Override
+    public PaymentReceiptResponse getCachedResponse(Long mealId) {
+        PaymentReceiptResponse cachedResponse = cachedResponses.get(mealId);
+        if (cachedResponse == null) {
+            throw new EntitySearchException("Cached response not found for meal ID: " + mealId);
+        }
+        return cachedResponse;
+    }
+
 
 }
