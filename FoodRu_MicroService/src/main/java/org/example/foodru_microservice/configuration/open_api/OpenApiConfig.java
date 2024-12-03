@@ -1,4 +1,4 @@
-package org.example.foodru_microservice.controller.api;
+package org.example.foodru_microservice.configuration.open_api;
 
 import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.OpenAPI;
