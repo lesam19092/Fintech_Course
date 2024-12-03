@@ -41,13 +41,4 @@ public class ShopProductMapper {
                         .collect(Collectors.toList()))
                 .build();
     }
-
-    public List<ShopProductDto> toShopProductDtoList(List<ShopProduct> shopProducts) {
-
-        return shopProducts.stream()
-                .map(this::toShopProductDto)
-                .collect(Collectors.toList());
-
-
-    }
 }
