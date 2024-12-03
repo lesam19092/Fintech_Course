@@ -25,7 +25,8 @@ public class CompanyServiceImpl implements CompanyService {
     @Override
     public List<CompanyDto> findAllCompanies() {
         log.info("Fetching all companies");
-        List<Company> companies = requireNonEmptyCollection(companyRepository.findAll());
+        List<Company> companies = companyRepository.findAll();
+        requireNonEmptyCollection(companies);
         return companyMapper.toDtoList(companies);
     }
 
