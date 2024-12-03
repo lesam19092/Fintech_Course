@@ -64,6 +64,12 @@ public class MealServiceImpl implements MealService {
 
     @Override
     public PaymentReceiptResponse getCheapestMealsIngredients(Long id) {
+
+        PaymentReceiptResponse cachedResponse = cachedResponses.get(id);
+        if (cachedResponse != null) {
+            return cachedResponse;
+        }
+
         MealWithIngredientDto mealWithIngredientDto = getMealsIngredients(id);
 
         ListIngredientDto listIngredientDto = new ListIngredientDto();
@@ -71,13 +77,8 @@ public class MealServiceImpl implements MealService {
         kafkaProducer.sendMessage(listIngredientDto);
 
         PaymentReceiptResponse response = kafkaConsumer.getResponse(1000, TimeUnit.MILLISECONDS);
-
-        if (response != null) {
-            cachedResponses.put(id, response);
-            return response;
-        }
-
-        throw new EntitySearchException("receipt not found");
+        cachedResponses.put(id, response);
+        return response;
     }
 
     @Override

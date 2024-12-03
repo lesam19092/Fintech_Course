@@ -2,6 +2,7 @@ package org.example.foodru_microservice.service.kafka;
 
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
+import org.example.foodru_microservice.handler.exception.EntitySearchException;
 import org.example.foodru_microservice.service.kafka.dto.PaymentReceiptResponse;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
@@ -35,7 +36,14 @@ public class KafkaConsumerImpl implements KafkaConsumer {
     @Override
     public PaymentReceiptResponse getResponse(long timeout, TimeUnit unit) {
         try {
-            return responseQueue.poll(timeout, unit);
+
+
+            PaymentReceiptResponse response = responseQueue.poll(timeout, unit);
+            if (response == null) {
+                log.error("Error getting response from Kafka Consumer. Reason: Timeout");
+                throw new EntitySearchException("receipt not found");
+            }
+            return response;
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
             log.error("Error getting response from Kafka Consumer. Reason: {}", e.getMessage());
