@@ -31,7 +31,7 @@ public class UploadServiceImpl implements UploadService {
 
             try (ByteArrayInputStream inputStream = new ByteArrayInputStream(pdf)) {
                 s3Client.putObject(bucketName, fileName, inputStream, metadata);
-                log.info("Upload Service. Added file: " + fileName + " to bucket: " + bucketName);
+                log.info("Upload Service. Added file: {} to bucket: {}", fileName, bucketName);
             }
         } catch (IOException | AmazonS3Exception e) {
             log.error("Amazon S3 error uploading photos to Object Storage. Reason: {}", e.getMessage());
