@@ -6,5 +6,4 @@ public interface UserEndPoints {
     String ADD_MEAL_TO_MENU = "/meals/{mealId}/ingredients/add/{menuName}";
     String CREATE_MENU = "/menu/create/{menuName}";
     String USER_MEALS = "/get-meals";
-
 }
