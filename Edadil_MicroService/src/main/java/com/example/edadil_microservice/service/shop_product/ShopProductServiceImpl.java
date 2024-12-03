@@ -33,15 +33,6 @@ public class ShopProductServiceImpl implements ShopProductService {
         return shopProductMapper.toShopProductDto(shopProduct);
     }
 
-    private ShopProductDto retrieveShopProducts(Integer shopId) {
-        List<ShopProduct> shopProduct = shopProductRepository.findByShopId(shopId);
-        if (shopProduct.isEmpty()) {
-            return null;
-        }
-        log.info("Returning shop product response");
-        return shopProductMapper.toShopProductDto(shopProduct);
-    }
-
     @Override
     public List<ShopProductDto> findShopsSellingProduct(Integer firmId, Integer productId) {
         log.info("Fetching shops selling product with ID: {} for firm with ID: {}", productId, firmId);
@@ -71,6 +62,14 @@ public class ShopProductServiceImpl implements ShopProductService {
                 .stream()
                 .map(this::retrieveShopProducts)
                 .toList();
+    }
+
+    private ShopProductDto retrieveShopProducts(Integer shopId) {
+        List<ShopProduct> shopProduct = shopProductRepository.findByShopId(shopId);
+        if (shopProduct.isEmpty()) {
+            return null;
+        }
+        return shopProductMapper.toShopProductDto(shopProduct);
     }
 
 
