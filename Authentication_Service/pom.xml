@@ -250,33 +250,6 @@
             </plugin>
 
 
-            <plugin>
-                <groupId>org.openapitools</groupId>
-                <artifactId>openapi-generator-maven-plugin</artifactId>
-                <version>6.6.0</version>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>generate</goal>
-                        </goals>
-                        <configuration>
-                            <inputSpec>${project.basedir}/src/main/resources/authservice.yml</inputSpec>
-                            <generatorName>spring</generatorName>
-                            <apiPackage>com.baeldung.openapi.api</apiPackage>
-                            <modelPackage>com.baeldung.openapi.model</modelPackage>
-                            <generateSupportingFiles>false</generateSupportingFiles>
-                            <configOptions>
-                                <useJakartaEe>true</useJakartaEe>
-                                <useTags>true</useTags>
-                                <openApiNullable>false</openApiNullable>
-                                <skipDefaultInterface>true</skipDefaultInterface>
-                                <interfaceOnly>true</interfaceOnly>
-                            </configOptions>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-
 
             <plugin>
                 <groupId>org.jacoco</groupId>
