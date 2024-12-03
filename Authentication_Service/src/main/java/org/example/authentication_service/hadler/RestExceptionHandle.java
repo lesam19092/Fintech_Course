@@ -1,9 +1,9 @@
-package org.example.authentication_service.hadler;
+package org.example.authentication_service.handler;
 
 import jakarta.mail.MessagingException;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.extern.slf4j.Slf4j;
-import org.example.authentication_service.hadler.exception.*;
+import org.example.authentication_service.handler.exception.*;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;
@@ -97,6 +97,7 @@ public class RestExceptionHandle {
         log.error("EmailNotFoundException: {}", ex.getMessage());
         return new ResponseEntity<>(new ApiError(HttpStatus.BAD_REQUEST.value(), "Пользователь с указанным email не найден"), HttpStatus.BAD_REQUEST);
     }
+
 
 
 }
