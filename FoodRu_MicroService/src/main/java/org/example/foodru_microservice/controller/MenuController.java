@@ -2,6 +2,7 @@ package org.example.foodru_microservice.controller;
 
 
 import lombok.RequiredArgsConstructor;
+import org.example.foodru_microservice.controller.api.MenuApi;
 import org.example.foodru_microservice.controller.dto.MealDto;
 import org.example.foodru_microservice.controller.dto.MenuDto;
 import org.example.foodru_microservice.model.consts.endpoints.MenuEndPoints;
@@ -17,7 +18,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @PreAuthorize("isAuthenticated()")
-public class MenuController {
+public class MenuController implements MenuApi {
 
     private final MenuService menuService;
 
@@ -26,6 +27,7 @@ public class MenuController {
     public List<MenuDto> getMenus(Principal principal) {
         return menuService.getMenusByUsername(principal.getName());
     }
+
 
     @GetMapping(MenuEndPoints.MENU)
     public List<MealDto> getMealsByMenuId(@PathVariable Long id) {

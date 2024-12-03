@@ -1,6 +1,7 @@
 package org.example.foodru_microservice.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.example.foodru_microservice.controller.api.UserApi;
 import org.example.foodru_microservice.controller.dto.MealDto;
 import org.example.foodru_microservice.model.consts.endpoints.UserEndPoints;
 import org.example.foodru_microservice.service.user.UserService;
@@ -17,7 +18,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @PreAuthorize("isAuthenticated()")
-public class UserController {
+public class UserController implements UserApi {
 
     private final UserService userService;
 
@@ -34,12 +35,12 @@ public class UserController {
         return "Meal added to menu";
     }
 
-
     @PostMapping(UserEndPoints.CREATE_MENU)
     public String createMenu(Principal principal, @PathVariable String menuName) {
         userService.createMenu(principal.getName(), menuName);
         return "Menu created";
     }
+
 
     @GetMapping(UserEndPoints.USER_MEALS)
     public List<MealDto> getAllMeals(Principal principal) {

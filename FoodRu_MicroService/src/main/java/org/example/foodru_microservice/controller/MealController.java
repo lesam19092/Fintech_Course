@@ -2,6 +2,7 @@ package org.example.foodru_microservice.controller;
 
 
 import lombok.RequiredArgsConstructor;
+import org.example.foodru_microservice.controller.api.MealApi;
 import org.example.foodru_microservice.controller.dto.MealDto;
 import org.example.foodru_microservice.controller.dto.MealWithIngredientDto;
 import org.example.foodru_microservice.model.consts.endpoints.MealEndPoints;
@@ -16,7 +17,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-public class MealController {
+public class MealController implements MealApi {
 
 
     private final MealService mealService;
@@ -26,6 +27,7 @@ public class MealController {
     public List<MealDto> getMeals() {
         return mealService.getAllMeals();
     }
+
 
     @GetMapping(MealEndPoints.MEAL)
     public MealDto getMealById(@PathVariable Long id) {
@@ -42,5 +44,4 @@ public class MealController {
     public PaymentReceiptResponse getCheapestMealIngredients(@PathVariable Long id) {
         return mealService.getCheapestMealsIngredients(id);
     }
-
 }

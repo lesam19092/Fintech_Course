@@ -2,6 +2,7 @@ package org.example.foodru_microservice.controller;
 
 
 import lombok.RequiredArgsConstructor;
+import org.example.foodru_microservice.controller.api.PurchaseApi;
 import org.example.foodru_microservice.model.consts.endpoints.PurchaseEndPoints;
 import org.example.foodru_microservice.service.purchase.PurchaseService;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -14,7 +15,7 @@ import java.security.Principal;
 
 @RestController
 @RequiredArgsConstructor
-public class PurchaseController {
+public class PurchaseController implements PurchaseApi {
 
     private final PurchaseService purchaseService;
 

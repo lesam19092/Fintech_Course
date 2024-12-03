@@ -1,0 +1,412 @@
+openapi: 3.0.0
+info:
+  title: FoodRu Microservice API
+  description: API documentation for FoodRu Microservice
+  version: 1.0.0
+paths:
+  /meals:
+    get:
+      summary: Get all meals
+      description: Retrieve a list of all available meals
+      responses:
+        '200':
+          description: List of meals retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MealDto'
+        '401':
+          description: Unauthorized access
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+  /meals/{id}:
+    get:
+      summary: Get meal by ID
+      description: Retrieve a meal by its ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Meal retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MealDto'
+        '401':
+          description: Unauthorized access
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '404':
+          description: Meal not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+  /meals/{id}/ingredients:
+    get:
+      summary: Get meal ingredients
+      description: Retrieve ingredients of a meal by its ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Meal ingredients retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MealWithIngredientDto'
+        '401':
+          description: Unauthorized access
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '404':
+          description: Meal not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+  /meals/{id}/cheapest:
+    get:
+      summary: Get cheapest meal ingredients
+      description: Retrieve the cheapest ingredients of a meal by its ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Cheapest meal ingredients retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentReceiptResponse'
+        '401':
+          description: Unauthorized access
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '404':
+          description: Meal not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+  /menus:
+    get:
+      summary: Get all menus
+      description: Retrieve a list of all available menus for the authenticated user
+      responses:
+        '200':
+          description: List of menus retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MenuDto'
+        '401':
+          description: Unauthorized access
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+  /menus/{id}:
+    get:
+      summary: Get meals by menu ID
+      description: Retrieve a list of meals by menu ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: List of meals retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MealDto'
+        '401':
+          description: Unauthorized access
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '404':
+          description: Menu not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+  /meals/{id}/ingredients/cheapest/buy":
+    post:
+      summary: Buy cheapest meal ingredients
+      description: Purchase the cheapest meal ingredients by meal ID for the authenticated user
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            description: ID of the meal
+      responses:
+        '200':
+          description: Payment was successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  receiptId:
+                    type: integer
+                    description: Unique identifier for the payment receipt
+                  totalCost:
+                    type: number
+                    format: float
+                    description: Total cost of the ingredients
+                  purchasedIngredients:
+                    type: array
+                    items:
+                      type: string
+                    description: List of purchased ingredients
+        '401':
+          description: Unauthorized access
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '404':
+          description: Meal not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+      security:
+        - bearerAuth: [ ]
+  /meals/{mealId}/ingredients/add:
+    post:
+      summary: Add a meal
+      description: Add a meal to a user menu meal ID and menu name for the authenticated user
+      operationId: addMeal
+      parameters:
+        - name: mealId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Meal added to menu successfully
+          content:
+            application/json: { }
+        '401':
+          description: Unauthorized access
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+
+  /meals/{mealId}/ingredients/add/{menuName}:
+    post:
+      summary: Add a meal to menu
+      description: Add a meal to a specific menu by meal ID and menu name for the authenticated user
+      operationId: addMealToMenu
+      parameters:
+        - name: mealId
+          in: path
+          required: true
+          schema:
+            type: integer
+        - name: menuName
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Meal added to menu successfully
+          content:
+            application/json: { }
+        '401':
+          description: Unauthorized access
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+
+  /menu/create/{menuName}:
+    post:
+      summary: Create a menu
+      description: Create a new menu for the authenticated user
+      operationId: createMenu
+      parameters:
+        - name: menuName
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Menu created successfully
+          content:
+            application/json: { }
+        '401':
+          description: Unauthorized access
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+
+  /get-meals:
+    get:
+      summary: Get all meals
+      description: Retrieve all meals for the authenticated user
+      operationId: getAllMeals
+      responses:
+        '200':
+          description: List of meals retrieved
+          content:
+            application/json: { }
+        '401':
+          description: Unauthorized access
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  schemas:
+    MealDto:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        description:
+          type: string
+    MealWithIngredientDto:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        ingredients:
+          type: array
+          items:
+            type: string
+    PaymentReceiptResponse:
+      type: object
+      properties:
+        totalCost:
+          type: number
+          format: float
+        ingredients:
+          type: array
+          items:
+            type: string
+    MenuDto:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        description:
+          type: string
+    ApiError:
+      type: object
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
