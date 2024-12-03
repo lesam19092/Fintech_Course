@@ -33,6 +33,16 @@ thread:
   threadCountForEmail: 2
 
 
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,prometheus
+  metrics:
+    distribution:
+      percentiles-histogram:
+        "[http.server.requests]": true
+
 server:
   port: 1010
 
