@@ -2,7 +2,6 @@ package org.example.foodru_microservice.service.user_meal;
 
 import lombok.RequiredArgsConstructor;
 import org.example.foodru_microservice.controller.dto.MealDto;
-import org.example.foodru_microservice.handler.exception.EntitySearchException;
 import org.example.foodru_microservice.handler.exception.MealAlreadyExistsException;
 import org.example.foodru_microservice.mapper.MealMapper;
 import org.example.foodru_microservice.model.entity.Meal;
