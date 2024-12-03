@@ -3,7 +3,7 @@ package org.example.foodru_microservice.utils;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;
-import org.example.foodru_microservice.exception.EmptyResultException;
+import org.example.foodru_microservice.handler.exception.EmptyResultException;
 
 import java.util.Collection;
 import java.util.Optional;

@@ -22,25 +22,25 @@ public class UploadServiceImpl implements UploadService {
     private String bucketName;
 
     @Override
-    public void uploadPdf(byte[] pdf) {
+    public void uploadPdf(byte[] pdf, Long userId) {
 
         try {
-            String fileName = generateUniqueName();
+            String fileName = generateUniqueName(userId);
             ObjectMetadata metadata = new ObjectMetadata();
             metadata.setContentLength(pdf.length);
 
             try (ByteArrayInputStream inputStream = new ByteArrayInputStream(pdf)) {
                 s3Client.putObject(bucketName, fileName, inputStream, metadata);
-                log.info("Upload Service. Added file: " + fileName + " to bucket: " + bucketName);
+                log.info("Upload Service. Added file: {} to bucket: {}", fileName, bucketName);
             }
         } catch (IOException | AmazonS3Exception e) {
             log.error("Amazon S3 error uploading photos to Object Storage. Reason: {}", e.getMessage());
         }
     }
 
-    // TODO: Implement userId-date-uuid format for file names
-    private String generateUniqueName() {
+    private String generateUniqueName(Long userId) {
         UUID uuid = UUID.randomUUID();
-        return uuid +".pdf";
+        String date = java.time.LocalDate.now().toString();
+        return userId + "-" + date + "-" + uuid + ".pdf";
     }
 }

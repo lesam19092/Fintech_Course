@@ -1,0 +1,295 @@
+openapi: 3.0.1
+info:
+  title: OpenAPI definition
+  version: v0
+servers:
+  - url: http://localhost:1010
+    description: Generated server url
+paths:
+  /auth/restore-password:
+    post:
+      tags:
+        - forgot-password-controller
+      operationId: updatePassword
+      parameters:
+        - name: passwordToken
+          in: query
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdatePasswordDto'
+        required: true
+      responses:
+        '200':
+          description: Password updated successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Password updated successfully
+        '400':
+            description: Invalid password token or request body
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/ApiError'
+        '401':
+            description: Unauthorized access
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/ApiError'
+        '500':
+            description: Internal server error
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/ApiError'
+  /auth/reset-password:
+    post:
+      tags:
+        - forgot-password-controller
+      operationId: resetPassword
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PasswordResetRequest'
+        required: true
+      responses:
+        '200':
+          description: Password reset email sent
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Password reset email sent
+        '400':
+            description: Invalid email or user type
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/ApiError'
+        '401':
+            description: Unauthorized access
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/ApiError'
+        '500':
+            description: Internal server error
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/ApiError'
+  /auth/registration:
+    post:
+      tags:
+        - auth-user-controller
+      operationId: createNewUser
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RegistrationUserDto'
+        required: true
+      responses:
+        '200':
+          description: User registered successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: User registered successfully
+        '400':
+            description: Invalid registration details
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/ApiError'
+        '401':
+            description: Unauthorized access
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/ApiError'
+        '500':
+            description: Internal server error
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/ApiError'
+  /auth/login:
+    post:
+      tags:
+        - auth-user-controller
+      operationId: createAuthToken
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginUserDto'
+        required: true
+      responses:
+        '200':
+          description: Authentication token created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token:
+                    type: string
+                    example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+        '400':
+            description: Invalid login details
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/ApiError'
+        '401':
+            description: Unauthorized access
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/ApiError'
+        '500':
+            description: Internal server error
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/ApiError'
+  /auth/confirm-account:
+    get:
+      tags:
+        - auth-user-controller
+      operationId: confirmUserAccount
+      parameters:
+        - name: confirmationToken
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Account confirmed successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Account confirmed successfully
+        '400':
+            description: Invalid confirmation token
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/ApiError'
+        '401':
+            description: Unauthorized access
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/ApiError'
+        '500':
+            description: Internal server error
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/ApiError'
+components:
+  schemas:
+    ApiError:
+      type: object
+      properties:
+        status:
+          type: integer
+          format: int32
+        message:
+          type: string
+        timestamp:
+          type: string
+          format: date
+    UpdatePasswordDto:
+      required:
+        - confirmPassword
+        - password
+      type: object
+      properties:
+        password:
+          type: string
+        confirmPassword:
+          type: string
+    PasswordResetRequest:
+      required:
+        - email
+        - userType
+      type: object
+      properties:
+        email:
+          type: string
+        userType:
+          type: string
+    RegistrationUserDto:
+      required:
+        - confirmPassword
+        - email
+        - password
+        - userType
+        - username
+      type: object
+      properties:
+        username:
+          maxLength: 50
+          minLength: 3
+          type: string
+        password:
+          maxLength: 2147483647
+          minLength: 6
+          type: string
+        confirmPassword:
+          type: string
+        email:
+          type: string
+        userType:
+          type: string
+          enum:
+            - FoodRu
+            - Edadil
+    LoginUserDto:
+      required:
+        - password
+        - userType
+        - username
+      type: object
+      properties:
+        username:
+          maxLength: 50
+          minLength: 3
+          type: string
+        password:
+          maxLength: 2147483647
+          minLength: 6
+          type: string
+        userType:
+          type: string
+          enum:
+            - FoodRu
+            - Edadil
+        rememberMe:
+          type: boolean

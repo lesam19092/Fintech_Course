@@ -3,7 +3,9 @@ package org.example.foodru_microservice.model.entity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.Hibernate;
 
@@ -13,14 +15,16 @@ import java.util.Objects;
 @Getter
 @Setter
 @Embeddable
+@NoArgsConstructor
+@AllArgsConstructor
 public class UsersMealId implements Serializable {
     @NotNull
     @Column(name = "user_id", nullable = false)
-    private Integer userId;
+    private Long userId;
 
     @NotNull
     @Column(name = "meal_id", nullable = false)
-    private Integer mealId;
+    private Long mealId;
 
     @Override
     public boolean equals(Object o) {

@@ -8,21 +8,19 @@ spring:
     properties:
       hibernate:
         format_sql: true
+        dialect: org.hibernate.dialect.PostgreSQLDialect
   datasource:
     driver-class-name: org.postgresql.Driver
     jdbcUrl: jdbc:postgresql://localhost:5432/food_db
     username: postgres
     password: postgres
     poolName: myPool
-    jpa:
-      properties:
-        hibernate:
-          dialect: org.hibernate.dialect.PostgreSQLDialect
+
   mail:
     host: smtp.yandex.ru
     port: 587
-    username: daniil.glovatsky@yandex.ru
-    password: hngnlwgjftlauomk
+    username: ${username}
+    password: ${password}
     properties:
       mail:
         smtp:
@@ -30,18 +28,25 @@ spring:
           starttls:
             enable: true
   s3:
-    bucketName: bucket-for-s3
-    accessKeyId: YCAJE0sU1RpxZtayJhor-EAg3
-    secretAccessKey: YCPGq37wBlm2LlC0k35_qwqncdf0RROs5FTtKAKo
-  kafka:
-    properties:
-      sasl:
-        jaas:
-          config:
-            org.apache.kafka.common.security.plain.PlainLoginModule required username=${kafka_username:'admin'} password=${kafka_password:'admin-secret'}; mechanism:
-              PLAIN security:
-                protocol: SASL_PLAINTEXT
+    serviceEndpoint: https://storage.yandexcloud.net
+    signingRegion: ru-central1
+    bucketName: ${bucketName}
+    accessKeyId: ${accessKeyId}
+    secretAccessKey: ${secretAccessKey}
 
+
+  properties:
+    kafka:
+      bootstrapAddress: localhost:29092
+      topicEdadilToFoodRu: topicEdadilToFoodRu
+      topicFoodRuToEdadil: topicFoodRuToEdadil
+      groupId: foodRuGroup
+
+thread:
+  threadCount: 2
 
 server:
   port: 7070
+
+jwt:
+  secret: ${JWT_TOKEN}

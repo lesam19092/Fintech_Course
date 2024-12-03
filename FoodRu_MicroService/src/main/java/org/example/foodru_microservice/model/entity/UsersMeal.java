@@ -1,14 +1,19 @@
 package org.example.foodru_microservice.model.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
 @Entity
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "users_meals")
 public class UsersMeal {
+
     @EmbeddedId
     private UsersMealId id;
 

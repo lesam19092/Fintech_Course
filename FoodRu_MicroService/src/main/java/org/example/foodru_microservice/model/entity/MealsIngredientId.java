@@ -17,11 +17,11 @@ public class MealsIngredientId implements Serializable {
     private static final long serialVersionUID = 3598559915191657576L;
     @NotNull
     @Column(name = "meal_id", nullable = false)
-    private Integer mealId;
+    private Long mealId;
 
     @NotNull
     @Column(name = "ingredient_id", nullable = false)
-    private Integer ingredientId;
+    private Long ingredientId;
 
     @Override
     public boolean equals(Object o) {
