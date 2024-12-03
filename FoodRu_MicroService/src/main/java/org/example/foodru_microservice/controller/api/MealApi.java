@@ -5,6 +5,7 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.example.foodru_microservice.controller.dto.MealDto;
 import org.example.foodru_microservice.controller.dto.MealWithIngredientDto;
 import org.example.foodru_microservice.handler.ApiError;
@@ -69,7 +70,7 @@ public interface MealApi {
     @GetMapping(MealEndPoints.MEAL_INGREDIENTS)
     MealWithIngredientDto getMealIngredients(@PathVariable Long id);
 
-    @Operation(summary = "Get cheapest meal ingredients", description = "Retrieve the cheapest ingredients of a meal by its ID")
+    @Operation(summary = "Get cheapest meal ingredients", description = "Retrieve the cheapest ingredients of a meal by its ID", security = @SecurityRequirement(name = "BearerAuth"))
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Cheapest meal ingredients retrieved",
                     content = @Content(mediaType = "application/json",

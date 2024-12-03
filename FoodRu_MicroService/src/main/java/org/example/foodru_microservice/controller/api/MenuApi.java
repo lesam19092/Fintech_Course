@@ -6,10 +6,12 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.example.foodru_microservice.controller.dto.MealDto;
 import org.example.foodru_microservice.controller.dto.MenuDto;
 import org.example.foodru_microservice.handler.ApiError;
 import org.example.foodru_microservice.model.consts.endpoints.MenuEndPoints;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
@@ -19,7 +21,7 @@ import java.util.List;
 public interface MenuApi {
 
 
-    @Operation(summary = "Get all menus", description = "Retrieve a list of all available menus for the authenticated user")
+    @Operation(summary = "Get all menus", description = "Retrieve a list of all available menus for the authenticated user", security = @SecurityRequirement(name = "BearerAuth"))
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "List of menus retrieved",
                     content = @Content(mediaType = "application/json",
@@ -31,10 +33,12 @@ public interface MenuApi {
                     content = @Content(mediaType = "application/json",
                             schema = @Schema(implementation = ApiError.class)))
     })
+    @PreAuthorize("isAuthenticated()")
+
     @GetMapping(MenuEndPoints.MENUS)
     List<MenuDto> getMenus(Principal principal);
 
-    @Operation(summary = "Get meals by menu ID", description = "Retrieve a list of meals by menu ID")
+    @Operation(summary = "Get meals by menu ID", description = "Retrieve a list of meals by menu ID", security = @SecurityRequirement(name = "BearerAuth"))
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "List of meals retrieved",
                     content = @Content(mediaType = "application/json",
@@ -49,6 +53,8 @@ public interface MenuApi {
                     content = @Content(mediaType = "application/json",
                             schema = @Schema(implementation = ApiError.class)))
     })
+    @PreAuthorize("isAuthenticated()")
+
     @GetMapping(MenuEndPoints.MENU)
     List<MealDto> getMealsByMenuId(@PathVariable Long id);
 }
