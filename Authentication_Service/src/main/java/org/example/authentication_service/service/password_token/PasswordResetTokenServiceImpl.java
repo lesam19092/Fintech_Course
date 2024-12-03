@@ -8,6 +8,8 @@ import org.example.authentication_service.model.entity.User;
 import org.example.authentication_service.repository.PasswordResetTokenRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.UUID;
+
 @Service
 @RequiredArgsConstructor
 @Slf4j
@@ -26,5 +28,15 @@ public class PasswordResetTokenServiceImpl implements PasswordResetTokenService 
     @Override
     public void delete(PasswordResetToken passwordResetToken) {
         passwordResetTokenRepository.delete(passwordResetToken);
+    }
+
+    @Override
+    public String generatePasswordResetToken(User user) {
+        String token = UUID.randomUUID().toString();
+        if (user.getPasswordResetToken() != null) {
+            passwordResetTokenService.delete(user.getPasswordResetToken());
+        }
+        passwordResetTokenService.save(token, user);
+        return token;
     }
 }

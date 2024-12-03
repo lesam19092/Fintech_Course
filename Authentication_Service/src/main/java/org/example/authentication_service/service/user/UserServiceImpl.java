@@ -116,7 +116,7 @@ public class UserServiceImpl implements UserService {
     public void resetPassword(PasswordResetRequest request) throws MessagingException {
         User user = findByMailAndInstance(request.getEmail(), request.getUserType());
         validateUserIsEnabled(user);
-        String token = generatePasswordResetToken(user);
+        String token = passwordResetTokenService.generatePasswordResetToken(user);
         emailService.sendEmailWithRestorePassword(request.getEmail(), token);
     }
 
@@ -173,13 +173,5 @@ public class UserServiceImpl implements UserService {
         }
     }
 
-    private String generatePasswordResetToken(User user) {
-        String token = UUID.randomUUID().toString();
-        if (user.getPasswordResetToken() != null) {
-            passwordResetTokenService.delete(user.getPasswordResetToken());
-        }
-        passwordResetTokenService.save(token, user);
-        return token;
-    }
 
 }

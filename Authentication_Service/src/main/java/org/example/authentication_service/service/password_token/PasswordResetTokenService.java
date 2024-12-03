@@ -9,4 +9,7 @@ public interface PasswordResetTokenService {
     void save(String token, User user);
 
     void delete(PasswordResetToken passwordResetToken);
+
+    String generatePasswordResetToken(User user);
+
 }

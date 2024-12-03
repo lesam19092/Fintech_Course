@@ -28,13 +28,6 @@ services:
       - ./src/main/resources/db/changelog:/liquibase/changelog
     networks:
       - backend
-  prometheus:
-    image: prom/prometheus:latest
-    container_name: prometheuss
-    volumes:
-      - ./config/prometheus.yml:/etc/prometheus/prometheus.yml
-    ports:
-      - "9090:9090"
   elasticsearch:
     image: docker.elastic.co/elasticsearch/elasticsearch:8.10.2
     container_name: elasticsearch
