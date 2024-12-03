@@ -11,7 +11,9 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -70,14 +72,17 @@ public class ShopServiceImpl implements ShopService {
 
     @Override
     public List<Integer> getIdShops() {
-        List<Integer> shopIds = shopRepository.findAll().stream()
-                .map(Shop::getId)
-                .toList();
-        if (shopIds.isEmpty()) {
+        List<Shop> shops = shopRepository.findAll();
+
+        if (shops.isEmpty()) {
             throw new EntityNotFoundException("No shops found");
         }
-        return shopIds;
+
+        return shops.stream()
+                .map(Shop::getId)
+                .toList();
     }
+
 
     private List<Shop> getShopsByCompanyId(Integer companyId) {
         List<Shop> shops = shopRepository.findShopsByCompanyId(companyId);
@@ -101,12 +106,17 @@ public class ShopServiceImpl implements ShopService {
     }
 
     private List<ShopProduct> getUniqueShopProductsByFirmAndCompany(Integer firmId, Integer companyId) {
-        return shopProductRepository.findShopProductsByFirmIdAndCompanyId(firmId, companyId)
-                .stream()
-                .collect(Collectors.toMap(sp -> sp.getId().getShopId(), sp -> sp, (sp1, sp2) -> sp1))
-                .values()
-                .stream()
-                .toList();
+        List<ShopProduct> shopProducts = shopProductRepository.findShopProductsByFirmIdAndCompanyId(firmId, companyId);
+
+        Map<Integer, ShopProduct> uniqueShopProductsMap = shopProducts.stream()
+                .collect(Collectors.toMap(
+                        sp -> sp.getId().getShopId(),
+                        sp -> sp,
+                        (existing, replacement) -> existing
+                ));
+
+        return new ArrayList<>(uniqueShopProductsMap.values());
     }
+
 
 }
