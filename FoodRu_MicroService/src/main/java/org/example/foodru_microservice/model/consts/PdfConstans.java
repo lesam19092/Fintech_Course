@@ -1,5 +1,12 @@
 package org.example.foodru_microservice.model.consts;
 
 public interface PdfConstans {
-    //todo Добавить сюда константы
+
+    String COMPANY_NAME = "название компании";
+    String ADDRESS = "адрес";
+    String INGREDIENTS = "ингредиенты";
+    String missingIngredients = "отсуствующие продукты";
+    String COST = "цена";
+
+
 }
