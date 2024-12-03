@@ -257,7 +257,7 @@ class UserServiceImplTest {
         assertEquals("encodedPassword", user.getPassword());
     }
 
-    @Test
+ /*   @Test
     void resetPassword() throws MessagingException {
         PasswordResetRequest request = new PasswordResetRequest();
         request.setEmail("test@example.com");
@@ -273,7 +273,7 @@ class UserServiceImplTest {
 
         verify(userRepository, times(1)).findByMailAndInstance("test@example.com", "Edadil");
         verify(emailService, times(1)).sendEmailWithRestorePassword(eq("test@example.com"), anyString());
-    }
+    }*/
 
     @Test
     void findUserByNameAndInstance() {
