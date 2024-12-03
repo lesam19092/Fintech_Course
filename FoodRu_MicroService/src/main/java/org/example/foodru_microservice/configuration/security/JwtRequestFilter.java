@@ -46,10 +46,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
             } catch (SignatureException e) {
                 log.error("Подпись неправильная");
             }
-
-
         }
-
 
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
             userService.saveUser(jwt);
