@@ -11,6 +11,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="Authentication_Service" target="21" />
       <module name="Edadil_MicroService" target="21" />
     </bytecodeTargetLevel>
   </component>
