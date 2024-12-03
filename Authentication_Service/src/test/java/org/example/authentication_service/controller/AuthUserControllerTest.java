@@ -1,4 +1,4 @@
-/*
+
 package org.example.authentication_service.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -125,4 +125,4 @@ class AuthUserControllerTest {
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isBadRequest());
     }
-}*/
+}
