@@ -1,7 +1,6 @@
 package org.example.foodru_microservice.configuration.kafka;
 
 import lombok.Data;
-import lombok.RequiredArgsConstructor;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.StringSerializer;
 import org.example.foodru_microservice.service.kafka.dto.ListIngredientDto;
