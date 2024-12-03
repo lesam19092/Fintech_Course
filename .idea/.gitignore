@@ -6,3 +6,15 @@
 # Datasource local storage ignored files
 /dataSources/
 /dataSources.local.xml
+
+
+.idea/compiler.xml
+.idea/encodings.xml
+.idea/checkstyle-idea.xml
+.idea/material_theme_project_new.xml
+.idea/jarRepositories.xml
+.idea/misc.xml
+.idea/modules.xml
+.idea/uiDesigner.xml
+.idea/vcs.xml
+.idea/amplicode-settings.xml
