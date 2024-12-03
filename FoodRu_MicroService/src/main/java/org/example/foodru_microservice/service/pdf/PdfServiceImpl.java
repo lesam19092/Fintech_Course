@@ -10,6 +10,9 @@ import com.lowagie.text.pdf.PdfWriter;
 import jakarta.mail.MessagingException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.example.foodru_microservice.model.consts.PdfConstans;
+import org.example.foodru_microservice.model.entity.User;
+import org.example.foodru_microservice.service.kafka.dto.PaymentReceiptResponse;
 import org.example.foodru_microservice.service.mail.EmailService;
 import org.example.foodru_microservice.service.upload.UploadService;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -33,7 +36,8 @@ public class PdfServiceImpl implements PdfService {
 
 
     @Override
-    public void generateAndSendPdfReport(List<Object> response) {
+    public void generateAndSendPdfReport(PaymentReceiptResponse response, User user) {
+
 
         try (
                 ByteArrayOutputStream baos = new ByteArrayOutputStream()) {
@@ -47,7 +51,7 @@ public class PdfServiceImpl implements PdfService {
                 document.add(table);
             }
 
-            sendDataToEmailAndStorage("danigpro1337@gmail.com", baos.toByteArray());
+            sendDataToEmailAndStorage(user, baos.toByteArray());
 
         } catch (Exception exception) {
             log.error("Error while creating pdf file: {}", exception.getMessage());
@@ -55,22 +59,20 @@ public class PdfServiceImpl implements PdfService {
     }
 
 
-    //todo спросить по поводу ByteArrayOutputStream , норм что я ее использую до ее закрытия?
-
-    private void sendDataToEmailAndStorage(String toAddress, byte[] bytes) {
+    private void sendDataToEmailAndStorage(User user, byte[] bytes) {
 
         CompletableFuture<Void> emailFuture =
                 CompletableFuture
                         .runAsync(() -> {
                             try {
-                                emailService.sendEmailWithAttachment(toAddress, bytes);
+                                emailService.sendEmailWithAttachment(user.getEmail(), bytes);
                             } catch (MessagingException e) {
                                 throw new RuntimeException(e);
                             }
                         }, asyncS3EmailDataExporter);
 
         CompletableFuture<Void> s3Future = CompletableFuture
-                .runAsync(() -> uploadService.uploadPdf(bytes), asyncS3EmailDataExporter);
+                .runAsync(() -> uploadService.uploadPdf(bytes, user.getId()), asyncS3EmailDataExporter);
 
         CompletableFuture<Void> allOf = CompletableFuture.allOf(emailFuture, s3Future);
         try {
@@ -80,23 +82,35 @@ public class PdfServiceImpl implements PdfService {
         }
     }
 
-    //todo перенсти в константы
 
-    private PdfPTable createPdfTable(Font font, List<Object> response) {
+
+
+    private PdfPTable createPdfTable(Font font, PaymentReceiptResponse response) {
         PdfPTable table = new PdfPTable(5);
-        table.addCell(new PdfPCell(new Phrase("финтех:", font)));
-        table.addCell(new PdfPCell(new Phrase("адрес:", font)));
-        table.addCell(new PdfPCell(new Phrase("список отсут продуктов:", font)));
-        table.addCell(new PdfPCell(new Phrase("я тут:", font)));
-        table.addCell(new PdfPCell(new Phrase("ааааааааааааа:", font)));
-    /*for (PaymentReceipt p : response) {
-        table.addCell(new PdfPCell(new Phrase(p.getCompanyName(), font)));
-        table.addCell(new PdfPCell(new Phrase(p.getAddress(), font)));
-        table.addCell(new PdfPCell(new Phrase(p.getMissingIngredients().toString(), font)));
-        table.addCell(new PdfPCell(new Phrase(p.getIngredients().toString(), font)));
-        table.addCell(new PdfPCell(new Phrase(String.valueOf(p.getCost()), font)));
-    }*/
+        List<String> headers = List.of(
+                PdfConstans.COMPANY_NAME,
+                PdfConstans.ADDRESS,
+                PdfConstans.INGREDIENTS,
+                PdfConstans.MISSING_INGREDIENTS,
+                PdfConstans.COST
+        );
+        List<String> data = List.of(
+                response.getCompanyName(),
+                response.getAddress(),
+                response.getIngredients().toString(),
+                response.getMissingIngredients().toString(),
+                String.valueOf(response.getCost())
+        );
+
+        headers.forEach(header -> addCellToTable(table, header, font));
+        data.forEach(value -> addCellToTable(table, value, font));
+
         return table;
+    }
+
+    private void addCellToTable(PdfPTable table, String content, Font font) {
+        PdfPCell cell = new PdfPCell(new Phrase(content, font));
+        table.addCell(cell);
     }
 
 }
