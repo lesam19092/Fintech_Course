@@ -27,9 +27,9 @@ public class FirmServiceImpl implements FirmService {
     @Override
     public List<FirmDto> findAllFirms() {
         log.info("Fetching all firms");
-        return firmMapper.toDtoList(
-                requireNonEmptyCollection(firmRepository.findAll())
-        );
+        List<Firm> firms = firmRepository.findAll();
+        requireNonEmptyCollection(firms);
+        return firmMapper.toDtoList(firms);
     }
 
     @Override
