@@ -5,7 +5,9 @@ import lombok.RequiredArgsConstructor;
 import org.example.foodru_microservice.controller.dto.MealDto;
 import org.example.foodru_microservice.controller.dto.MealWithIngredientDto;
 import org.example.foodru_microservice.model.consts.endpoints.MealEndPoints;
+import org.example.foodru_microservice.service.kafka.dto.PaymentReceiptResponse;
 import org.example.foodru_microservice.service.meal.MealService;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
@@ -34,12 +36,11 @@ public class MealController {
     public MealWithIngredientDto getMealIngredients(@PathVariable Long id) {
         return mealService.getMealsIngredients(id);
     }
-    //todo реализовать логику
-    @GetMapping(MealEndPoints.MEAL_CHEAPEST)
-    public MealWithIngredientDto getCheapestMealIngredients(@PathVariable Long id) {
-        mealService.getCheapestMealsIngredients(id);
-        return null;
-    }
 
+    @PreAuthorize("isAuthenticated()")
+    @GetMapping(MealEndPoints.MEAL_CHEAPEST)
+    public PaymentReceiptResponse getCheapestMealIngredients(@PathVariable Long id) {
+        return mealService.getCheapestMealsIngredients(id);
+    }
 
 }
