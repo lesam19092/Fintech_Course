@@ -15,14 +15,11 @@ import org.springframework.stereotype.Service;
 public class KafkaProducerImpl implements KafkaProducer {
 
     private final KafkaPropertiesConfig config;
-
-
     private final KafkaTemplate<String, ListIngredientDto> kafkaTemplate;
 
     @Override
     public void sendMessage(ListIngredientDto listIngredientDto) {
         kafkaTemplate.send(config.getTopicFoodRuToEdadil(), listIngredientDto);
-        log.info("Kafka Producer. Sent message: " + listIngredientDto.toString());
+        log.info("Kafka Producer. Sent message: {}", listIngredientDto.toString());
     }
-
 }
