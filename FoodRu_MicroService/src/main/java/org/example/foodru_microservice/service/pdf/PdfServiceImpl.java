@@ -10,6 +10,7 @@ import com.lowagie.text.pdf.PdfWriter;
 import jakarta.mail.MessagingException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.example.foodru_microservice.model.consts.Fonts;
 import org.example.foodru_microservice.model.consts.PdfConstans;
 import org.example.foodru_microservice.model.entity.User;
 import org.example.foodru_microservice.service.kafka.dto.PaymentReceiptResponse;
@@ -44,7 +45,7 @@ public class PdfServiceImpl implements PdfService {
             try (Document document = new Document()) {
                 PdfWriter.getInstance(document, baos);
                 document.open();
-                BaseFont bfComic = BaseFont.createFont("FoodRu_MicroService\\font\\arial.ttf", BaseFont.IDENTITY_H,
+                BaseFont bfComic = BaseFont.createFont(Fonts.ARIAL, BaseFont.IDENTITY_H,
                         BaseFont.EMBEDDED);
                 Font font = new Font(bfComic, 12);
                 PdfPTable table = createPdfTable(font, response);
@@ -81,8 +82,6 @@ public class PdfServiceImpl implements PdfService {
             log.error("Error during data initialization", e);
         }
     }
-
-
 
 
     private PdfPTable createPdfTable(Font font, PaymentReceiptResponse response) {
