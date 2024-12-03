@@ -1,5 +1,6 @@
 package com.example.edadil_microservice.controller;
 
+import com.example.edadil_microservice.controller.api.FirmApi;
 import com.example.edadil_microservice.controller.dto.FirmDto;
 import com.example.edadil_microservice.service.firm.FirmService;
 import lombok.RequiredArgsConstructor;
@@ -14,7 +15,7 @@ import static com.example.edadil_microservice.model.consts.endpoints.FirmEndpoin
 
 @RestController
 @RequiredArgsConstructor
-public class FirmController {
+public class FirmController implements FirmApi {
 
     private final FirmService firmService;
 

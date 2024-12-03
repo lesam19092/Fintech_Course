@@ -1,6 +1,7 @@
 package com.example.edadil_microservice.controller;
 
 
+import com.example.edadil_microservice.controller.api.CompanyApi;
 import com.example.edadil_microservice.controller.dto.CompanyDto;
 import com.example.edadil_microservice.service.company.CompanyService;
 import lombok.RequiredArgsConstructor;
@@ -16,7 +17,7 @@ import static com.example.edadil_microservice.model.consts.endpoints.СompanyEnd
 @RestController
 @RequiredArgsConstructor
 @Slf4j
-public class CompanyController {
+public class CompanyController implements CompanyApi {
 
     private final CompanyService companyService;
 

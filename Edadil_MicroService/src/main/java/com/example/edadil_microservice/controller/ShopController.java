@@ -1,5 +1,6 @@
 package com.example.edadil_microservice.controller;
 
+import com.example.edadil_microservice.controller.api.ShopApi;
 import com.example.edadil_microservice.controller.dto.ShopDto;
 import com.example.edadil_microservice.service.shop.ShopService;
 import lombok.RequiredArgsConstructor;
@@ -13,7 +14,7 @@ import static com.example.edadil_microservice.model.consts.endpoints.ShopEndpoin
 
 @RestController
 @RequiredArgsConstructor
-public class ShopController {
+public class ShopController implements ShopApi {
 
     private final ShopService shopService;
 
@@ -32,17 +33,11 @@ public class ShopController {
         return shopService.findCompanyShopInCityById(companyId, city, shopId);
     }
 
-    /**
-     * получение магазинов компаний , у которых есть продукция фирмы
-     */
     @GetMapping(GET_SHOPS_IN_COMPANY_WITH_FIRM_PRODUCTS)
     public List<ShopDto> getShopsInCompanyWithFirmProducts(@PathVariable Integer firmId, @PathVariable Integer companyId) {
         return shopService.findShopsInCompanyWithFirmProducts(firmId, companyId);
     }
 
-    /**
-     * получение магазинов компаний , у которых есть продукция фирмы
-     */
     @GetMapping(GET_SHOPS_IN_COMPANY_WITH_FIRM_PRODUCTS_BY_ID)
     public ShopDto getShopsInCompanyWithFirmProductsById(@PathVariable Integer firmId, @PathVariable Integer companyId, @PathVariable Integer shopId) {
         return shopService.findShopInCompanyWithFirmProductsById(firmId, companyId, shopId);
