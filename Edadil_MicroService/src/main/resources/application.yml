@@ -39,3 +39,10 @@ management:
 server:
   port: 4040
 
+springdoc:
+  api-docs:
+    path: /v3/edadil-api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    config-url: /v3/api-docs/swagger-config
+
