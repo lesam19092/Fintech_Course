@@ -5,7 +5,7 @@ public interface PdfConstans {
     String COMPANY_NAME = "название компании";
     String ADDRESS = "адрес";
     String INGREDIENTS = "ингредиенты";
-    String missingIngredients = "отсуствующие продукты";
+    String MISSING_INGREDIENTS = "отсуствующие продукты";
     String COST = "цена";
 
 
