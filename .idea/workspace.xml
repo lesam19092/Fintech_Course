@@ -1,0 +1,680 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="32a102af-a2b4-4449-816c-d5362b611678" name="Changes" comment="убрал файлы в гитигнор" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Exception" />
+        <option value="Class" />
+        <option value="Interface" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="master" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;lesam19092&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/lesam19092/Fintech_Course.git&quot;,
+    &quot;accountId&quot;: &quot;a8250c4e-058d-401c-8cba-0d8983564103&quot;
+  }
+}</component>
+  <component name="GradleModuleStateConfig" initialized="true" />
+  <component name="HighlightingSettingsPerFile">
+    <setting file="jar://$USER_HOME$/.jdks/openjdk-21.0.2/lib/src.zip!/java.base/java/util/List.java" root0="SKIP_INSPECTION" />
+  </component>
+  <component name="KubernetesApiPersistence">{}</component>
+  <component name="KubernetesApiProvider">{
+  &quot;isMigrated&quot;: true
+}</component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 3
+}</component>
+  <component name="ProjectId" id="2oCx2Tf8rRfg4MktE8AUnAKKEEN" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Docker.Edadil_MicroService/compose.yml: Compose Deployment.executor": "Run",
+    "Maven.Authentication_Service [clean].executor": "Run",
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "Spring Boot.AuthenticationServiceApplication.executor": "Run",
+    "Spring Boot.EdadilMicroServiceApplication.executor": "Run",
+    "git-widget-placeholder": "first__branch",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.1838306",
+    "run.configurations.included.in.services": "true",
+    "vue.rearranger.settings.migration": "true"
+  },
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "postgresql"
+    ]
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\danil\Desktop\edadil" />
+      <recent name="C:\Users\danil\Desktop\edadil\.github" />
+      <recent name="C:\Users\danil\Desktop\edadil\Authentication_Service" />
+      <recent name="C:\Users\danil\Desktop\edadil\Authentication_Service\src\main\resources" />
+      <recent name="C:\Users\danil\Desktop\edadil\Authentication_Service\src\main\resources\db\changelog" />
+    </key>
+  </component>
+  <component name="RunAnythingCache">
+    <option name="myCommands">
+      <command value="mvn clean" />
+    </option>
+  </component>
+  <component name="RunDashboard">
+    <option name="configurationTypes">
+      <set>
+        <option value="KtorApplicationConfigurationType" />
+        <option value="MicronautRunConfigurationType" />
+        <option value="QuarkusRunConfigurationType" />
+        <option value="SpringBootApplicationConfigurationType" />
+      </set>
+    </option>
+  </component>
+  <component name="RunManager" selected="Spring Boot.AuthenticationServiceApplication">
+    <configuration default="true" type="JetRunConfigurationType">
+      <module name="Fintech_Course" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
+      <module name="Fintech_Course" />
+      <option name="filePath" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="AuthenticationServiceApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <option name="FRAME_DEACTIVATION_UPDATE_POLICY" value="UpdateClassesAndResources" />
+      <module name="Authentication_Service" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="org.example.authentication_service.AuthenticationServiceApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="EdadilMicroServiceApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <option name="FRAME_DEACTIVATION_UPDATE_POLICY" value="UpdateClassesAndResources" />
+      <module name="Edadil_MicroService" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.example.edadil_microservice.EdadilMicroServiceApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="FoodRuMicroServiceApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <option name="FRAME_DEACTIVATION_UPDATE_POLICY" value="UpdateClassesAndResources" />
+      <module name="FoodRu_MicroService" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="org.example.foodru_microservice.FoodRuMicroServiceApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Edadil_MicroService/compose.yml: Compose Deployment" type="docker-deploy" factoryName="docker-compose.yml" temporary="true" server-name="Docker">
+      <deployment type="docker-compose.yml">
+        <settings>
+          <option name="commandLineOptions" value="--build" />
+          <option name="sourceFilePath" value="Edadil_MicroService/compose.yml" />
+        </settings>
+      </deployment>
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="docker-deploy" factoryName="docker-compose.yml" temporary="true">
+      <deployment type="docker-compose.yml">
+        <settings />
+      </deployment>
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Docker.Edadil_MicroService/compose.yml: Compose Deployment" />
+        <item itemvalue="Docker.Edadil_MicroService/compose.yml: Compose Deployment" />
+        <item itemvalue="Docker.Edadil_MicroService/compose.yml: Compose Deployment" />
+        <item itemvalue="Docker.Edadil_MicroService/compose.yml: Compose Deployment" />
+        <item itemvalue="Docker.Edadil_MicroService/compose.yml: Compose Deployment" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-28b599e66164-intellij.indexing.shared.core-IU-242.23339.11" />
+        <option value="bundled-js-predefined-d6986cc7102b-5c90d61e3bab-JavaScript-IU-242.23339.11" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="32a102af-a2b4-4449-816c-d5362b611678" name="Changes" comment="" />
+      <created>1730387152134</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1730387152134</updated>
+      <workItem from="1730387153336" duration="8267000" />
+      <workItem from="1730446988820" duration="2269000" />
+      <workItem from="1730459907234" duration="40000" />
+      <workItem from="1730461437194" duration="1226000" />
+      <workItem from="1730479773218" duration="13000" />
+      <workItem from="1730479869796" duration="10823000" />
+      <workItem from="1730495925179" duration="847000" />
+      <workItem from="1730497334274" duration="769000" />
+      <workItem from="1730498389667" duration="61000" />
+      <workItem from="1730498755625" duration="6361000" />
+      <workItem from="1730541635808" duration="5242000" />
+      <workItem from="1730706381167" duration="774000" />
+      <workItem from="1730708947240" duration="159000" />
+      <workItem from="1731312380209" duration="1621000" />
+      <workItem from="1731327606280" duration="85000" />
+      <workItem from="1731327711869" duration="40000" />
+      <workItem from="1733053661041" duration="36061000" />
+      <workItem from="1733163704358" duration="827000" />
+      <workItem from="1733164577424" duration="20578000" />
+      <workItem from="1733258325612" duration="5269000" />
+    </task>
+    <task id="LOCAL-00015" summary="перенес dto в другую папку">
+      <option name="closed" value="true" />
+      <created>1733059932577</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1733059932577</updated>
+    </task>
+    <task id="LOCAL-00016" summary="перенес dto в другую папку">
+      <option name="closed" value="true" />
+      <created>1733059944454</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1733059944454</updated>
+    </task>
+    <task id="LOCAL-00017" summary="перенес dto в другую папку">
+      <option name="closed" value="true" />
+      <created>1733059958728</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1733059958728</updated>
+    </task>
+    <task id="LOCAL-00018" summary="поменял mapper">
+      <option name="closed" value="true" />
+      <created>1733059995634</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1733059995634</updated>
+    </task>
+    <task id="LOCAL-00019" summary="убрал лишний отступ">
+      <option name="closed" value="true" />
+      <created>1733060924408</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1733060924408</updated>
+    </task>
+    <task id="LOCAL-00020" summary="перенес сущности">
+      <option name="closed" value="true" />
+      <created>1733060965333</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1733060965333</updated>
+    </task>
+    <task id="LOCAL-00021" summary="меняю названия">
+      <option name="closed" value="true" />
+      <created>1733060989299</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1733060989299</updated>
+    </task>
+    <task id="LOCAL-00022" summary="поменял тип">
+      <option name="closed" value="true" />
+      <created>1733061523914</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1733061523914</updated>
+    </task>
+    <task id="LOCAL-00023" summary="удалил классы">
+      <option name="closed" value="true" />
+      <created>1733061535919</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1733061535919</updated>
+    </task>
+    <task id="LOCAL-00024" summary="отрефакторил mapper">
+      <option name="closed" value="true" />
+      <created>1733062153297</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1733062153297</updated>
+    </task>
+    <task id="LOCAL-00025" summary="отреакторил CompanyController">
+      <option name="closed" value="true" />
+      <created>1733066495794</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1733066495794</updated>
+    </task>
+    <task id="LOCAL-00026" summary="отрефакторил все для фирм">
+      <option name="closed" value="true" />
+      <created>1733088048998</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1733088048998</updated>
+    </task>
+    <task id="LOCAL-00027" summary="отрефакторил все для компаний">
+      <option name="closed" value="true" />
+      <created>1733088252707</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1733088252707</updated>
+    </task>
+    <task id="LOCAL-00028" summary="отрефакторил все для компаний">
+      <option name="closed" value="true" />
+      <created>1733088277565</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1733088277565</updated>
+    </task>
+    <task id="LOCAL-00029" summary="убрал неиспользуемые запросы в бд">
+      <option name="closed" value="true" />
+      <created>1733088725438</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1733088725438</updated>
+    </task>
+    <task id="LOCAL-00030" summary="добавил исключение + добавил обработчик">
+      <option name="closed" value="true" />
+      <created>1733092954086</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1733092954086</updated>
+    </task>
+    <task id="LOCAL-00031" summary="поменял на примитив">
+      <option name="closed" value="true" />
+      <created>1733092973267</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1733092973267</updated>
+    </task>
+    <task id="LOCAL-00032" summary="обновил dto">
+      <option name="closed" value="true" />
+      <created>1733126888296</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1733126888296</updated>
+    </task>
+    <task id="LOCAL-00033" summary="обновил controller">
+      <option name="closed" value="true" />
+      <created>1733127170430</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1733127170430</updated>
+    </task>
+    <task id="LOCAL-00034" summary="Обновил маппер">
+      <option name="closed" value="true" />
+      <created>1733127233776</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1733127233776</updated>
+    </task>
+    <task id="LOCAL-00035" summary="обновил контроллеры">
+      <option name="closed" value="true" />
+      <created>1733141913644</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1733141913644</updated>
+    </task>
+    <task id="LOCAL-00036" summary="CompanyServiceImpl Отерфакторил">
+      <option name="closed" value="true" />
+      <created>1733142019017</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1733142019017</updated>
+    </task>
+    <task id="LOCAL-00037" summary="FirmServiceImpl Отерфакторил">
+      <option name="closed" value="true" />
+      <created>1733142037585</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1733142037585</updated>
+    </task>
+    <task id="LOCAL-00038" summary="Отрефакторил все что связано с продуктами">
+      <option name="closed" value="true" />
+      <created>1733142201709</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1733142201709</updated>
+    </task>
+    <task id="LOCAL-00039" summary="отрефакторил">
+      <option name="closed" value="true" />
+      <created>1733142433969</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1733142433969</updated>
+    </task>
+    <task id="LOCAL-00040" summary="изменил немного controller">
+      <option name="closed" value="true" />
+      <created>1733169131289</created>
+      <option name="number" value="00040" />
+      <option name="presentableId" value="LOCAL-00040" />
+      <option name="project" value="LOCAL" />
+      <updated>1733169131289</updated>
+    </task>
+    <task id="LOCAL-00041" summary="немного изменил работу репозитория">
+      <option name="closed" value="true" />
+      <created>1733169212249</created>
+      <option name="number" value="00041" />
+      <option name="presentableId" value="LOCAL-00041" />
+      <option name="project" value="LOCAL" />
+      <updated>1733169212249</updated>
+    </task>
+    <task id="LOCAL-00042" summary="исправил баг">
+      <option name="closed" value="true" />
+      <created>1733169252477</created>
+      <option name="number" value="00042" />
+      <option name="presentableId" value="LOCAL-00042" />
+      <option name="project" value="LOCAL" />
+      <updated>1733169252477</updated>
+    </task>
+    <task id="LOCAL-00043" summary="убрал ненунжный метод">
+      <option name="closed" value="true" />
+      <created>1733169299085</created>
+      <option name="number" value="00043" />
+      <option name="presentableId" value="LOCAL-00043" />
+      <option name="project" value="LOCAL" />
+      <updated>1733169299085</updated>
+    </task>
+    <task id="LOCAL-00044" summary="отрефакторил сервис + добавил метод для получения всех продуктов у всех магазинов">
+      <option name="closed" value="true" />
+      <created>1733171060026</created>
+      <option name="number" value="00044" />
+      <option name="presentableId" value="LOCAL-00044" />
+      <option name="project" value="LOCAL" />
+      <updated>1733171060026</updated>
+    </task>
+    <task id="LOCAL-00045" summary="добавил еще один запрос">
+      <option name="closed" value="true" />
+      <created>1733171077880</created>
+      <option name="number" value="00045" />
+      <option name="presentableId" value="LOCAL-00045" />
+      <option name="project" value="LOCAL" />
+      <updated>1733171077880</updated>
+    </task>
+    <task id="LOCAL-00046" summary="Добавил метод для получения всех id магазинов">
+      <option name="closed" value="true" />
+      <created>1733171131410</created>
+      <option name="number" value="00046" />
+      <option name="presentableId" value="LOCAL-00046" />
+      <option name="project" value="LOCAL" />
+      <updated>1733171131410</updated>
+    </task>
+    <task id="LOCAL-00047" summary="немного отрефакторил">
+      <option name="closed" value="true" />
+      <created>1733259056525</created>
+      <option name="number" value="00047" />
+      <option name="presentableId" value="LOCAL-00047" />
+      <option name="project" value="LOCAL" />
+      <updated>1733259056525</updated>
+    </task>
+    <task id="LOCAL-00048" summary="немного отрефакторил">
+      <option name="closed" value="true" />
+      <created>1733259358161</created>
+      <option name="number" value="00048" />
+      <option name="presentableId" value="LOCAL-00048" />
+      <option name="project" value="LOCAL" />
+      <updated>1733259358161</updated>
+    </task>
+    <task id="LOCAL-00049" summary="убрал ненужнве импорты">
+      <option name="closed" value="true" />
+      <created>1733259463270</created>
+      <option name="number" value="00049" />
+      <option name="presentableId" value="LOCAL-00049" />
+      <option name="project" value="LOCAL" />
+      <updated>1733259463270</updated>
+    </task>
+    <task id="LOCAL-00050" summary="немного отрефакторил">
+      <option name="closed" value="true" />
+      <created>1733259518227</created>
+      <option name="number" value="00050" />
+      <option name="presentableId" value="LOCAL-00050" />
+      <option name="project" value="LOCAL" />
+      <updated>1733259518228</updated>
+    </task>
+    <task id="LOCAL-00051" summary="немного отрефакторил">
+      <option name="closed" value="true" />
+      <created>1733259783210</created>
+      <option name="number" value="00051" />
+      <option name="presentableId" value="LOCAL-00051" />
+      <option name="project" value="LOCAL" />
+      <updated>1733259783210</updated>
+    </task>
+    <task id="LOCAL-00052" summary="отрефакторил CalculationService">
+      <option name="closed" value="true" />
+      <created>1733260507960</created>
+      <option name="number" value="00052" />
+      <option name="presentableId" value="LOCAL-00052" />
+      <option name="project" value="LOCAL" />
+      <updated>1733260507960</updated>
+    </task>
+    <task id="LOCAL-00053" summary="убрал ненунжный метод">
+      <option name="closed" value="true" />
+      <created>1733260604325</created>
+      <option name="number" value="00053" />
+      <option name="presentableId" value="LOCAL-00053" />
+      <option name="project" value="LOCAL" />
+      <updated>1733260604325</updated>
+    </task>
+    <task id="LOCAL-00054" summary="отрефакторил">
+      <option name="closed" value="true" />
+      <created>1733261203204</created>
+      <option name="number" value="00054" />
+      <option name="presentableId" value="LOCAL-00054" />
+      <option name="project" value="LOCAL" />
+      <updated>1733261203204</updated>
+    </task>
+    <task id="LOCAL-00055" summary="отрефакторил">
+      <option name="closed" value="true" />
+      <created>1733261424081</created>
+      <option name="number" value="00055" />
+      <option name="presentableId" value="LOCAL-00055" />
+      <option name="project" value="LOCAL" />
+      <updated>1733261424081</updated>
+    </task>
+    <task id="LOCAL-00056" summary="удалил auth">
+      <option name="closed" value="true" />
+      <created>1733261538200</created>
+      <option name="number" value="00056" />
+      <option name="presentableId" value="LOCAL-00056" />
+      <option name="project" value="LOCAL" />
+      <updated>1733261538200</updated>
+    </task>
+    <task id="LOCAL-00057" summary="перенес папку">
+      <option name="closed" value="true" />
+      <created>1733261660378</created>
+      <option name="number" value="00057" />
+      <option name="presentableId" value="LOCAL-00057" />
+      <option name="project" value="LOCAL" />
+      <updated>1733261660379</updated>
+    </task>
+    <task id="LOCAL-00058" summary="удалил едадил">
+      <option name="closed" value="true" />
+      <created>1733261694219</created>
+      <option name="number" value="00058" />
+      <option name="presentableId" value="LOCAL-00058" />
+      <option name="project" value="LOCAL" />
+      <updated>1733261694219</updated>
+    </task>
+    <task id="LOCAL-00059" summary="имезнил">
+      <option name="closed" value="true" />
+      <created>1733261814369</created>
+      <option name="number" value="00059" />
+      <option name="presentableId" value="LOCAL-00059" />
+      <option name="project" value="LOCAL" />
+      <updated>1733261814369</updated>
+    </task>
+    <task id="LOCAL-00060" summary="замерджил изменнеия">
+      <option name="closed" value="true" />
+      <created>1733262586780</created>
+      <option name="number" value="00060" />
+      <option name="presentableId" value="LOCAL-00060" />
+      <option name="project" value="LOCAL" />
+      <updated>1733262586780</updated>
+    </task>
+    <task id="LOCAL-00061" summary="замерджил изменнеия">
+      <option name="closed" value="true" />
+      <created>1733262872712</created>
+      <option name="number" value="00061" />
+      <option name="presentableId" value="LOCAL-00061" />
+      <option name="project" value="LOCAL" />
+      <updated>1733262872712</updated>
+    </task>
+    <task id="LOCAL-00062" summary="замерджил изменнеия">
+      <option name="closed" value="true" />
+      <created>1733262955483</created>
+      <option name="number" value="00062" />
+      <option name="presentableId" value="LOCAL-00062" />
+      <option name="project" value="LOCAL" />
+      <updated>1733262955483</updated>
+    </task>
+    <task id="LOCAL-00063" summary="убрал файлы в гитигнор">
+      <option name="closed" value="true" />
+      <created>1733263582433</created>
+      <option name="number" value="00063" />
+      <option name="presentableId" value="LOCAL-00063" />
+      <option name="project" value="LOCAL" />
+      <updated>1733263582433</updated>
+    </task>
+    <option name="localTasksCounter" value="64" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="поменял на примитив" />
+    <MESSAGE value="обновил dto" />
+    <MESSAGE value="обновил controller" />
+    <MESSAGE value="Обновил маппер" />
+    <MESSAGE value="обновил контроллеры" />
+    <MESSAGE value="CompanyServiceImpl Отерфакторил" />
+    <MESSAGE value="FirmServiceImpl Отерфакторил" />
+    <MESSAGE value="Отрефакторил все что связано с продуктами" />
+    <MESSAGE value="изменил немного controller" />
+    <MESSAGE value="немного изменил работу репозитория" />
+    <MESSAGE value="исправил баг" />
+    <MESSAGE value="отрефакторил сервис + добавил метод для получения всех продуктов у всех магазинов" />
+    <MESSAGE value="добавил еще один запрос" />
+    <MESSAGE value="Добавил метод для получения всех id магазинов" />
+    <MESSAGE value="убрал ненужнве импорты" />
+    <MESSAGE value="немного отрефакторил" />
+    <MESSAGE value="отрефакторил CalculationService" />
+    <MESSAGE value="убрал ненунжный метод" />
+    <MESSAGE value="отрефакторил" />
+    <MESSAGE value="удалил auth" />
+    <MESSAGE value="перенес папку" />
+    <MESSAGE value="удалил едадил" />
+    <MESSAGE value="имезнил" />
+    <MESSAGE value="замерджил изменнеия" />
+    <MESSAGE value="убрал файлы в гитигнор" />
+    <option name="LAST_COMMIT_MESSAGE" value="убрал файлы в гитигнор" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/Edadil_MicroService/src/main/java/com/example/edadil_microservice/service/company/CompanyService.java</url>
+          <line>12</line>
+          <properties class="com.example.edadil_microservice.service.company.CompanyService">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="6" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/Edadil_MicroService/src/main/java/com/example/edadil_microservice/service/shop_product/ShopProductService.java</url>
+          <line>11</line>
+          <properties class="com.example.edadil_microservice.service.shop_product.ShopProductService">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="7" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/Edadil_MicroService/src/main/java/com/example/edadil_microservice/handler/exception/EntityNotFoundException.java</url>
+          <line>4</line>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+</project>
