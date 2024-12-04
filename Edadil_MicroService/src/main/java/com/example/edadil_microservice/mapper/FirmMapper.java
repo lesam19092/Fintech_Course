@@ -24,3 +24,4 @@ public class FirmMapper {
                 .collect(Collectors.toList());
     }
 }
+

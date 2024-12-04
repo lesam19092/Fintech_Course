@@ -25,3 +25,4 @@ public class KafkaProducerImpl implements KafkaProducer {
         log.info("Kafka Producer. Sent message: {}", listIngredientDto.toString());
     }
 }
+

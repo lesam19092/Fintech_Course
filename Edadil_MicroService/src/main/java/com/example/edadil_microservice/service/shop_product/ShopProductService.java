@@ -14,3 +14,4 @@ public interface ShopProductService {
     List<ShopProductDto> getAllShopsWithProducts();
 
 }
+

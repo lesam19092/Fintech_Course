@@ -23,3 +23,4 @@ public class User {
     @Column(name = "role", length = 50)
     private String role;
 }
+

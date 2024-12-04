@@ -6,3 +6,4 @@ public interface СompanyEndpoints {
     String GET_COMPANIES_HAVING_FIRM_PRODUCTS = "/firms/{firmId}/company";
     String GET_COMPANIES_HAVING_FIRM_PRODUCTS_BY_ID = "/firms/{firmId}/company/{companyId}";
 }
+

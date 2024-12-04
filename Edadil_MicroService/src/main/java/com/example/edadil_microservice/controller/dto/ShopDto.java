@@ -12,3 +12,4 @@ public class ShopDto {
     private String city;
     private String address;
 }
+

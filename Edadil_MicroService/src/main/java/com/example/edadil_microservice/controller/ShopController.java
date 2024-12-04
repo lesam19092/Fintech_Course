@@ -43,4 +43,5 @@ public class ShopController implements ShopApi {
         return shopService.findShopInCompanyWithFirmProductsById(firmId, companyId, shopId);
     }
 
+
 }

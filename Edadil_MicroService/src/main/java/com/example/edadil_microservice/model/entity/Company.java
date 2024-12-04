@@ -26,3 +26,4 @@ public class Company {
     private Set<Shop> shops = new LinkedHashSet<>();
 
 }
+

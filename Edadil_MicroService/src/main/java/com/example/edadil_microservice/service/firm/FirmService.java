@@ -11,3 +11,4 @@ public interface FirmService {
     FirmDto findFirmById(Long firmId);
 
 }
+

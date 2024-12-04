@@ -7,3 +7,4 @@ public class IngredientDto {
     private String name;
     private Double measure;
 }
+

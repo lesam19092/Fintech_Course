@@ -44,3 +44,4 @@ CREATE TABLE shop_product
     FOREIGN KEY (shop_id) REFERENCES shops (id),
     FOREIGN KEY (product_id) REFERENCES products (id)
 );
+

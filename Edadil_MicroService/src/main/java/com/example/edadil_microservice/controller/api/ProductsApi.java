@@ -49,3 +49,4 @@ public interface ProductsApi {
     ProductDto getFirmProductById(@PathVariable Long firmId, @PathVariable Long productId);
 
 }
+

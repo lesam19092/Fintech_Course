@@ -37,3 +37,4 @@ public class ShopProductId implements Serializable {
     }
 
 }
+

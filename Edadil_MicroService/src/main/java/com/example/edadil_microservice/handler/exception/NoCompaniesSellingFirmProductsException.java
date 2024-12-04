@@ -5,3 +5,4 @@ public class NoCompaniesSellingFirmProductsException extends RuntimeException {
     super(message);
   }
 }
+

@@ -5,3 +5,4 @@ public class EmptyResultException extends RuntimeException {
         super(message);
     }
 }
+

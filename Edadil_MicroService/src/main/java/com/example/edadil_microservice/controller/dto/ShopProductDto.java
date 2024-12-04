@@ -11,3 +11,4 @@ public class ShopProductDto {
     private ShopDto shop;
     private List<ProductDetailsDto> products;
 }
+
