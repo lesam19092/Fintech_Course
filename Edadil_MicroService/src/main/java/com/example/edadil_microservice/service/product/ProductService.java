@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface ProductService {
 
-    List<ProductDto> findProductsByFirmId(Integer firmId);
+    List<ProductDto> findProductsByFirmId(Long firmId);
 
-    ProductDto findProductByIdAndFirmId(Integer firmId, Integer productId);
+    ProductDto findProductByIdAndFirmId(Long firmId, Long productId);
 }

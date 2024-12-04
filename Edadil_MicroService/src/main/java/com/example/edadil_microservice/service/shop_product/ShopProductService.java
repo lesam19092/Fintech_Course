@@ -5,11 +5,11 @@ import com.example.edadil_microservice.controller.dto.ShopProductDto;
 import java.util.List;
 
 public interface ShopProductService {
-    ShopProductDto retrieveShopProducts(Integer companyId, String city, Integer shopId);
+    ShopProductDto retrieveShopProducts(Long companyId, String city, Long shopId);
 
-    List<ShopProductDto> findShopsSellingProduct(Integer firmId, Integer productId);
+    List<ShopProductDto> findShopsSellingProduct(Long firmId, Long productId);
 
-    ShopProductDto findProductsInShopByFirmAndCompany(Integer firmId, Integer companyId, Integer shopId);
+    ShopProductDto findProductsInShopByFirmAndCompany(Long firmId, Long companyId, Long shopId);
 
     List<ShopProductDto> getAllShopsWithProducts();
 

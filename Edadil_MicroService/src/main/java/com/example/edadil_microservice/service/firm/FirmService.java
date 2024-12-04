@@ -8,6 +8,6 @@ public interface FirmService {
 
     List<FirmDto> findAllFirms();
 
-    FirmDto findFirmById(Integer firmId);
+    FirmDto findFirmById(Long firmId);
 
 }

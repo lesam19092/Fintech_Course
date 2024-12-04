@@ -13,7 +13,7 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
-    private Integer id;
+    private Long id;
 
     @Size(max = 50)
     @Column(name = "user_name", length = 50)
@@ -22,9 +22,4 @@ public class User {
     @Size(max = 50)
     @Column(name = "role", length = 50)
     private String role;
-
-    @Size(max = 100)
-    @Column(name = "password", length = 100)
-    private String password;
-
 }

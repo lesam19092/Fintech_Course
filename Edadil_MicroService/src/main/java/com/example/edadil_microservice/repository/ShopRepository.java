@@ -12,11 +12,11 @@ import java.util.Optional;
 public interface ShopRepository extends JpaRepository<Shop, Integer> {
 
     @Query("SELECT s FROM Shop s JOIN FETCH s.nameOfCompany c WHERE c.id = :companyId AND s.city = :city")
-    List<Shop> findShopsByCompanyIdAndCity(Integer companyId, String city);
+    List<Shop> findShopsByCompanyIdAndCity(Long companyId, String city);
 
     @Query("SELECT s FROM Shop s JOIN FETCH s.nameOfCompany c WHERE c.id = :companyId AND s.city = :city and s.id = :shopId")
-    Optional<Shop> findShopByCompanyIdAndCityAndId(Integer companyId, String city, Integer shopId);
+    Optional<Shop> findShopByCompanyIdAndCityAndId(Long companyId, String city, Long shopId);
 
     @Query("SELECT s FROM Shop s WHERE s.nameOfCompany.id = :companyId")
-    List<Shop> findShopsByCompanyId(Integer companyId);
+    List<Shop> findShopsByCompanyId(Long companyId);
 }

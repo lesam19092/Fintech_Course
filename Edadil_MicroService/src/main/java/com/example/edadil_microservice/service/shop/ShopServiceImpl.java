@@ -26,21 +26,21 @@ public class ShopServiceImpl implements ShopService {
     private final ShopMapper shopMapper;
 
     @Override
-    public List<ShopDto> findCompanyShops(Integer companyId) {
+    public List<ShopDto> findCompanyShops(Long companyId) {
         log.info("Fetching shops for company with ID: {}", companyId);
         List<Shop> shops = getShopsByCompanyId(companyId);
         return shopMapper.toDtoList(shops);
     }
 
     @Override
-    public List<ShopDto> findCompanyShopsInCity(Integer companyId, String city) {
+    public List<ShopDto> findCompanyShopsInCity(Long companyId, String city) {
         log.info("Fetching shops for company with ID: {} in city: {}", companyId, city);
         List<Shop> shops = findShopsByCompanyIdAndCity(companyId, city);
         return shopMapper.toDtoList(shops);
     }
 
     @Override
-    public ShopDto findCompanyShopInCityById(Integer companyId, String city, Integer shopId) {
+    public ShopDto findCompanyShopInCityById(Long companyId, String city, Long shopId) {
         log.info("Fetching shop with ID: {} in city: {} for company with ID: {}", shopId, city, companyId);
         Shop shop = findShopByCompanyIdAndCityAndId(companyId, city, shopId);
         return shopMapper.toDto(shop);
@@ -48,7 +48,7 @@ public class ShopServiceImpl implements ShopService {
 
 
     @Override
-    public ShopDto findShopInCompanyWithFirmProductsById(Integer firmId, Integer companyId, Integer shopId) {
+    public ShopDto findShopInCompanyWithFirmProductsById(Long firmId, Long companyId, Long shopId) {
         log.info("Fetching shop with ID: {} in company with ID: {} selling products for firm with ID: {}", shopId, companyId, firmId);
         return findShopsInCompanyWithFirmProducts(firmId, companyId).stream()
                 .filter(shop -> shop.getId().equals(shopId))
@@ -57,7 +57,7 @@ public class ShopServiceImpl implements ShopService {
     }
 
     @Override
-    public List<ShopDto> findShopsInCompanyWithFirmProducts(Integer firmId, Integer companyId) {
+    public List<ShopDto> findShopsInCompanyWithFirmProducts(Long firmId, Long companyId) {
         log.info("Fetching shops in company with ID: {} selling products for firm with ID: {}", companyId, firmId);
 
         List<ShopProduct> shops = getUniqueShopProductsByFirmAndCompany(firmId, companyId);
@@ -71,7 +71,7 @@ public class ShopServiceImpl implements ShopService {
     }
 
     @Override
-    public List<Integer> getIdShops() {
+    public List<Long> getIdShops() {
         List<Shop> shops = shopRepository.findAll();
 
         if (shops.isEmpty()) {
@@ -84,7 +84,7 @@ public class ShopServiceImpl implements ShopService {
     }
 
 
-    private List<Shop> getShopsByCompanyId(Integer companyId) {
+    private List<Shop> getShopsByCompanyId(Long companyId) {
         List<Shop> shops = shopRepository.findShopsByCompanyId(companyId);
         if (shops.isEmpty()) {
             throw new EntityNotFoundException("No shops found for company ID: " + companyId);
@@ -92,12 +92,12 @@ public class ShopServiceImpl implements ShopService {
         return shops;
     }
 
-    private Shop findShopByCompanyIdAndCityAndId(Integer companyId, String city, Integer shopId) {
+    private Shop findShopByCompanyIdAndCityAndId(Long companyId, String city, Long shopId) {
         return shopRepository.findShopByCompanyIdAndCityAndId(companyId, city, shopId)
                 .orElseThrow(() -> new EntityNotFoundException("Shop not found for company ID: " + companyId + ", city: " + city + ", shop ID: " + shopId));
     }
 
-    private List<Shop> findShopsByCompanyIdAndCity(Integer companyId, String city) {
+    private List<Shop> findShopsByCompanyIdAndCity(Long companyId, String city) {
         List<Shop> shops = shopRepository.findShopsByCompanyIdAndCity(companyId, city);
         if (shops.isEmpty()) {
             throw new EntityNotFoundException("No shops found for company ID: " + companyId + " in city: " + city);
@@ -105,10 +105,10 @@ public class ShopServiceImpl implements ShopService {
         return shops;
     }
 
-    private List<ShopProduct> getUniqueShopProductsByFirmAndCompany(Integer firmId, Integer companyId) {
+    private List<ShopProduct> getUniqueShopProductsByFirmAndCompany(Long firmId, Long companyId) {
         List<ShopProduct> shopProducts = shopProductRepository.findShopProductsByFirmIdAndCompanyId(firmId, companyId);
 
-        Map<Integer, ShopProduct> uniqueShopProductsMap = shopProducts.stream()
+        Map<Long, ShopProduct> uniqueShopProductsMap = shopProducts.stream()
                 .collect(Collectors.toMap(
                         sp -> sp.getId().getShopId(),
                         sp -> sp,

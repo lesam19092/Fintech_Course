@@ -7,7 +7,7 @@ import lombok.Data;
 @Builder
 public class FirmDto {
 
-    private Integer id;
+    private Long id;
     private String firmName;
 
 }

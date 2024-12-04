@@ -24,7 +24,7 @@ public class ShopProductServiceImpl implements ShopProductService {
 
 
     @Override
-    public ShopProductDto retrieveShopProducts(Integer companyId, String city, Integer shopId) {
+    public ShopProductDto retrieveShopProducts(Long companyId, String city, Long shopId) {
         List<ShopProduct> shopProduct = shopProductRepository.findShopProductsByCompanyIdAndCityAndShopId(companyId, city, shopId);
         if (shopProduct.isEmpty()) {
             throw new EntityNotFoundException("Products not found");
@@ -34,7 +34,7 @@ public class ShopProductServiceImpl implements ShopProductService {
     }
 
     @Override
-    public List<ShopProductDto> findShopsSellingProduct(Integer firmId, Integer productId) {
+    public List<ShopProductDto> findShopsSellingProduct(Long firmId, Long productId) {
         log.info("Fetching shops selling product with ID: {} for firm with ID: {}", productId, firmId);
         List<ShopProduct> shopProducts = shopProductRepository.findShopProductsByProductId(productId);
         if (shopProducts.isEmpty()) {
@@ -46,7 +46,7 @@ public class ShopProductServiceImpl implements ShopProductService {
     }
 
     @Override
-    public ShopProductDto findProductsInShopByFirmAndCompany(Integer firmId, Integer companyId, Integer shopId) {
+    public ShopProductDto findProductsInShopByFirmAndCompany(Long firmId, Long companyId, Long shopId) {
         log.info("Fetching products in shop with ID: {} for firm with ID: {} and company with ID: {}", shopId, firmId, companyId);
         List<ShopProduct> shopProduct = shopProductRepository.findProductsInShopByFirmAndCompany(firmId, companyId, shopId);
         if (shopProduct.isEmpty()) {
@@ -64,7 +64,7 @@ public class ShopProductServiceImpl implements ShopProductService {
                 .toList();
     }
 
-    private ShopProductDto retrieveShopProducts(Integer shopId) {
+    private ShopProductDto retrieveShopProducts(Long shopId) {
         List<ShopProduct> shopProduct = shopProductRepository.findByShopId(shopId);
         if (shopProduct.isEmpty()) {
             return null;

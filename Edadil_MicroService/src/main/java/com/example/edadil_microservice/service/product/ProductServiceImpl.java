@@ -24,7 +24,7 @@ public class ProductServiceImpl implements ProductService {
     private final ProductMapper productMapper;
 
     @Override
-    public List<ProductDto> findProductsByFirmId(Integer firmId) {
+    public List<ProductDto> findProductsByFirmId(Long firmId) {
         log.info("Fetching products for firm with ID: {}", firmId);
         List<Product> products = productRepository.findByFirmId(firmId);
         checkNonEmptyCollection(products);
@@ -32,7 +32,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public ProductDto findProductByIdAndFirmId(Integer firmId, Integer productId) {
+    public ProductDto findProductByIdAndFirmId(Long firmId, Long productId) {
         log.info("Fetching product with ID: {} for firm with ID: {}", productId, firmId);
         Product product = productRepository.findByFirmIdAndProductId(firmId, productId)
                 .orElseThrow(() -> new EntityNotFoundException("Product not found with ID: " + productId + " for firm ID: " + firmId));

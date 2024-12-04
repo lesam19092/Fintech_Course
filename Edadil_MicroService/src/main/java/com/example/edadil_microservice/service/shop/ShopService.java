@@ -7,17 +7,17 @@ import java.util.List;
 public interface ShopService {
 
 
-    List<ShopDto> findCompanyShops(Integer companyId);
+    List<ShopDto> findCompanyShops(Long companyId);
 
-    List<ShopDto> findCompanyShopsInCity(Integer companyId, String city);
+    List<ShopDto> findCompanyShopsInCity(Long companyId, String city);
 
-    ShopDto findCompanyShopInCityById(Integer companyId, String city, Integer shopId);
+    ShopDto findCompanyShopInCityById(Long companyId, String city, Long shopId);
 
-    ShopDto findShopInCompanyWithFirmProductsById(Integer firmId, Integer companyId, Integer shopId);
+    ShopDto findShopInCompanyWithFirmProductsById(Long firmId, Long companyId, Long shopId);
 
-    List<ShopDto> findShopsInCompanyWithFirmProducts(Integer firmId, Integer companyId);
+    List<ShopDto> findShopsInCompanyWithFirmProducts(Long firmId, Long companyId);
 
-    List<Integer> getIdShops();
+    List<Long> getIdShops();
 }
 
 

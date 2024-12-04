@@ -8,11 +8,11 @@ import java.util.List;
 import java.util.Optional;
 
 
-public interface ProductRepository extends JpaRepository<Product, Integer> {
+public interface ProductRepository extends JpaRepository<Product, Long> {
 
     @Query("SELECT p FROM Product p WHERE p.firm.id = :firmId")
-    List<Product> findByFirmId(Integer firmId);
+    List<Product> findByFirmId(Long firmId);
 
     @Query("SELECT p FROM Product p WHERE p.firm.id = :firmId AND p.id = :productId")
-    Optional<Product> findByFirmIdAndProductId(Integer firmId, Integer productId);
+    Optional<Product> findByFirmIdAndProductId(Long firmId, Long productId);
 }

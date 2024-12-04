@@ -33,12 +33,12 @@ public class FirmServiceImpl implements FirmService {
     }
 
     @Override
-    public FirmDto findFirmById(Integer firmId) {
+    public FirmDto findFirmById(Long firmId) {
         log.info("Fetching firm with ID: {}", firmId);
         return firmMapper.toDto(getFirmById(firmId));
     }
 
-    private Firm getFirmById(Integer firmId) {
+    private Firm getFirmById(Long firmId) {
         return firmRepository.findById(firmId)
                 .orElseThrow(() -> new EntityNotFoundException("Firm not found with ID: " + firmId));
     }

@@ -8,11 +8,11 @@ public interface CompanyService {
 
     List<CompanyDto> findAllCompanies();
 
-    CompanyDto findCompanyById(Integer companyId);
+    CompanyDto findCompanyById(Long companyId);
 
-    List<CompanyDto> findCompaniesSellingFirmProducts(Integer firmId);
+    List<CompanyDto> findCompaniesSellingFirmProducts(Long firmId);
 
-    CompanyDto findCompanySellingFirmProductsById(Integer firmId, Integer companyId);
+    CompanyDto findCompanySellingFirmProductsById(Long firmId, Long companyId);
 
 
 }
