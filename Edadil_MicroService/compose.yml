@@ -1,0 +1,61 @@
+services:
+  postgres:
+    image: postgres:17.0-alpine3.19
+    ports:
+      - "5433:5432"
+    environment:
+      POSTGRES_DB: edadil_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    volumes:
+      - postgres:/var/lib/postgresql@17/data
+    networks:
+      - backend
+  liquibase-migrations:
+    image: liquibase/liquibase:4.25
+    depends_on:
+      - postgres
+    command:
+      - --changelog-file=master.xml
+      - --driver=org.postgresql.Driver
+      - --url=jdbc:postgresql://postgres:5432/edadil_db
+      - --username=postgres
+      - --password=postgres
+      - update
+    volumes:
+
+      - ./src/main/resources/db/changelog:/liquibase/changelog
+    networks:
+      - backend
+  prometheus:
+    image: prom/prometheus:latest
+    volumes:
+      - ./prometheus:/etc/prometheus/
+    container_name: prometheus
+    hostname: prometheus
+    command:
+      - --config.file=/etc/prometheus/prometheus.yml
+    ports:
+      - 9090:9090
+    restart: unless-stopped
+    environment:
+      TZ: "Europe/Moscow"
+    networks:
+      - default
+
+
+  grafana:
+    image: grafana/grafana-oss
+    container_name: grafana
+    restart: unless-stopped
+    ports:
+      - '3000:3000'
+    volumes:
+      - grafana-storage:/var/lib/grafana
+
+volumes:
+  postgres: { }
+  grafana-storage: { }
+
+networks:
+  backend: { }
