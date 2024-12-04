@@ -8,6 +8,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.example.foodru_microservice.controller.dto.MealDto;
 import org.example.foodru_microservice.controller.dto.MealWithIngredientDto;
+import org.example.foodru_microservice.controller.dto.MenuDto;
 import org.example.foodru_microservice.handler.ApiError;
 import org.example.foodru_microservice.model.consts.endpoints.MealEndPoints;
 import org.example.foodru_microservice.service.kafka.dto.PaymentReceiptResponse;
@@ -23,7 +24,7 @@ public interface MealApi {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "List of meals retrieved",
                     content = @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = MealDto.class))),
+                            schema = @Schema(implementation = MenuDto.class))),
             @ApiResponse(responseCode = "401", description = "Unauthorized access",
                     content = @Content(mediaType = "application/json",
                             schema = @Schema(implementation = ApiError.class))),
@@ -38,7 +39,7 @@ public interface MealApi {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Meal retrieved",
                     content = @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = MealDto.class))),
+                            schema = @Schema(implementation = MenuDto.class))),
             @ApiResponse(responseCode = "401", description = "Unauthorized access",
                     content = @Content(mediaType = "application/json",
                             schema = @Schema(implementation = ApiError.class))),

@@ -42,7 +42,7 @@ public interface MenuApi {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "List of meals retrieved",
                     content = @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = MealDto.class))),
+                            schema = @Schema(implementation = MenuDto.class))),
             @ApiResponse(responseCode = "401", description = "Unauthorized access",
                     content = @Content(mediaType = "application/json",
                             schema = @Schema(implementation = ApiError.class))),

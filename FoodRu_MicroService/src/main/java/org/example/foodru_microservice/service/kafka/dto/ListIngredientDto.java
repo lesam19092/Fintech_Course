@@ -1,4 +1,4 @@
-package com.example.edadil_microservice.controller.dto;
+package org.example.foodru_microservice.service.kafka.dto;
 
 import lombok.Data;
 import lombok.ToString;

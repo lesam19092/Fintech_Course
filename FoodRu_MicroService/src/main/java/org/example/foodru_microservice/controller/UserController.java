@@ -3,6 +3,7 @@ package org.example.foodru_microservice.controller;
 import lombok.RequiredArgsConstructor;
 import org.example.foodru_microservice.controller.api.UserApi;
 import org.example.foodru_microservice.controller.dto.MealDto;
+import org.example.foodru_microservice.controller.dto.MenuDto;
 import org.example.foodru_microservice.model.consts.endpoints.UserEndPoints;
 import org.example.foodru_microservice.service.user.UserService;
 import org.springframework.security.access.prepost.PreAuthorize;

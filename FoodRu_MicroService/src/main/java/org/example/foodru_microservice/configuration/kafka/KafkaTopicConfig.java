@@ -1,9 +1,9 @@
-package com.example.edadil_microservice.config.kafka;
-
+package org.example.foodru_microservice.configuration.kafka;
 
 import lombok.Data;
 import org.apache.kafka.clients.admin.AdminClientConfig;
 import org.apache.kafka.clients.admin.NewTopic;
+import org.example.foodru_microservice.configuration.kafka.KafkaPropertiesConfig;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.kafka.core.KafkaAdmin;

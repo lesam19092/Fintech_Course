@@ -76,7 +76,8 @@
     {
       "name": "thread.thread-count",
       "type": "java.lang.Integer",
-      "sourceType": "org.example.foodru_microservice.configuration.executor.ExecutorConfig"
+      "sourceType": "org.example.foodru_microservice.configuration.executor.ExecutorConfig",
+      "defaultValue": 0
     }
   ],
   "hints": []

@@ -2,6 +2,7 @@ package org.example.foodru_microservice.service.user;
 
 import lombok.RequiredArgsConstructor;
 import org.example.foodru_microservice.controller.dto.MealDto;
+import org.example.foodru_microservice.controller.dto.MenuDto;
 import org.example.foodru_microservice.handler.exception.EntitySearchException;
 import org.example.foodru_microservice.handler.exception.MenuNotFoundException;
 import org.example.foodru_microservice.model.entity.Meal;

@@ -35,7 +35,7 @@ public class KafkaConsumerImpl implements KafkaConsumer {
     @Override
     public PaymentReceiptResponse getResponse() {
         try {
-            PaymentReceiptResponse response = responseQueue.poll(1_000, TimeUnit.MILLISECONDS);
+            PaymentReceiptResponse response = responseQueue.poll(2_000, TimeUnit.MILLISECONDS);
             if (response == null) {
                 log.error("Error getting response from Kafka Consumer. Reason: Timeout");
                 throw new EntitySearchException("receipt not found");

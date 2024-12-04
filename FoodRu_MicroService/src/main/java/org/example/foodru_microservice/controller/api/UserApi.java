@@ -7,6 +7,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.example.foodru_microservice.controller.dto.MealDto;
+import org.example.foodru_microservice.controller.dto.MenuDto;
 import org.example.foodru_microservice.handler.ApiError;
 import org.example.foodru_microservice.model.consts.endpoints.UserEndPoints;
 import org.springframework.security.access.prepost.PreAuthorize;

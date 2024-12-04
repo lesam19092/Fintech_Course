@@ -48,5 +48,13 @@ thread:
 server:
   port: 7070
 
+
+springdoc:
+  api-docs:
+    path: /v3/foodru-api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    config-url: /v3/api-docs/swagger-config
+
 jwt:
   secret: ${JWT_TOKEN}

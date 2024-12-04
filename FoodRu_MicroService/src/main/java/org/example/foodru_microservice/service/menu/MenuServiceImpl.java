@@ -55,7 +55,6 @@ public class MenuServiceImpl implements MenuService {
                 .map(mealMapper::toDto)
                 .collect(Collectors.toList());
     }
-
     @Override
     public boolean userHasMenu(User user, String menuName) {
         return menuRepository.existsByUserAndName(user, menuName);
