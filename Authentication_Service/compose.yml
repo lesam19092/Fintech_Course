@@ -1,0 +1,61 @@
+services:
+
+
+  postgres:
+    image: postgres:17.0-alpine3.19
+    ports:
+      - "5437:5432"
+    environment:
+      POSTGRES_DB: registration_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    volumes:
+      - postgres:/var/lib/postgresql@17/data
+    networks:
+      - backend
+  liquibase-migrations:
+    image: liquibase/liquibase:4.25
+    depends_on:
+      - postgres
+    command:
+      - --changelog-file=master.xml
+      - --driver=org.postgresql.Driver
+      - --url=jdbc:postgresql://postgres:5432/registration_db
+      - --username=postgres
+      - --password=postgres
+      - update
+    volumes:
+      - ./src/main/resources/db/changelog:/liquibase/changelog
+    networks:
+      - backend
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.10.2
+    container_name: elasticsearch
+    environment:
+      - discovery.type=single-node
+      - xpack.security.enabled=false
+    ports:
+      - "9200:9200"
+
+  logstash:
+    image: docker.elastic.co/logstash/logstash:8.10.2
+    container_name: logstash
+    ports:
+      - "5001:5000"
+      - "9600:9600"
+    volumes:
+      - ./config/logstash.conf:/usr/share/logstash/pipeline/logstash.conf
+
+  kibana:
+    image: docker.elastic.co/kibana/kibana:8.10.2
+    container_name: kibana
+    ports:
+      - "5601:5601"
+    environment:
+      - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
+
+volumes:
+  postgres: { }
+
+networks:
+  backend: { }
