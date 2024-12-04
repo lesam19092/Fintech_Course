@@ -48,7 +48,7 @@ public interface CompanyApi {
                             schema = @Schema(implementation = ApiError.class)))
     })
     @GetMapping(GET_COMPANY_BY_ID)
-    CompanyDto getCompanyById(@PathVariable Integer companyId);
+    CompanyDto getCompanyById(@PathVariable Long companyId);
 
     @Operation(summary = "Get companies having firm products", description = "Retrieve companies that have firm products")
     @ApiResponses(value = {
@@ -63,7 +63,7 @@ public interface CompanyApi {
                             schema = @Schema(implementation = ApiError.class)))
     })
     @GetMapping(GET_COMPANIES_HAVING_FIRM_PRODUCTS)
-    List<CompanyDto> getCompaniesHavingFirmProducts(@PathVariable Integer firmId);
+    List<CompanyDto> getCompaniesHavingFirmProducts(@PathVariable Long firmId);
 
     @Operation(summary = "Get company having firm products by ID", description = "Retrieve a company that has firm products by its ID")
     @ApiResponses(value = {
@@ -81,5 +81,5 @@ public interface CompanyApi {
                             schema = @Schema(implementation = ApiError.class)))
     })
     @GetMapping(GET_COMPANIES_HAVING_FIRM_PRODUCTS_BY_ID)
-    CompanyDto getCompaniesHavingFirmProductsById(@PathVariable Integer firmId, @PathVariable Integer companyId);
+    CompanyDto getCompaniesHavingFirmProductsById(@PathVariable Long firmId, @PathVariable Long companyId);
 }

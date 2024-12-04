@@ -50,5 +50,5 @@ public interface FirmApi {
                             schema = @Schema(implementation = ApiError.class)))
     })
     @GetMapping(GET_FIRM_BY_ID)
-    FirmDto getFirmById(@PathVariable Integer firmId);
+    FirmDto getFirmById(@PathVariable Long firmId);
 }

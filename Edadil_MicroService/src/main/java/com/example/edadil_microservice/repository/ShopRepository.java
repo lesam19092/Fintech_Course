@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface ShopRepository extends JpaRepository<Shop, Integer> {
+public interface ShopRepository extends JpaRepository<Shop, Long> {
 
     @Query("SELECT s FROM Shop s JOIN FETCH s.nameOfCompany c WHERE c.id = :companyId AND s.city = :city")
     List<Shop> findShopsByCompanyIdAndCity(Long companyId, String city);

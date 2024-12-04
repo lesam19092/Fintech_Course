@@ -21,17 +21,17 @@ public class ShopProductController implements ShopProductApi {
 
 
     @GetMapping(GET_COMPANY_SHOP_PRODUCTS)
-    public ShopProductDto getCompanyShopProducts(@PathVariable Integer companyId, @PathVariable String city, @PathVariable Integer shopId) {
+    public ShopProductDto getCompanyShopProducts(@PathVariable Long companyId, @PathVariable String city, @PathVariable Long shopId) {
         return shopProductService.retrieveShopProducts(companyId, city, shopId);
     }
 
     @GetMapping(ShopProductEndpoints.GET_SHOPS_WITH_PRODUCT)
-    public List<ShopProductDto> getShopsWithProduct(@PathVariable Integer firmId, @PathVariable Integer productId) {
+    public List<ShopProductDto> getShopsWithProduct(@PathVariable Long firmId, @PathVariable Long productId) {
         return shopProductService.findShopsSellingProduct(firmId, productId);
     }
 
     @GetMapping(ShopProductEndpoints.GET_FIRM_PRODUCTS_IN_SHOP)
-    public ShopProductDto findFirmProductsInShop(@PathVariable Integer firmId, @PathVariable Integer companyId, @PathVariable Integer shopId) {
+    public ShopProductDto findFirmProductsInShop(@PathVariable Long firmId, @PathVariable Long companyId, @PathVariable Long shopId) {
         return shopProductService.findProductsInShopByFirmAndCompany(firmId, companyId, shopId);
     }
 

@@ -19,27 +19,27 @@ public class ShopController implements ShopApi {
     private final ShopService shopService;
 
     @GetMapping(GET_COMPANY_SHOPS)
-    public List<ShopDto> getCompanyShops(@PathVariable Integer companyId) {
+    public List<ShopDto> getCompanyShops(@PathVariable Long companyId) {
         return shopService.findCompanyShops(companyId);
     }
 
     @GetMapping(GET_COMPANY_SHOPS_BY_CITY)
-    public List<ShopDto> getCompanyShopsByCity(@PathVariable Integer companyId, @PathVariable String city) {
+    public List<ShopDto> getCompanyShopsByCity(@PathVariable Long companyId, @PathVariable String city) {
         return shopService.findCompanyShopsInCity(companyId, city);
     }
 
     @GetMapping(GET_COMPANY_SHOP_FROM_CITY_BY_ID)
-    public ShopDto getCompanyShopFromCityById(@PathVariable Integer companyId, @PathVariable String city, @PathVariable Integer shopId) {
+    public ShopDto getCompanyShopFromCityById(@PathVariable Long companyId, @PathVariable String city, @PathVariable Long shopId) {
         return shopService.findCompanyShopInCityById(companyId, city, shopId);
     }
 
     @GetMapping(GET_SHOPS_IN_COMPANY_WITH_FIRM_PRODUCTS)
-    public List<ShopDto> getShopsInCompanyWithFirmProducts(@PathVariable Integer firmId, @PathVariable Integer companyId) {
+    public List<ShopDto> getShopsInCompanyWithFirmProducts(@PathVariable Long firmId, @PathVariable Long companyId) {
         return shopService.findShopsInCompanyWithFirmProducts(firmId, companyId);
     }
 
     @GetMapping(GET_SHOPS_IN_COMPANY_WITH_FIRM_PRODUCTS_BY_ID)
-    public ShopDto getShopsInCompanyWithFirmProductsById(@PathVariable Integer firmId, @PathVariable Integer companyId, @PathVariable Integer shopId) {
+    public ShopDto getShopsInCompanyWithFirmProductsById(@PathVariable Long firmId, @PathVariable Long companyId, @PathVariable Long shopId) {
         return shopService.findShopInCompanyWithFirmProductsById(firmId, companyId, shopId);
     }
 

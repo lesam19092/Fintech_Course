@@ -26,7 +26,7 @@ public class FirmController implements FirmApi {
     }
 
     @GetMapping(GET_FIRM_BY_ID)
-    public FirmDto getFirmById(@PathVariable Integer firmId) {
+    public FirmDto getFirmById(@PathVariable Long firmId) {
         return firmService.findFirmById(firmId);
     }
 

@@ -30,7 +30,7 @@ public interface ShopProductApi {
                             schema = @Schema(implementation = ApiError.class)))
     })
     @GetMapping(GET_COMPANY_SHOP_PRODUCTS)
-    ShopProductDto getCompanyShopProducts(@PathVariable Integer companyId, @PathVariable String city, @PathVariable Integer shopId);
+    ShopProductDto getCompanyShopProducts(@PathVariable Long companyId, @PathVariable String city, @PathVariable Long shopId);
 
     @Operation(summary = "Get shops with product", description = "Retrieve a list of all shops that sell a specific product from a specific firm")
     @ApiResponses(value = {
@@ -45,7 +45,7 @@ public interface ShopProductApi {
                             schema = @Schema(implementation = ApiError.class)))
     })
     @GetMapping(ShopProductEndpoints.GET_SHOPS_WITH_PRODUCT)
-    List<ShopProductDto> getShopsWithProduct(@PathVariable Integer firmId, @PathVariable Integer productId);
+    List<ShopProductDto> getShopsWithProduct(@PathVariable Long firmId, @PathVariable Long productId);
 
     @Operation(summary = "Find firm products in shop", description = "Retrieve products from a specific firm in a specific shop of a specific company")
     @ApiResponses(value = {
@@ -60,5 +60,5 @@ public interface ShopProductApi {
                             schema = @Schema(implementation = ApiError.class)))
     })
     @GetMapping(ShopProductEndpoints.GET_FIRM_PRODUCTS_IN_SHOP)
-    ShopProductDto findFirmProductsInShop(@PathVariable Integer firmId, @PathVariable Integer companyId, @PathVariable Integer shopId);
+    ShopProductDto findFirmProductsInShop(@PathVariable Long firmId, @PathVariable Long companyId, @PathVariable Long shopId);
 }

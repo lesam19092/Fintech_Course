@@ -27,17 +27,17 @@ public class CompanyController implements CompanyApi {
     }
 
     @GetMapping(GET_COMPANY_BY_ID)
-    public CompanyDto getCompanyById(@PathVariable Integer companyId) {
+    public CompanyDto getCompanyById(@PathVariable Long companyId) {
         return companyService.findCompanyById(companyId);
     }
 
     @GetMapping(GET_COMPANIES_HAVING_FIRM_PRODUCTS)
-    public List<CompanyDto> getCompaniesHavingFirmProducts(@PathVariable Integer firmId) {
+    public List<CompanyDto> getCompaniesHavingFirmProducts(@PathVariable Long firmId) {
         return companyService.findCompaniesSellingFirmProducts(firmId);
     }
 
     @GetMapping(GET_COMPANIES_HAVING_FIRM_PRODUCTS_BY_ID)
-    public CompanyDto getCompaniesHavingFirmProductsById(@PathVariable Integer firmId, @PathVariable Integer companyId) {
+    public CompanyDto getCompaniesHavingFirmProductsById(@PathVariable Long firmId, @PathVariable Long companyId) {
         return companyService.findCompanySellingFirmProductsById(firmId, companyId);
     }
 

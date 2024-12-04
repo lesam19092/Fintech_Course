@@ -25,12 +25,12 @@ public class ProductsController implements ProductsApi {
 
 
     @GetMapping(GET_FIRM_PRODUCTS)
-    public List<ProductDto> getFirmProducts(@PathVariable Integer firmId) {
+    public List<ProductDto> getFirmProducts(@PathVariable Long firmId) {
         return productService.findProductsByFirmId(firmId);
     }
 
     @GetMapping(GET_FIRM_PRODUCT_BY_ID)
-    public ProductDto getFirmProductById(@PathVariable Integer firmId, @PathVariable Integer productId) {
+    public ProductDto getFirmProductById(@PathVariable Long firmId, @PathVariable Long productId) {
         return productService.findProductByIdAndFirmId(firmId, productId);
     }
 

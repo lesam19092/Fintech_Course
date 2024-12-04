@@ -31,7 +31,7 @@ public interface ProductsApi {
                             schema = @Schema(implementation = ApiError.class)))
     })
     @GetMapping(GET_FIRM_PRODUCTS)
-    List<ProductDto> getFirmProducts(@PathVariable Integer firmId);
+    List<ProductDto> getFirmProducts(@PathVariable Long firmId);
 
     @Operation(summary = "Get firm product by ID", description = "Retrieve a specific product by its ID for a specific firm")
     @ApiResponses(value = {
@@ -46,6 +46,6 @@ public interface ProductsApi {
                             schema = @Schema(implementation = ApiError.class)))
     })
     @GetMapping(GET_FIRM_PRODUCT_BY_ID)
-    ProductDto getFirmProductById(@PathVariable Integer firmId, @PathVariable Integer productId);
+    ProductDto getFirmProductById(@PathVariable Long firmId, @PathVariable Long productId);
 
 }
