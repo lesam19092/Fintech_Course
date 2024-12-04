@@ -1,0 +1,55 @@
+spring:
+  application:
+    name: Authentication_Service
+  jpa:
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    jdbcUrl: jdbc:postgresql://localhost:5437/registration_db?stringtype=unspecified
+    username: postgres
+    password: postgres
+
+  mail:
+    host: smtp.yandex.ru
+    port: 587
+    username: ${username}
+    password: ${password}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
+jwt:
+  secret: ${JWT_TOKEN}
+
+thread:
+  threadCountForUser: 3
+  threadCountForEmail: 2
+
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,prometheus
+  metrics:
+    distribution:
+      percentiles-histogram:
+        "[http.server.requests]": true
+
+server:
+  port: 1010
+
+springdoc:
+  api-docs:
+    path: /v3/authservice.yml
+  swagger-ui:
+    path: /swagger-ui.html
+    config-url: /v3/api-docs/swagger-config
+
