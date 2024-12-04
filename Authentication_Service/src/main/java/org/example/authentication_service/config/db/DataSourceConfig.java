@@ -1,4 +1,4 @@
-package org.example.authentication_service.config.db;
+package com.example.edadil_microservice.config.db;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.jdbc.DataSourceBuilder;
@@ -10,9 +10,10 @@ import javax.sql.DataSource;
 @Configuration
 public class DataSourceConfig {
 
-    @Bean(name = "authDataSource")
+    @Bean(name = "edadilDataSource")
     @ConfigurationProperties("spring.datasource")
     public DataSource myDataSource() {
         return DataSourceBuilder.create().build();
     }
+
 }
