@@ -37,7 +37,7 @@ public class FirmServiceImpl implements FirmService {
     }
 
     private Firm getFirmById(Long firmId) {
-        return firmRepository.findById(firmId)
+        return firmRepository.findFirmById(firmId)
                 .orElseThrow(() -> new EntityNotFoundException("Firm not found with ID: " + firmId));
     }
 }
