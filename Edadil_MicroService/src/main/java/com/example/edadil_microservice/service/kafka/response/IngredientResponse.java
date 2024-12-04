@@ -1,4 +1,4 @@
-package com.example.edadil_microservice.controller.response;
+package com.example.edadil_microservice.service.kafka.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
