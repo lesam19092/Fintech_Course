@@ -1,4 +1,5 @@
-package org.example.foodru_microservice.configuration.kafka;
+package com.example.edadil_microservice.config.kafka;
+
 
 import lombok.Data;
 import org.apache.kafka.clients.admin.AdminClientConfig;
@@ -24,7 +25,9 @@ public class KafkaTopicConfig {
     }
 
     @Bean
-    public NewTopic topicFoodRuToEdadil() {
+    public NewTopic topicEdadilToFoodRu() {
         return new NewTopic(config.getTopicFoodRuToEdadil(), 1, (short) 1);
     }
+
+
 }

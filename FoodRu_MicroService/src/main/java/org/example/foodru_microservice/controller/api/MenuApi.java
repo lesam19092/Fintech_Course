@@ -58,3 +58,4 @@ public interface MenuApi {
     @GetMapping(MenuEndPoints.MENU)
     List<MealDto> getMealsByMenuId(@PathVariable Long id);
 }
+

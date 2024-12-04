@@ -39,4 +39,5 @@ public class KafkaProducerConfig {
     public KafkaTemplate<String, ListIngredientDto> kafkaTemplate() {
         return new KafkaTemplate<>(producerFactory());
     }
+
 }

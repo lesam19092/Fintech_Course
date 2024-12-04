@@ -89,3 +89,4 @@ public interface MealApi {
     @GetMapping(MealEndPoints.MEAL_CHEAPEST)
     PaymentReceiptResponse getCheapestMealIngredients(@PathVariable Long id);
 }
+
