@@ -61,4 +61,5 @@ public interface ShopProductApi {
     })
     @GetMapping(ShopProductEndpoints.GET_FIRM_PRODUCTS_IN_SHOP)
     ShopProductDto findFirmProductsInShop(@PathVariable Long firmId, @PathVariable Long companyId, @PathVariable Long shopId);
+
 }

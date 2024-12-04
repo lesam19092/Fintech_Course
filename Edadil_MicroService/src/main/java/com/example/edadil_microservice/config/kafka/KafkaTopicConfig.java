@@ -29,4 +29,5 @@ public class KafkaTopicConfig {
         return new NewTopic(config.getTopicFoodRuToEdadil(), 1, (short) 1);
     }
 
+
 }

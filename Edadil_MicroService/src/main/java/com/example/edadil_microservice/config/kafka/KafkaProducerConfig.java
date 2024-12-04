@@ -39,4 +39,5 @@ public class KafkaProducerConfig {
     public KafkaTemplate<String, PaymentReceiptResponse> kafkaTemplate() {
         return new KafkaTemplate<>(producerFactory());
     }
+
 }

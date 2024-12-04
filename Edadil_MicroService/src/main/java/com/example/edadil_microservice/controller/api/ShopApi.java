@@ -91,4 +91,5 @@ public interface ShopApi {
     })
     @GetMapping(GET_SHOPS_IN_COMPANY_WITH_FIRM_PRODUCTS_BY_ID)
     ShopDto getShopsInCompanyWithFirmProductsById(@PathVariable Long firmId, @PathVariable Long companyId, @PathVariable Long shopId);
+
 }

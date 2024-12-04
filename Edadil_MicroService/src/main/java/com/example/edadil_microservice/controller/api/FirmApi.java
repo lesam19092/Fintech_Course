@@ -51,4 +51,5 @@ public interface FirmApi {
     })
     @GetMapping(GET_FIRM_BY_ID)
     FirmDto getFirmById(@PathVariable Long firmId);
+
 }

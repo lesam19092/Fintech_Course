@@ -48,4 +48,5 @@ public interface ProductsApi {
     @GetMapping(GET_FIRM_PRODUCT_BY_ID)
     ProductDto getFirmProductById(@PathVariable Long firmId, @PathVariable Long productId);
 
+
 }
