@@ -1,0 +1,49 @@
+spring:
+  liquibase:
+    enabled: false
+  application:
+    name: FoodRu_MicroService
+  jpa:
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    jdbcUrl: jdbc:postgresql://localhost:5432/food_db
+    username: postgres
+    password: postgres
+    poolName: myPool
+
+  mail:
+    host: smtp.yandex.ru
+    port: 587
+    username: ${username}
+    password: ${password}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+  s3:
+    serviceEndpoint: https://storage.yandexcloud.net
+    signingRegion: ru-central1
+    bucketName: ${bucketName}
+    accessKeyId: ${accessKeyId}
+    secretAccessKey: ${secretAccessKey}
+
+
+  properties:
+    kafka:
+      bootstrapAddress: localhost:29092
+      topicEdadilToFoodRu: topicEdadilToFoodRu
+      topicFoodRuToEdadil: topicFoodRuToEdadil
+      groupId: foodRuGroup
+
+thread:
+  threadCount: 2
+
+server:
+  port: 7070
