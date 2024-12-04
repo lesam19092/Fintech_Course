@@ -82,5 +82,4 @@ public interface CompanyApi {
     })
     @GetMapping(GET_COMPANIES_HAVING_FIRM_PRODUCTS_BY_ID)
     CompanyDto getCompaniesHavingFirmProductsById(@PathVariable Long firmId, @PathVariable Long companyId);
-
 }

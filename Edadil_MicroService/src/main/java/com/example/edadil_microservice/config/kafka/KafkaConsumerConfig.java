@@ -20,7 +20,6 @@ import java.util.Map;
 @Data
 public class KafkaConsumerConfig {
 
-
     private final KafkaPropertiesConfig config;
 
     @Bean
