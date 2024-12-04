@@ -13,5 +13,6 @@ public class EdadilMicroServiceApplication {
     public static void main(String[] args) {
         SpringApplication.run(EdadilMicroServiceApplication.class, args);
     }
+
 }
 
