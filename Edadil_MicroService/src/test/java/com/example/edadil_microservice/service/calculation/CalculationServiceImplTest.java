@@ -19,7 +19,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class CalculationServiceImplTest extends IntegrationTestBase {
 
 
-    @Container
+   /* @Container
     static final KafkaContainer kafka = new KafkaContainer(
             DockerImageName.parse("confluentinc/cp-kafka:7.6.1")
     );
@@ -27,7 +27,7 @@ public class CalculationServiceImplTest extends IntegrationTestBase {
     @DynamicPropertySource
     static void overrideProperties(DynamicPropertyRegistry registry) {
         registry.add("spring.kafka.bootstrap-servers", kafka::getBootstrapServers);
-    }
+    }*/
 
     @Autowired
     private CalculationService calculationService;
