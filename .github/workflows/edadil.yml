@@ -17,26 +17,6 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
-    services:
-      kafka:
-        image: wurstmeister/kafka:latest
-        ports:
-          - 29092:29092
-        options: >-
-          --env KAFKA_ADVERTISED_LISTENERS=INSIDE://kafka:29092
-          --env KAFKA_LISTENER_SECURITY_PROTOCOL=PLAINTEXT
-          --env KAFKA_LISTENER_PORT=29092
-          --env KAFKA_ZOOKEEPER_CONNECT=zookeeper:2181
-          --env KAFKA_LISTENER_LISTENER_SECURITY_PROTOCOL_MAP=PLAINTEXT
-          --env KAFKA_LISTENER_NAMES=PLAINTEXT
-          --env KAFKA_LISTENER_PORT=29092
-          --env KAFKA_LISTENER_HOST=0.0.0.0
-
-      zookeeper:
-        image: wurstmeister/zookeeper:latest
-        ports:
-          - 2181:2181
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v3

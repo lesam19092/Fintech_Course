@@ -6,28 +6,12 @@ import com.example.edadil_microservice.handler.exception.EmptyResultException;
 import com.example.edadil_microservice.service.kafka.response.PaymentReceiptResponse;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.DynamicPropertyRegistry;
-import org.springframework.test.context.DynamicPropertySource;
-import org.testcontainers.containers.KafkaContainer;
-import org.testcontainers.junit.jupiter.Container;
-import org.testcontainers.utility.DockerImageName;
 
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 public class CalculationServiceImplTest extends IntegrationTestBase {
-
-
-   /* @Container
-    static final KafkaContainer kafka = new KafkaContainer(
-            DockerImageName.parse("confluentinc/cp-kafka:7.6.1")
-    );
-
-    @DynamicPropertySource
-    static void overrideProperties(DynamicPropertyRegistry registry) {
-        registry.add("spring.kafka.bootstrap-servers", kafka::getBootstrapServers);
-    }*/
 
     @Autowired
     private CalculationService calculationService;
