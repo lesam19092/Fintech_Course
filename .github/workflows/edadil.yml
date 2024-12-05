@@ -1,4 +1,4 @@
-name: CI
+name: CI/edadil
 
 on:
   workflow_dispatch:
