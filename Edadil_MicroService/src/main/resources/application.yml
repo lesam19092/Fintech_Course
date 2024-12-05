@@ -12,6 +12,9 @@ spring:
     url: jdbc:postgresql://localhost:5433/edadil_db
     username: postgres
     password: postgres
+  hikari:
+    connection-timeout: 60000
+    maximum-pool-size: 10
 
   properties:
     kafka:

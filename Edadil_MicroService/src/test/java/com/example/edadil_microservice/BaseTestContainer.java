@@ -1,5 +1,6 @@
 package com.example.edadil_microservice;
 
+import org.junit.jupiter.api.BeforeAll;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
 import org.testcontainers.containers.PostgreSQLContainer;
@@ -15,11 +16,8 @@ public abstract class BaseTestContainer {
                     .withDatabaseName("test_db")
                     .withUsername("postgres")
                     .withPassword("postgres")
-                    .withInitScript("db/changelog/schema.sql");
+                    .withInitScript("test_schema.sql");
 
-    static {
-        POSTGRES_CONTAINER.start();
-    }
 
     @DynamicPropertySource
     static void registerProperties(DynamicPropertyRegistry registry) {
