@@ -5,7 +5,7 @@ on:
   push:
     branches:
       - master
-      - auth
+      - for_testing
   pull_request:
     branches:
       - master
