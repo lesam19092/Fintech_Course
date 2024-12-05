@@ -9,9 +9,9 @@ on:
   pull_request:
     branches:
       - master
-      - auth
+      - edadil
     paths:
-      - .github/workflows/auth.yml
+      - .github/workflows/edadil.yml
 
 jobs:
   build:
@@ -27,8 +27,6 @@ jobs:
           java-version: '21'
           distribution: 'temurin'
 
-
-
       - name: Cache Maven packages
         uses: actions/cache@v3
         with:
@@ -38,14 +36,13 @@ jobs:
             ${{ runner.os }}-maven-
 
       - name: Build with Maven
-        run: cd Authentication_Service && mvn clean install
+        run: cd Edadil_MicroService && mvn clean install
 
       - name: Run tests
-        run: cd Authentication_Service && mvn test
-
+        run: cd Edadil_MicroService && mvn test
 
       - name: Calculate test coverage
-        run: cd Authentication_Service && mvn jacoco:report
+        run: cd Edadil_MicroService && mvn jacoco:report
 
       - name: Add coverage to PR
         id: jacoco
@@ -63,10 +60,9 @@ jobs:
           name: coverage-report
           path: target/site/jacoco
 
-
       - name: Build Docker image
         run: |
-          docker build -t ghcr.io/lesam19092/auth:latest Authentication_Service  # Tag for GitHub Container Registry
+          docker build -t ghcr.io/lesam19092/edadil:latest edadil  # Tag for GitHub Container Registry
 
       - name: Log in to GitHub Container Registry
         uses: docker/login-action@v2
@@ -74,10 +70,9 @@ jobs:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.CR_PAT }}
+
       - name: Push Docker image to GitHub Container Registry
-        run: docker push ghcr.io/lesam19092/auth:latest
-
-
+        run: docker push ghcr.io/lesam19092/edadil:latest
 
       - name: Verify Docker image
-        run: docker images ghcr.io/lesam19092/auth:latest
+        run: docker images ghcr.io/lesam19092/edadil:latest
