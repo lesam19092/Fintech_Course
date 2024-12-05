@@ -1,23 +1,17 @@
 package com.example.edadil_microservice.service.shop_product;
 
-import com.example.edadil_microservice.BaseTestContainer;
+import com.example.edadil_microservice.IntegrationTestBase;
 import com.example.edadil_microservice.controller.dto.ShopProductDto;
+import com.example.edadil_microservice.handler.exception.EntityNotFoundException;
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.List;
-import java.util.Optional;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-@SpringBootTest
-@RunWith(SpringRunner.class)
-class ShopProductServiceImplTest extends BaseTestContainer {
+class ShopProductServiceImplTest extends IntegrationTestBase {
 
     @Autowired
     private ShopProductService shopProductService;
@@ -35,6 +29,18 @@ class ShopProductServiceImplTest extends BaseTestContainer {
     }
 
     @Test
+    void retrieveShopProducts_notFound() {
+        Long companyId = 999L;
+        String city = "Unknown";
+        Long shopId = 999L;
+
+        assertThrows(EntityNotFoundException.class, () -> {
+            shopProductService.retrieveShopProducts(companyId, city, shopId);
+        });
+
+    }
+
+    @Test
     void findShopsSellingProduct() {
         Long firmId = 1L;
         Long productId = 1L;
@@ -47,6 +53,17 @@ class ShopProductServiceImplTest extends BaseTestContainer {
     }
 
     @Test
+    void findShopsSellingProduct_notFound() {
+        Long firmId = 999L;
+        Long productId = 999L;
+
+        assertThrows(EntityNotFoundException.class, () -> {
+            shopProductService.findShopsSellingProduct(firmId, productId);
+        });
+
+    }
+
+    @Test
     void findProductsInShopByFirmAndCompany() {
         Long firmId = 1L;
         Long companyId = 1L;
@@ -56,6 +73,19 @@ class ShopProductServiceImplTest extends BaseTestContainer {
 
         assertEquals("Пятерочка", result.getShop().getCompanyName());
         assertEquals(2, result.getProducts().size());
+    }
+
+    @Test
+    void findProductsInShopByFirmAndCompany_notFound() {
+        Long firmId = 999L;
+        Long companyId = 999L;
+        Long shopId = 999L;
+
+        assertThrows(EntityNotFoundException.class, () -> {
+            shopProductService.findProductsInShopByFirmAndCompany(firmId, companyId, shopId);
+        });
+
+
     }
 
     @Test
