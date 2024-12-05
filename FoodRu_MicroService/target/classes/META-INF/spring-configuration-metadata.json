@@ -6,12 +6,6 @@
       "sourceType": "org.example.foodru_microservice.service.jwt.JwtTokenServiceImpl"
     },
     {
-      "name": "spring.datasource",
-      "type": "javax.sql.DataSource",
-      "sourceType": "org.example.foodru_microservice.configuration.db.DataSourceConfig",
-      "sourceMethod": "myDataSource()"
-    },
-    {
       "name": "spring.properties.kafka",
       "type": "org.example.foodru_microservice.configuration.kafka.KafkaPropertiesConfig",
       "sourceType": "org.example.foodru_microservice.configuration.kafka.KafkaPropertiesConfig"

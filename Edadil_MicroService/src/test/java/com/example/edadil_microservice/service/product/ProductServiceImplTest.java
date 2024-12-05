@@ -11,8 +11,7 @@ import java.util.List;
 import static org.junit.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-
-class ProductServiceImplTest extends IntegrationTestBase {
+public class ProductServiceImplTest extends IntegrationTestBase {
 
     @Autowired
     private ProductServiceImpl productService;

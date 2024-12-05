@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 
-class ShopServiceImplTest extends IntegrationTestBase {
+public class ShopServiceImplTest extends IntegrationTestBase {
 
     @Autowired
     private ShopServiceImpl shopService;
