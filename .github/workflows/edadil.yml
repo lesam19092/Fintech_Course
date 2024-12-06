@@ -59,6 +59,7 @@ jobs:
           fail-emoji: ':red_circle:'
 
 
+
       - name: Build Docker image
         run: |
           docker build -t ghcr.io/lesam19092/edadil:latest Edadil_MicroService  # Tag for GitHub Container Registry
