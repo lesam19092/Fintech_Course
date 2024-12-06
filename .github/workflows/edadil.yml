@@ -63,7 +63,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: coverage-report
-          path: target/site/jacoco
+          path: Edadil_MicroService/target/site/jacoco
 
       - name: Build Docker image
         run: |
