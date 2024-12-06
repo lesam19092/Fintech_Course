@@ -61,6 +61,12 @@ jobs:
           pass-emoji: ':green_circle:'
           fail-emoji: ':red_circle:'
 
+      - name: Upload test coverage report
+        uses: actions/upload-artifact@v3
+        with:
+          name: coverage-report
+          path: authentication_service/target/site/jacoco/jacoco.xml
+
 
       - name: Build Docker image
         run: |

@@ -69,6 +69,13 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.CR_PAT }}
 
+
+      - name: Upload test coverage report
+        uses: actions/upload-artifact@v3
+        with:
+          name: coverage-report
+          path: Edadil_MicroService/target/site/jacoco/jacoco.xml
+
       - name: Push Docker image to GitHub Container Registry
         run: docker push ghcr.io/lesam19092/edadil:latest
 
