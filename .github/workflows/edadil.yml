@@ -41,6 +41,7 @@ jobs:
       - name: Run tests
         run: cd Edadil_MicroService && mvn test
 
+
       - name: Calculate test coverage
         run: cd Edadil_MicroService && mvn jacoco:report
 
