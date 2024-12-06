@@ -65,7 +65,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: coverage-report
-          path: target/site/jacoco
+          path: authentication_service/target/site/jacoco
 
 
       - name: Build Docker image
