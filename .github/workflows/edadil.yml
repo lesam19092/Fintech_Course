@@ -9,7 +9,7 @@ on:
   pull_request:
     branches:
       - master
-      - edadil
+      - for_testing
     paths:
       - .github/workflows/edadil.yml
 
