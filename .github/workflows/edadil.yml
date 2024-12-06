@@ -45,12 +45,11 @@ jobs:
       - name: Calculate test coverage
         run: cd Edadil_MicroService && mvn jacoco:report
 
-      - name: Add coverage to PR
+      - name: Add Coverage Report to PR
         id: jacoco
-        uses: madrapps/jacoco-report@v1.7.1
+        uses: madrapps/jacoco-report@v1.6.1
         with:
-          paths: |
-            ${{ github.workspace }}/target/site/jacoco/jacoco.xml
+          paths: ${{ github.workspace }}/edadil_microservice/target/site/jacoco/jacoco.xml
           token: ${{ secrets.GITHUB_TOKEN }}
           min-coverage-overall: 80
           min-coverage-changed-files: 60
@@ -58,6 +57,7 @@ jobs:
           update-comment: true
           pass-emoji: ':green_circle:'
           fail-emoji: ':red_circle:'
+
 
       - name: Build Docker image
         run: |
