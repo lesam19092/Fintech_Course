@@ -43,18 +43,19 @@ jobs:
       - name: test
         run: cd Authentication_Service && mvn test
 
-      - name: JaCoCo Code Coverage Report
-        id: jacoco_reporter
-        uses: PavanMudigonda/jacoco-reporter@v5.0
+      - name: Add Coverage Report to PR
+        id: jacoco
+        uses: madrapps/jacoco-report@v1.6.1
         with:
-          coverage_results_path: Authentication_Service/target/site/jacoco/jacoco.xml
-          coverage_report_name: Coverage
-          coverage_report_title: JaCoCo
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          skip_check_run: false
-          minimum_coverage: 80
-          fail_below_threshold: false
-          publish_only_summary: false
+          paths: ${{ github.workspace }}/Authentication_Service/target/site/jacoco/jacoco.html
+          token: ${{ secrets.GITHUB_TOKEN }}
+          min-coverage-overall: 80
+          min-coverage-changed-files: 0
+          title: '# :notebook: Coverage Report'
+          update-comment: true
+          pass-emoji: ':green_circle:'
+          fail-emoji: ':red_circle:'
+          skip-if-no-changes: false
 
 
 
