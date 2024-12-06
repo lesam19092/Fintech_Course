@@ -38,34 +38,21 @@ jobs:
             ${{ runner.os }}-maven-
 
       - name: Build with Maven
-        run: cd Authentication_Service && mvn clean install
-
-      - name: Run tests
-        run: cd Authentication_Service && mvn test
-
-
-      - name: Calculate test coverage
-        run: cd Authentication_Service && mvn jacoco:report
+        run: cd Authentication_Service && mvn package
 
       - name: Add coverage to PR
         id: jacoco
         uses: madrapps/jacoco-report@v1.7.1
         with:
-          paths: |
-            ${{ github.workspace }}/target/site/jacoco/jacoco.xml
+          paths: ${{ github.workspace }}/authentication_service/target/site/jacoco/jacoco.xml
           token: ${{ secrets.GITHUB_TOKEN }}
           min-coverage-overall: 80
           min-coverage-changed-files: 60
-          title: '# :notebook: Coverage Report'
+          title: Code Coverage
           update-comment: true
           pass-emoji: ':green_circle:'
           fail-emoji: ':red_circle:'
 
-      - name: Upload test coverage report
-        uses: actions/upload-artifact@v3
-        with:
-          name: coverage-report
-          path: authentication_service/target/site/jacoco/jacoco.xml
 
 
       - name: Build Docker image
