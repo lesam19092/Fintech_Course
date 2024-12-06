@@ -59,12 +59,6 @@ jobs:
           pass-emoji: ':green_circle:'
           fail-emoji: ':red_circle:'
 
-      - name: Upload test coverage report
-        uses: actions/upload-artifact@v3
-        with:
-          name: coverage-report
-          path: edadil_microservice/target/site/jacoco
-
       - name: Build Docker image
         run: |
           docker build -t ghcr.io/lesam19092/edadil:latest Edadil_MicroService  # Tag for GitHub Container Registry
