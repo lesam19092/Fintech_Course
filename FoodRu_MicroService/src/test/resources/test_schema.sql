@@ -57,3 +57,39 @@ CREATE TABLE users_meals
 
 
 
+INSERT INTO users (name, email, role)
+VALUES
+    ('John Doe', 'john.doe@example.com', 'ROLE_ADMIN'),
+    ('Jane Smith', 'jane.smith@example.com', 'ROLE_USER');
+
+INSERT INTO ingredients (name)
+VALUES
+    ('Salt'),
+    ('Sugar'),
+    ('Flour');
+
+INSERT INTO meals (name, cook_instructions)
+VALUES
+    ('Pancakes', 'Mix ingredients and fry on a pan'),
+    ('Salad', 'Chop ingredients and mix together');
+
+INSERT INTO menu (name, user_id)
+VALUES
+    ('Breakfast Menu', 1),
+    ('Lunch Menu', 2);
+
+INSERT INTO meals_ingredients (meal_id, ingredient_id, measure)
+VALUES
+    (1, 1, 1.0),
+    (1, 2, 0.5),
+    (2, 3, 2.0);
+
+INSERT INTO menu_meals (menu_id, meal_id)
+VALUES
+    (1, 1),
+    (2, 2);
+
+INSERT INTO users_meals (user_id, meal_id)
+VALUES
+    (1, 1),
+    (2, 2);

@@ -18,7 +18,6 @@ CREATE TABLE menu
     id      bigserial PRIMARY KEY,
     name    VARCHAR(100) NOT NULL,
     user_id bigserial,
-    type_id bigserial,
     FOREIGN KEY (user_id) REFERENCES users (id)
 );
 

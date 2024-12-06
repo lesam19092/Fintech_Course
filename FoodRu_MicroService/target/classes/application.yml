@@ -1,6 +1,4 @@
 spring:
-  liquibase:
-    enabled: false
   application:
     name: FoodRu_MicroService
   jpa:
