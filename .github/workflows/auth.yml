@@ -40,7 +40,8 @@ jobs:
       - name: Build with Maven
         run: cd Authentication_Service && mvn package
 
-
+      - name: test
+        run: cd Authentication_Service && mvn test
 
       - name: JaCoCo Code Coverage Report
         id: jacoco_reporter
