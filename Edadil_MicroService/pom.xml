@@ -28,6 +28,17 @@
     </scm>
     <properties>
         <java.version>21</java.version>
+        <libre.pdf.version>1.3.8</libre.pdf.version>
+        <swagger.core.version>2.2.15</swagger.core.version>
+        <openapitools.version>0.2.1</openapitools.version>
+        <springdoc.version>2.6.0</springdoc.version>
+        <openapi.tools.generator.version>6.3.0</openapi.tools.generator.version>
+        <javax.annotation.version>1.3.2</javax.annotation.version>
+        <maven.sufire.version>2.19.1</maven.sufire.version>
+        <junit.plafrom.version>1.1.0</junit.plafrom.version>
+        <junit.engine.version>5.1.0</junit.engine.version>
+        <jacoco.version>0.8.12</jacoco.version>
+
     </properties>
     <dependencies>
 
@@ -109,7 +120,7 @@
         <dependency>
             <groupId>com.github.librepdf</groupId>
             <artifactId>openpdf</artifactId>
-            <version>1.3.8</version>
+            <version>${libre.pdf.version}</version>
         </dependency>
 
         <dependency>
@@ -121,65 +132,35 @@
         <dependency>
             <groupId>io.swagger.core.v3</groupId>
             <artifactId>swagger-annotations</artifactId>
-            <version>2.2.15</version>
+            <version>${swagger.core.version}</version>
         </dependency>
 
 
         <dependency>
             <groupId>org.openapitools</groupId>
             <artifactId>jackson-databind-nullable</artifactId>
-            <version>0.2.1</version>
+            <version>${openapitools.version}</version>
         </dependency>
 
 
         <dependency>
             <groupId>org.springdoc</groupId>
             <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
-            <version>2.6.0</version>
+            <version>${springdoc.version}</version>
         </dependency>
 
 
         <dependency>
             <groupId>org.openapitools</groupId>
             <artifactId>openapi-generator-maven-plugin</artifactId>
-            <version>6.3.0</version>
+            <version>${openapi.tools.generator.version}</version>
         </dependency>
-
-
-       <!-- <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-api</artifactId>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-engine</artifactId>
-            <version>5.9.3</version>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-params</artifactId>
-            <version>5.9.3</version>
-            <scope>test</scope>
-        </dependency>
-
--->
-
-
 
         <dependency>
             <groupId>javax.annotation</groupId>
             <artifactId>javax.annotation-api</artifactId>
-            <version>1.3.2</version>
+            <version>${javax.annotation.version}</version>
         </dependency>
-
-
-
-
-
 
         <dependency>
             <groupId>org.projectlombok</groupId>
@@ -193,14 +174,7 @@
             <scope>test</scope>
         </dependency>
 
-        <!--        Testcontainers-->
-       <!-- <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-testcontainers</artifactId>
-            <scope>test</scope>
-        </dependency>
--->
-       <dependency>
+        <dependency>
             <groupId>org.testcontainers</groupId>
             <artifactId>junit-jupiter</artifactId>
             <scope>test</scope>
@@ -224,11 +198,6 @@
         </dependency>
 
 
-
-
-
-
-
     </dependencies>
 
     <build>
@@ -238,22 +207,22 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.19.1</version>
+                <version>${maven.sufire.version}</version>
                 <dependencies>
                     <dependency>
                         <groupId>org.junit.platform</groupId>
                         <artifactId>junit-platform-surefire-provider</artifactId>
-                        <version>1.1.0</version>
+                        <version>${junit.plafrom.version}</version>
                     </dependency>
                     <dependency>
                         <groupId>org.junit.vintage</groupId>
                         <artifactId>junit-vintage-engine</artifactId>
-                        <version>5.1.0</version>
+                        <version>${junit.engine.version}</version>
                     </dependency>
                     <dependency>
                         <groupId>org.junit.jupiter</groupId>
                         <artifactId>junit-jupiter-engine</artifactId>
-                        <version>5.1.0</version>
+                        <version>${junit.engine.version}</version>
                     </dependency>
                 </dependencies>
             </plugin>
@@ -261,7 +230,7 @@
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
-                <version>0.8.12</version>
+                <version>${jacoco.version}</version>
                 <executions>
                     <execution>
                         <goals>
