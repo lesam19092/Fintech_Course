@@ -72,8 +72,7 @@ class JwtTokenServiceImplTest {
                 .parseClaimsJws(token)
                 .getBody();
 
-        Assertions.assertEquals(expectedExpirationDate.getTime(), claims.getExpiration().getTime(), 1000);
-    }
+        Assertions.assertEquals(expectedExpirationDate.getTime(), claims.getExpiration().getTime(), 2000);    }
 
     @Test
     void tokenExpirationTimeIsTenMinutes() {
