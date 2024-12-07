@@ -76,7 +76,7 @@ public class UserServiceImpl implements UserService {
     }
 
 
-    private User createUserFromToken(String jwtToken) {
+    protected User createUserFromToken(String jwtToken) {
         User user = new User();
         user.setName(jwtTokenService.getUsername(jwtToken));
         user.setRole(Role.valueOf(jwtTokenService.getRole(jwtToken)));

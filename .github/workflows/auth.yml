@@ -43,23 +43,6 @@ jobs:
       - name: test
         run: cd Authentication_Service && mvn test
 
-      - name: Add Coverage Report to PR
-        id: jacoco
-        uses: madrapps/jacoco-report@v1.6.1
-        with:
-          paths: ${{ github.workspace }}/Authentication_Service/target/site/jacoco/jacoco.xml
-          token: ${{ secrets.GITHUB_TOKEN }}
-          min-coverage-overall: 0
-          min-coverage-changed-files: 0
-          title: '# :notebook: Coverage Report'
-          update-comment: true
-          pass-emoji: ':green_circle:'
-          fail-emoji: ':red_circle:'
-          skip-if-no-changes: false
-
-
-
-
       - name: Build Docker image
         run: |
           docker build -t ghcr.io/lesam19092/auth:latest Authentication_Service  # Tag for GitHub Container Registry

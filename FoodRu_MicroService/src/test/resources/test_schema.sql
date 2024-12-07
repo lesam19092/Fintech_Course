@@ -60,7 +60,8 @@ CREATE TABLE users_meals
 INSERT INTO users (name, email, role)
 VALUES
     ('John Doe', 'john.doe@example.com', 'ROLE_ADMIN'),
-    ('Jane Smith', 'jane.smith@example.com', 'ROLE_USER');
+    ('Jane Smith', 'jane.smith@example.com', 'ROLE_USER'),
+    ('Bob Brown', 'jane123.smith@example.com', 'ROLE_USER');
 
 INSERT INTO ingredients (name)
 VALUES
@@ -71,7 +72,8 @@ VALUES
 INSERT INTO meals (name, cook_instructions)
 VALUES
     ('Pancakes', 'Mix ingredients and fry on a pan'),
-    ('Salad', 'Chop ingredients and mix together');
+    ('Salad', 'Chop ingredients and mix together'),
+    ('Omelette', 'Beat eggs and cook in a pan');
 
 INSERT INTO menu (name, user_id)
 VALUES

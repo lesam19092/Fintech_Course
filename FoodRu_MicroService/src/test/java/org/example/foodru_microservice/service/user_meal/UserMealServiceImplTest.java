@@ -39,7 +39,7 @@ class UserMealServiceImplTest extends IntegrationTestBase {
     @Test
     void addMeal() {
         var meal = mealRepository.findById(2L).orElseThrow();
-        var user = userRepository.findById(1L).orElseThrow();
+        var user = userRepository.findById(3L).orElseThrow();
         userMealService.addMeal(meal, user);
         assertTrue(usersMealRepository.existsById(new UsersMealId(user.getId(), meal.getId())));
     }
@@ -49,7 +49,7 @@ class UserMealServiceImplTest extends IntegrationTestBase {
         var user = userRepository.findById(1L).orElseThrow();
         List<MealDto> meals = userMealService.getAllMeals(user);
         assertFalse(meals.isEmpty());
-        assertEquals(2, meals.size());
+        assertEquals(3, meals.size());
         assertEquals("Pancakes", meals.get(0).getName());
         assertEquals("Salad", meals.get(1).getName());
     }

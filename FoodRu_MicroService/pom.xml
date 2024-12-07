@@ -262,6 +262,7 @@
                         <exclude>org/example/foodru_microservice/configuration/**</exclude>
                         <exclude>org/example/foodru_microservice/model/**</exclude>
                         <exclude>org/example/foodru_microservice/FoodRuMicroServiceApplication.class</exclude>
+                        <exclude>org/example/foodru_microservice/service/pdf/PdfServiceImpl.class</exclude>
 
                     </excludes>
                 </configuration>
