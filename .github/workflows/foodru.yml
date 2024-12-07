@@ -62,7 +62,7 @@ jobs:
           path: FoodRu_MicroService/target/site/jacoco/jacoco.xml
 
       - name: Push Docker image to GitHub Container Registry
-        run: docker push ghcr.io/your-username/foodru:latest
+        run: docker push ghcr.io/lesam19092/foodru:latest
 
       - name: Verify Docker image
-        run: docker images ghcr.io/your-username/foodru:latest
+        run: docker images ghcr.io/lesam19092/foodru:latest
