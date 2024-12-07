@@ -10,8 +10,6 @@ import org.example.foodru_microservice.repository.MenuRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.TreeSet;
-
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class MenuMealServiceImplTest extends IntegrationTestBase {
