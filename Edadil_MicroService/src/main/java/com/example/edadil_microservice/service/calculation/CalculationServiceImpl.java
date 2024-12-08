@@ -26,8 +26,6 @@ import static com.example.edadil_microservice.utils.EntityUtils.requireNonEmptyC
 public class CalculationServiceImpl implements CalculationService {
 
 
-    //TODO ЗАПОЛНИТЬ ТАБЛИЦУ ДАННЫМИ
-
 
     private final ShopProductService shopProductService;
 
