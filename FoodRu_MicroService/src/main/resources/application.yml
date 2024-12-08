@@ -53,5 +53,17 @@ springdoc:
     path: /swagger-ui.html
     config-url: /v3/api-docs/swagger-config
 
+management:
+  endpoints.web.exposure.include: 'prometheus, health'
+  metrics:
+    distribution:
+      percentiles-histogram:
+        "[http.server.requests]": true
+  prometheus:
+    metrics:
+      export:
+        enabled: true
+
+
 jwt:
   secret: ${JWT_TOKEN}

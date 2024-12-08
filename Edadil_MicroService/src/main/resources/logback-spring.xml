@@ -3,7 +3,7 @@
     <appender name="LOGSTASH" class="net.logstash.logback.appender.LogstashTcpSocketAppender">
         <destination>localhost:5001</destination>
         <encoder class="net.logstash.logback.encoder.LogstashEncoder">
-            <customFields>{"application":"auth"}</customFields>
+            <customFields>{"application":"edadil"}</customFields>
         </encoder>
     </appender>
 
