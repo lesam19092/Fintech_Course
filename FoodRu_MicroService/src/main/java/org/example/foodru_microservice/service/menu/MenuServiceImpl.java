@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.example.foodru_microservice.controller.dto.MealDto;
 import org.example.foodru_microservice.controller.dto.MenuDto;
 import org.example.foodru_microservice.handler.exception.EntitySearchException;
+import org.example.foodru_microservice.handler.exception.MealAlreadyExistsException;
 import org.example.foodru_microservice.handler.exception.MenuAlreadyExistsException;
 import org.example.foodru_microservice.mapper.MealMapper;
 import org.example.foodru_microservice.mapper.MenuMapper;
@@ -66,7 +67,7 @@ public class MenuServiceImpl implements MenuService {
         Menu menu = findMenuByUserAndName(user, menuName);
         List<Meal> meals = menuRepository.findMealsByMenuId(menu.getId());
         if (meals.contains(meal)) {
-            throw new EntitySearchException("Meal already exists in the menu.");
+            throw new MealAlreadyExistsException("Meal already exists in the menu.");
         }
         userMealService.addMeal(meal, user);
         menuMealService.addMealToMenu(menu, meal);

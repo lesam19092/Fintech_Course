@@ -7,8 +7,6 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.Optional;
 
 public interface FirmRepository extends JpaRepository<Firm, Long> {
-
-
     @Query("SELECT f FROM Firm f JOIN FETCH f.products WHERE f.id = :firmId")
-    Optional<Firm> findById(Long firmId);
+    Optional<Firm> findFirmById(Long firmId);
 }

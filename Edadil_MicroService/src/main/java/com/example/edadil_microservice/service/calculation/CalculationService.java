@@ -1,7 +1,7 @@
 package com.example.edadil_microservice.service.calculation;
 
 import com.example.edadil_microservice.controller.dto.IngredientDto;
-import com.example.edadil_microservice.controller.response.PaymentReceiptResponse;
+import com.example.edadil_microservice.service.kafka.response.PaymentReceiptResponse;
 
 import java.util.List;
 

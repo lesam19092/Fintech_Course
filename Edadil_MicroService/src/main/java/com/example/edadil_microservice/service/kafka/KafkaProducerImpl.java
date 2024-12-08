@@ -1,7 +1,7 @@
 package com.example.edadil_microservice.service.kafka;
 
 import com.example.edadil_microservice.config.kafka.KafkaPropertiesConfig;
-import com.example.edadil_microservice.controller.response.PaymentReceiptResponse;
+import com.example.edadil_microservice.service.kafka.response.PaymentReceiptResponse;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

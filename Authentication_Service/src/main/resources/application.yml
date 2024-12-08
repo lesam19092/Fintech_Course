@@ -43,12 +43,14 @@ management:
       percentiles-histogram:
         "[http.server.requests]": true
 
+
+
 server:
   port: 1010
 
 springdoc:
   api-docs:
-    path: /v3/authservice.yml
+    path: /v3/authservice
   swagger-ui:
     path: /swagger-ui.html
     config-url: /v3/api-docs/swagger-config

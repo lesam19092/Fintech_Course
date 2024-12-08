@@ -9,6 +9,7 @@ import com.example.edadil_microservice.service.shop.ShopService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -24,6 +25,7 @@ public class ShopProductServiceImpl implements ShopProductService {
 
 
     @Override
+    @Transactional
     public ShopProductDto retrieveShopProducts(Long companyId, String city, Long shopId) {
         List<ShopProduct> shopProduct = shopProductRepository.findShopProductsByCompanyIdAndCityAndShopId(companyId, city, shopId);
         if (shopProduct.isEmpty()) {
@@ -57,6 +59,7 @@ public class ShopProductServiceImpl implements ShopProductService {
 
 
     @Override
+    @Transactional
     public List<ShopProductDto> getAllShopsWithProducts() {
         return shopService.getIdShops()
                 .stream()

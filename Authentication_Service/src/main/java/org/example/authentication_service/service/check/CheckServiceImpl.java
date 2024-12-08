@@ -61,19 +61,19 @@ public class CheckServiceImpl implements CheckService {
     }
 
 
-    private void checkPassword(RegistrationUserDto registrationUserDto) {
+    protected void checkPassword(RegistrationUserDto registrationUserDto) {
         if (!registrationUserDto.getPassword().equals(registrationUserDto.getConfirmPassword())) {
             throw new PasswordMismatchException("Пароли не совпадают");
         }
     }
 
-    private void checkUsername(RegistrationUserDto registrationUserDto) {
+    protected void checkUsername(RegistrationUserDto registrationUserDto) {
         if (userService.existsByUsernameAndInstance(registrationUserDto.getUsername(), registrationUserDto.getUserType().name())) {
             throw new DuplicateUsernameException("Пользователь с таким именем уже существует");
         }
     }
 
-    private void checkEmail(RegistrationUserDto registrationUserDto) {
+    protected void checkEmail(RegistrationUserDto registrationUserDto) {
         if (userService.existsByEmailAndInstance(registrationUserDto.getEmail(), registrationUserDto.getUserType().name())) {
             throw new DuplicateEmailException("Пользователь с таким email уже существует");
         }

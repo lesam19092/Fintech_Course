@@ -8,7 +8,6 @@ import com.example.edadil_microservice.repository.FirmRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -17,7 +16,6 @@ import static com.example.edadil_microservice.utils.EntityUtils.requireNonEmptyC
 @Service
 @RequiredArgsConstructor
 @Slf4j
-@Transactional(readOnly = true)
 public class FirmServiceImpl implements FirmService {
 
 
@@ -39,7 +37,7 @@ public class FirmServiceImpl implements FirmService {
     }
 
     private Firm getFirmById(Long firmId) {
-        return firmRepository.findById(firmId)
+        return firmRepository.findFirmById(firmId)
                 .orElseThrow(() -> new EntityNotFoundException("Firm not found with ID: " + firmId));
     }
 }
