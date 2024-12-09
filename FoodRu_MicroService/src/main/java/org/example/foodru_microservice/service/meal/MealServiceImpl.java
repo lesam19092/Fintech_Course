@@ -1,5 +1,6 @@
 package org.example.foodru_microservice.service.meal;
 
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.example.foodru_microservice.controller.dto.MealDto;
 import org.example.foodru_microservice.controller.dto.MealWithIngredientDto;
@@ -22,6 +23,7 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
+@Getter
 public class MealServiceImpl implements MealService {
 
     private final MealRepository mealRepository;

@@ -1,6 +1,6 @@
 package com.example.edadil_microservice.config.kafka;
 
-import com.example.edadil_microservice.controller.response.PaymentReceiptResponse;
+import com.example.edadil_microservice.service.kafka.response.PaymentReceiptResponse;
 import lombok.Data;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.StringSerializer;

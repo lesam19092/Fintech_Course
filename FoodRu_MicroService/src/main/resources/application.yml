@@ -1,6 +1,4 @@
 spring:
-  liquibase:
-    enabled: false
   application:
     name: FoodRu_MicroService
   jpa:
@@ -11,10 +9,9 @@ spring:
         dialect: org.hibernate.dialect.PostgreSQLDialect
   datasource:
     driver-class-name: org.postgresql.Driver
-    jdbcUrl: jdbc:postgresql://localhost:5432/food_db
+    url: jdbc:postgresql://localhost:5432/food_db
     username: postgres
     password: postgres
-    poolName: myPool
 
   mail:
     host: smtp.yandex.ru
@@ -55,6 +52,18 @@ springdoc:
   swagger-ui:
     path: /swagger-ui.html
     config-url: /v3/api-docs/swagger-config
+
+management:
+  endpoints.web.exposure.include: 'prometheus, health'
+  metrics:
+    distribution:
+      percentiles-histogram:
+        "[http.server.requests]": true
+  prometheus:
+    metrics:
+      export:
+        enabled: true
+
 
 jwt:
   secret: ${JWT_TOKEN}
